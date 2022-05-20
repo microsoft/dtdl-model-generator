@@ -1,0 +1,20 @@
+{
+  "@id": "dtmi:microsoft:FailIdName;1",
+  "@type": "Interface",
+  "displayName": "FailIdName",
+  "@context": "dtmi:dtdl:context;2",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "someFineName",
+      "writable": true,
+      "schema": "integer"
+    },
+    {
+      "@type": "Property",
+      "name": "id",
+      "writable": true,
+      "schema": "string"
+    }
+  ]
+}

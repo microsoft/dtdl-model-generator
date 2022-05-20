@@ -1,0 +1,164 @@
+{
+  "@id": "dtmi:microsoft:Space;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Space",
+  "contents": [
+    {
+      "@type": "Property",
+      "schema": "integer",
+      "writable": true,
+      "name": "externalId"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "name"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "roomKey"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "friendlyName"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "description"
+    },
+    {
+      "@type": "Property",
+      "name": "squareFootArea",
+      "writable": true,
+      "schema": "float"
+    },
+    {
+      "@type": "Property",
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "capabilityName",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "capabilityValue",
+          "schema": "boolean"
+        }
+      },
+      "writable": true,
+      "name": "capabilities"
+    },
+    {
+      "@type": "Property",
+      "name": "status",
+      "schema": {
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "name": "Active",
+            "displayName": "Active",
+            "enumValue": "Active",
+            "description": "active",
+            "comment": "1"
+          },
+          {
+            "name": "Inactive",
+            "displayName": "Inactive",
+            "enumValue": "Inactive",
+            "description": "inactive",
+            "comment": "2"
+          },
+          {
+            "name": "Pending",
+            "displayName": "Pending",
+            "enumValue": "Pending",
+            "description": "pending",
+            "comment": "3"
+          },
+          {
+            "name": "UnderConstruction",
+            "displayName": "Under Construction",
+            "enumValue": "UnderConstruction",
+            "description": "underConstruction",
+            "comment": "4"
+          }
+        ]
+      },
+      "writable": true
+    },
+    {
+      "@type": "Property",
+      "name": "physicalSpace",
+      "schema": {
+        "@type": "Enum",
+        "valueSchema": "string",
+        "enumValues": [
+          {
+            "name": "Indoor",
+            "displayName": "Indoor",
+            "enumValue": "Indoor",
+            "description": "This space in an indoor environment"
+          },
+          {
+            "name": "Outdoor",
+            "displayName": "Outdoor",
+            "enumValue": "Outdoor",
+            "description": "This space in an outdoor environment"
+          }
+        ]
+      },
+      "writable": true
+    },
+    {
+      "@type": "Relationship",
+      "name": "hasChildren",
+      "target": "dtmi:microsoft:Space;1"
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:Space;1",
+      "name": "hasParent",
+      "maxMultiplicity": 1
+    },
+    {
+      "@type": "Relationship",
+      "name": "hasSensors",
+      "target": "dtmi:microsoft:Sensor;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "hasDevices",
+      "target": "dtmi:microsoft:Device;1"
+    },
+    {
+      "@type": "Relationship",
+      "name": "hasValues",
+      "target": "dtmi:microsoft:Value;1"
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:Calendar;1",
+      "name": "hasCalendar",
+      "maxMultiplicity": 1
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:Person;1",
+      "name": "hasPeople"
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:Location;1",
+      "name": "hasLocation"
+    }
+  ]
+}

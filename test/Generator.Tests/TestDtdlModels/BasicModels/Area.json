@@ -1,0 +1,48 @@
+{
+  "@id": "dtmi:microsoft:Space:Area;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Area",
+  "extends": "dtmi:microsoft:Space;1",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "featureId",
+      "writable": true,
+      "schema": "string",
+      "comment": "This id is used to update feature state for this space in Azure Maps"
+    },
+    {
+      "@type": "Property",
+      "name": "floorId",
+      "writable": true,
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "buildingId",
+      "writable": true,
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "regionId",
+      "writable": true,
+      "schema": "string"
+    },
+    {
+      "@type": "Property",
+      "name": "unassignedCapacity",
+      "writable": true,
+      "schema": "integer",
+      "comment": "Used to update unassigned capacity for Space planning and desks availability"
+    },
+    {
+      "@type": "Property",
+      "name": "reservableCapacity",
+      "writable": true,
+      "schema": "integer",
+      "comment": "Used to update reservable capacity for Space planning and desks availability"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "@id": "dtmi:microsoft:FailRelationshipPrefix;1",
+  "@type": "Interface",
+  "displayName": "FailRelationshipPrefix",
+  "@context": "dtmi:dtdl:context;2",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "someFineName",
+      "writable": true,
+      "schema": "integer"
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:SomeModel;1",
+      "name": "hasCorrectName"
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:SomeModel;1",
+      "name": "somethingInvalidName"
+    }
+  ]
+}
