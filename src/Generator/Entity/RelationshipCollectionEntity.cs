@@ -1,46 +1,40 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace ADT.Models.Generator
+namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+
+internal class RelationshipCollectionEntity : ClassEntity
 {
-    using System.IO;
-    using System.Linq;
-    using Azure.DigitalTwins.Core;
-    using Microsoft.Azure.DigitalTwins.Parser;
+    internal DTRelationshipInfo RelationshipInfo { get; set; }
 
-    internal class RelationshipCollectionEntity : ClassEntity
+    private string Target { get; set; }
+
+    private string NamePrefix { get; set; }
+
+    internal RelationshipCollectionEntity(DTRelationshipInfo info, ModelGeneratorOptions options) : base(options)
     {
-        internal DTRelationshipInfo RelationshipInfo { get; set; }
+        RelationshipInfo = info;
+        Properties = info.Properties;
+        var enclosingClass = info.DefinedIn.Labels.Last();
+        NamePrefix = $"{enclosingClass}{CapitalizeFirstLetter(RelationshipInfo.Name)}";
+        Name = $"{NamePrefix}RelationshipCollection";
+        FileDirectory = $"\\Relationship\\{ExtractDirectory(RelationshipInfo.DefinedIn)}\\{enclosingClass}";
+        var targetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
+        Parent = $"RelationshipCollection<{NamePrefix}Relationship, {targetType}>";
+        Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
+    }
 
-        private string Target { get; set; }
+    protected override void WriteConstructor(StreamWriter streamWriter)
+    {
+        var relationshipName = $"{NamePrefix}Relationship";
+        streamWriter.WriteLine($"{indent}{indent}public {Name}(IEnumerable<{relationshipName}>? relationships = default) : base(relationships ?? Enumerable.Empty<{relationshipName}>())");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+    }
 
-        private string NamePrefix { get; set; }
-
-        internal RelationshipCollectionEntity(DTRelationshipInfo info, ModelGeneratorOptions options) : base(options)
-        {
-            RelationshipInfo = info;
-            Properties = info.Properties;
-            var enclosingClass = info.DefinedIn.Labels.Last();
-            NamePrefix = $"{enclosingClass}{CapitalizeFirstLetter(RelationshipInfo.Name)}";
-            Name = $"{NamePrefix}RelationshipCollection";
-            FileDirectory = $"\\Relationship\\{ExtractDirectory(RelationshipInfo.DefinedIn)}\\{enclosingClass}";
-            var targetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
-            Parent = $"RelationshipCollection<{NamePrefix}Relationship, {targetType}>";
-            Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
-        }
-
-        protected override void WriteConstructor(StreamWriter streamWriter)
-        {
-            var relationshipName = $"{NamePrefix}Relationship";
-            streamWriter.WriteLine($"{indent}{indent}public {Name}(IEnumerable<{relationshipName}> relationships = default) : base(relationships ?? Enumerable.Empty<{relationshipName}>())");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            streamWriter.WriteLine($"{indent}{indent}}}");
-        }
-
-        protected override void WriteUsingStatements(StreamWriter streamWriter)
-        {
-            base.WriteUsingStatements(streamWriter);
-            WriteUsingLinq(streamWriter);
-        }
+    protected override void WriteUsingStatements(StreamWriter streamWriter)
+    {
+        base.WriteUsingStatements(streamWriter);
+        WriteUsingLinq(streamWriter);
     }
 }

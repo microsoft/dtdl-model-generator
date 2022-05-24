@@ -9,6 +9,10 @@ internal class PropertySetter : PropertyAccessor
 
     internal bool IsInit { get; set; }
 
+    internal PropertySetter(ModelGeneratorOptions options) : base(options)
+    {
+    }
+
     internal void WriteTo(StreamWriter writer)
     {
         if (AccessModifier != null)
@@ -18,7 +22,6 @@ internal class PropertySetter : PropertyAccessor
         }
 
         writer.Write(IsInit ? "init" : "set");
-
         if (Body == null)
         {
             writer.Write("; ");

@@ -1,25 +1,22 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace ADT.Models.Generator
+namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+
+internal class ObjectProperty : Property
 {
-    using Microsoft.Azure.DigitalTwins.Parser;
-
-    internal class ObjectProperty : Property
+    internal ObjectProperty(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
     {
-        internal ObjectProperty(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingClass, ModelGeneratorOptions options)
+        Name = entityInfo.Name;
+        JsonName = entityInfo.Name;
+        if (Name == enclosingClass)
         {
-            Name = entityInfo.Name;
-            JsonName = entityInfo.Name;
-            if (Name == enclosingClass)
-            {
-                Name = $"{Name}Value";
-            }
-
-            var objectEntity = new ObjectEntity(entityInfo, objectInfo, enclosingClass, options);
-            Type = objectEntity.Name;
-            Obsolete = entityInfo.IsObsolete();
-            ProducedEntities.Add(objectEntity);
+            Name = $"{Name}Value";
         }
+
+        var objectEntity = new ObjectEntity(entityInfo, objectInfo, enclosingClass, options);
+        Type = objectEntity.Name;
+        Obsolete = entityInfo.IsObsolete();
+        ProducedEntities.Add(objectEntity);
     }
 }

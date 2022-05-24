@@ -5,7 +5,7 @@ namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
 internal class RelationshipProperty : Property
 {
-    internal RelationshipProperty(DTRelationshipInfo relationship, ModelGeneratorOptions options)
+    internal RelationshipProperty(DTRelationshipInfo relationship, ModelGeneratorOptions options) : base(options)
     {
         var relationshipEntity = new RelationshipEntity(relationship, options);
         var relationshipCollectionEntity = new RelationshipCollectionEntity(relationship, options);

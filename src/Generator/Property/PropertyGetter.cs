@@ -7,6 +7,10 @@ internal class PropertyGetter : PropertyAccessor
 {
     internal AccessModifier? AccessModifier { get; set; }
 
+    internal PropertyGetter(ModelGeneratorOptions options) : base(options)
+    {
+    }
+
     internal void WriteTo(StreamWriter writer)
     {
         if (AccessModifier != null)

@@ -1,12 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace ADT.Models.Generator;
-
+namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
 internal class EnumProperty : Property
 {
-    internal EnumProperty(DTNamedEntityInfo entityInfo, DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options)
+    internal EnumProperty(DTNamedEntityInfo entityInfo, DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
     {
         var enumEntity = new EnumPropEntity(enumInfo, enclosingClass, options);
         Type = $"{enumEntity.Name}?";

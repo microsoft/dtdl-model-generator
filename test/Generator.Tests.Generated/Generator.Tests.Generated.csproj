@@ -1,13 +1,29 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <CodeAnalysisRuleSet>..\..\StyleCop.ruleset</CodeAnalysisRuleSet>
+    <DeterministicSourcePaths>false</DeterministicSourcePaths>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Generator.Tests.Generated</RootNamespace>
+    <AssemblyName>Generator.Tests.Generated</AssemblyName>
+    <NoWarn>CS1591</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="6.0.4" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include="System.Text.Encodings.Web" Version="4.7.2" />
+  </ItemGroup>
+
   <ItemGroup>
-    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+    <PackageReference Include="Azure.DigitalTwins.Core" Version="1.2.2" />
   </ItemGroup>
 </Project>

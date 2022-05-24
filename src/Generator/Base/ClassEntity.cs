@@ -1,249 +1,246 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace ADT.Models.Generator
+namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+
+internal abstract class ClassEntity : Entity
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using Azure.DigitalTwins.Core;
-    using Microsoft.Azure.DigitalTwins.Parser;
+    internal string? Parent { get; set; }
 
-    internal abstract class ClassEntity : Entity
+    internal IEnumerable<DTPropertyInfo> Properties { get; set; } = Enumerable.Empty<DTPropertyInfo>();
+
+    internal IEnumerable<DTFieldInfo> Fields { get; set; } = Enumerable.Empty<DTFieldInfo>();
+
+    internal List<Property> Content { get; set; } = new List<Property>();
+
+    internal IList<Property> NonRelationshipProperties => Content.Where(p => !(p is RelationshipProperty)).ToList();
+
+    internal ClassEntity(ModelGeneratorOptions options) : base(options)
     {
-        internal string Parent { get; set; }
+    }
 
-        internal IEnumerable<DTPropertyInfo> Properties { get; set; } = Enumerable.Empty<DTPropertyInfo>();
+    protected override void WriteUsingStatements(StreamWriter streamWriter)
+    {
+        WriteUsingAzure(streamWriter);
+        WriteUsingAdt(streamWriter);
+        WriteUsingSystem(streamWriter);
+        WriteUsingCollection(streamWriter);
+        base.WriteUsingStatements(streamWriter);
+    }
 
-        internal IEnumerable<DTFieldInfo> Fields { get; set; } = Enumerable.Empty<DTFieldInfo>();
-
-        internal List<Property> Content { get; set; } = new List<Property>();
-
-        internal IList<Property> NonRelationshipProperties => Content.Where(p => !(p is RelationshipProperty)).ToList();
-
-        internal ClassEntity(ModelGeneratorOptions options) : base(options)
+    protected override void WriteSignature(StreamWriter streamWriter)
+    {
+        streamWriter.Write($"{indent}public class {Name}");
+        if (!string.IsNullOrEmpty(Parent))
         {
+            streamWriter.Write($" : {Parent}");
         }
 
-        protected override void WriteUsingStatements(StreamWriter streamWriter)
+        streamWriter.WriteLine();
+    }
+
+    protected Property CreateProperty(DTNamedEntityInfo entity, DTSchemaInfo schema)
+    {
+        if (schema is DTMapInfo mapInfo)
         {
-            WriteUsingAzure(streamWriter);
-            WriteUsingAdt(streamWriter);
-            WriteUsingSystem(streamWriter);
-            WriteUsingCollection(streamWriter);
-            base.WriteUsingStatements(streamWriter);
+            return new MapProperty(entity, mapInfo, Name, Options);
         }
 
-        protected override void WriteSignature(StreamWriter streamWriter)
+        if (schema is DTEnumInfo enumInfo)
         {
-            streamWriter.Write($"{indent}public class {Name}");
-            if (!string.IsNullOrEmpty(Parent))
-            {
-                streamWriter.Write($" : {Parent}");
-            }
-
-            streamWriter.WriteLine();
+            return new EnumProperty(entity, enumInfo, Name, Options);
         }
 
-        protected Property CreateProperty(DTNamedEntityInfo entity, DTSchemaInfo schema)
+        if (schema is DTObjectInfo objectInfo)
         {
-            if (schema is DTMapInfo mapInfo)
-            {
-                return new MapProperty(entity, mapInfo, Name, Options);
-            }
-
-            if (schema is DTEnumInfo enumInfo)
-            {
-                return new EnumProperty(entity, enumInfo, Name, Options);
-            }
-
-            if (schema is DTObjectInfo objectInfo)
-            {
-                return new ObjectProperty(entity, objectInfo, Name, Options);
-            }
-
-            return new PrimitiveProperty(entity, schema, Name);
+            return new ObjectProperty(entity, objectInfo, Name, Options);
         }
 
-        protected Property CreateProperty(DTContentInfo content)
+        return new PrimitiveProperty(entity, schema, Name, Options);
+    }
+
+    protected Property CreateProperty(DTContentInfo content)
+    {
+        if (content is DTPropertyInfo property)
         {
-            if (content is DTPropertyInfo property)
-            {
-                return CreateProperty(property, property.Schema);
-            }
-
-            if (content is DTRelationshipInfo relationship)
-            {
-                return new RelationshipProperty(relationship, Options);
-            }
-
-            throw new Exception($"Unsupported content type: {content.EntityKind}");
+            return CreateProperty(property, property.Schema);
         }
 
-        protected override void WriteContent(StreamWriter streamWriter)
+        if (content is DTRelationshipInfo relationship)
         {
-            WriteConstructor(streamWriter);
-            WriteStaticMembers(streamWriter);
-            WritePropertyConstants(streamWriter);
-            WriteProperties(streamWriter);
+            return new RelationshipProperty(relationship, Options);
         }
 
-        protected virtual void WriteConstructor(StreamWriter streamWriter)
+        throw new Exception($"Unsupported content type: {content.EntityKind}");
+    }
+
+    protected override void WriteContent(StreamWriter streamWriter)
+    {
+        WriteConstructor(streamWriter);
+        WriteStaticMembers(streamWriter);
+        WritePropertyConstants(streamWriter);
+        WriteProperties(streamWriter);
+    }
+
+    protected virtual void WriteConstructor(StreamWriter streamWriter)
+    {
+    }
+
+    protected virtual void WriteStaticMembers(StreamWriter streamWriter)
+    {
+    }
+
+    protected virtual void WriteProperties(StreamWriter streamWriter)
+    {
+        foreach (var property in Content)
         {
+            property.WriteTo(streamWriter);
+        }
+    }
+
+    protected virtual void WritePropertyConstants(StreamWriter streamWriter)
+    {
+        if (!NonRelationshipProperties.Any())
+        {
+            return;
         }
 
-        protected virtual void WriteStaticMembers(StreamWriter streamWriter)
+        streamWriter.WriteLine();
+        foreach (var prop in NonRelationshipProperties)
         {
+            // TODO: Fix this!!!
+            // This is because somehow we let a non-camelCase property name get added to the models so this has to be tweaked for this one property.
+            var nameofValue = prop.JsonName == "esbTagName" ? prop.Name : prop.JsonName;
+            streamWriter.WriteLine($"{indent}{indent}private const string {prop.JsonName} = nameof({nameofValue});");
         }
 
-        protected virtual void WriteProperties(StreamWriter streamWriter)
+        streamWriter.WriteLine();
+    }
+
+    protected virtual void WriteEqualityBlock(StreamWriter streamWriter, bool isClassObject = false)
+    {
+        WriteEqualsObjectMethod(streamWriter);
+        WriteEqualsMethod(streamWriter, isClassObject);
+        WriteEqualsOperatorMethod(streamWriter);
+        WriteNotEqualsOperatorMethod(streamWriter);
+        WriteGetHashCodeMethod(streamWriter, isClassObject);
+        if (Parent == nameof(BasicDigitalTwin))
         {
-            foreach (var property in Content)
-            {
-                property.WriteTo(streamWriter);
-            }
+            WriteBasicDigitalTwinEqualityMethod(streamWriter);
+        }
+    }
+
+    protected void WriteEqualsObjectMethod(StreamWriter streamWriter)
+    {
+        streamWriter.WriteLine($"{indent}{indent}public override bool Equals(object? obj)");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        streamWriter.WriteLine($"{indent}{indent}{indent}return Equals(obj as {Name});");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+        streamWriter.WriteLine();
+    }
+
+    protected void WriteEqualsMethod(StreamWriter streamWriter, bool isClassObject = false)
+    {
+        streamWriter.WriteLine($"{indent}{indent}public bool Equals({Name}? other)");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        var rootExpr = GetRootEqualityExpression(Parent);
+        if (Parent?.StartsWith("Relationship<") == true)
+        {
+            var targetEqaulsString = $"{indent}{indent}{indent}var targetsAreEqual = (Target is null && other?.Target is null) || (!(Target is null) && !(other?.Target is null) && Target == other.Target);";
+            streamWriter.WriteLine(targetEqaulsString);
         }
 
-        protected virtual void WritePropertyConstants(StreamWriter streamWriter)
+        var start = isClassObject ? $"{indent}{indent}{indent}return !(other is null)" : $"{indent}{indent}{indent}return !(other is null) && {rootExpr}";
+        var line = new StringBuilder(start);
+        if (NonRelationshipProperties.Any())
         {
-            if (!NonRelationshipProperties.Any())
+            var props = NonRelationshipProperties.Select(p => p.Name);
+            foreach (var prop in props)
             {
-                return;
-            }
-
-            streamWriter.WriteLine();
-            foreach (var prop in NonRelationshipProperties)
-            {
-                // TODO: Fix this!!!
-                // This is because somehow we let a non-camelCase property name get added to the models so this has to be tweaked for this one property.
-                var nameofValue = prop.JsonName == "esbTagName" ? prop.Name : prop.JsonName;
-                streamWriter.WriteLine($"{indent}{indent}private const string {prop.JsonName} = nameof({nameofValue});");
-            }
-
-            streamWriter.WriteLine();
-        }
-
-        protected virtual void WriteEqualityBlock(StreamWriter streamWriter, bool isClassObject = false)
-        {
-            WriteEqualsObjectMethod(streamWriter);
-            WriteEqualsMethod(streamWriter, isClassObject);
-            WriteEqualsOperatorMethod(streamWriter);
-            WriteNotEqualsOperatorMethod(streamWriter);
-            WriteGetHashCodeMethod(streamWriter, isClassObject);
-            if (Parent == nameof(BasicDigitalTwin))
-            {
-                WriteBasicDigitalTwinEqualityMethod(streamWriter);
-            }
-        }
-
-        protected void WriteEqualsObjectMethod(StreamWriter streamWriter)
-        {
-            streamWriter.WriteLine($"{indent}{indent}public override bool Equals(object obj)");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            streamWriter.WriteLine($"{indent}{indent}{indent}return Equals(obj as {Name});");
-            streamWriter.WriteLine($"{indent}{indent}}}");
-            streamWriter.WriteLine();
-        }
-
-        protected void WriteEqualsMethod(StreamWriter streamWriter, bool isClassObject = false)
-        {
-            streamWriter.WriteLine($"{indent}{indent}public bool Equals({Name} other)");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            var rootExpr = GetRootEqualityExpression(Parent);
-            var start = isClassObject ? $"{indent}{indent}{indent}return other != null" : $"{indent}{indent}{indent}return other != null && {rootExpr}";
-            var line = new StringBuilder(start);
-            if (NonRelationshipProperties.Any())
-            {
-                var props = NonRelationshipProperties.Select(p => p.Name);
-                foreach (var prop in props)
-                {
-                    line.Append($" && {prop} == other.{prop}");
-                }
-            }
-
-            streamWriter.WriteLine($"{line};");
-            streamWriter.WriteLine($"{indent}{indent}}}");
-            streamWriter.WriteLine();
-        }
-
-        protected virtual string GetRootEqualityExpression(string parentType)
-        {
-            if (parentType == nameof(BasicDigitalTwin))
-            {
-                return "Id == other.Id && Metadata.ModelId == other.Metadata.ModelId";
-            }
-
-            if (parentType?.StartsWith("Relationship<") == true)
-            {
-                return "Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && Target == other.Target";
-            }
-
-            return "base.Equals(other)";
-        }
-
-        protected void WriteEqualsOperatorMethod(StreamWriter streamWriter)
-        {
-            streamWriter.WriteLine($"{indent}{indent}public static bool operator ==({Name} left, {Name} right)");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            streamWriter.WriteLine($"{indent}{indent}{indent}return EqualityComparer<{Name}>.Default.Equals(left, right);");
-            streamWriter.WriteLine($"{indent}{indent}}}");
-            streamWriter.WriteLine();
-        }
-
-        protected void WriteNotEqualsOperatorMethod(StreamWriter streamWriter)
-        {
-            streamWriter.WriteLine($"{indent}{indent}public static bool operator !=({Name} left, {Name} right)");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            streamWriter.WriteLine($"{indent}{indent}{indent}return !(left == right);");
-            streamWriter.WriteLine($"{indent}{indent}}}");
-            streamWriter.WriteLine();
-        }
-
-        protected void WriteGetHashCodeMethod(StreamWriter streamWriter, bool isClassObject = false)
-        {
-            streamWriter.WriteLine($"{indent}{indent}public override int GetHashCode()");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            var hashString = new StringBuilder($"{indent}{indent}{indent}return this.CustomHash(");
-            if (!isClassObject)
-            {
-                hashString.Append(GetRootHashExpression(Parent));
-            }
-
-            foreach (var prop in NonRelationshipProperties)
-            {
-                var separator = NonRelationshipProperties.IndexOf(prop) == 0 && isClassObject ? string.Empty : ", ";
-                hashString.Append($"{separator}{prop.Name}?.GetHashCode()");
-            }
-
-            streamWriter.WriteLine($"{hashString});");
-            streamWriter.WriteLine($"{indent}{indent}}}");
-        }
-
-        protected virtual string GetRootHashExpression(string parentType)
-        {
-            if (parentType == nameof(BasicDigitalTwin))
-            {
-                return "Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode()";
-            }
-            else if (parentType?.StartsWith("Relationship<") == true)
-            {
-                return "Id?.GetHashCode(), SourceId?.GetHashCode(), TargetId?.GetHashCode(), Target?.GetHashCode()";
-            }
-            else
-            {
-                return "base.GetHashCode()";
+                line.Append($" && {prop} == other.{prop}");
             }
         }
 
-        private void WriteBasicDigitalTwinEqualityMethod(StreamWriter streamWriter)
+        streamWriter.WriteLine($"{line};");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+        streamWriter.WriteLine();
+    }
+
+    protected virtual string GetRootEqualityExpression(string? parentType)
+    {
+        if (parentType == nameof(BasicDigitalTwin))
         {
-            streamWriter.WriteLine();
-            streamWriter.WriteLine($"{indent}{indent}public bool Equals(BasicDigitalTwin other)");
-            streamWriter.WriteLine($"{indent}{indent}{{");
-            streamWriter.WriteLine($"{indent}{indent}{indent}return Equals(other as {Name}) || new TwinEqualityComparer().Equals(this, other);");
-            streamWriter.WriteLine($"{indent}{indent}}}");
+            return "Id == other.Id && Metadata.ModelId == other.Metadata.ModelId";
         }
+
+        if (parentType?.StartsWith("Relationship<") == true)
+        {
+            return "Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && targetsAreEqual";
+        }
+
+        return "base.Equals(other)";
+    }
+
+    protected void WriteEqualsOperatorMethod(StreamWriter streamWriter)
+    {
+        streamWriter.WriteLine($"{indent}{indent}public static bool operator ==({Name} left, {Name} right)");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        streamWriter.WriteLine($"{indent}{indent}{indent}return EqualityComparer<{Name}>.Default.Equals(left, right);");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+        streamWriter.WriteLine();
+    }
+
+    protected void WriteNotEqualsOperatorMethod(StreamWriter streamWriter)
+    {
+        streamWriter.WriteLine($"{indent}{indent}public static bool operator !=({Name} left, {Name} right)");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        streamWriter.WriteLine($"{indent}{indent}{indent}return !(left == right);");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+        streamWriter.WriteLine();
+    }
+
+    protected void WriteGetHashCodeMethod(StreamWriter streamWriter, bool isClassObject = false)
+    {
+        streamWriter.WriteLine($"{indent}{indent}public override int GetHashCode()");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        var hashString = new StringBuilder($"{indent}{indent}{indent}return this.CustomHash(");
+        if (!isClassObject)
+        {
+            hashString.Append(GetRootHashExpression(Parent));
+        }
+
+        foreach (var prop in NonRelationshipProperties)
+        {
+            var separator = NonRelationshipProperties.IndexOf(prop) == 0 && isClassObject ? string.Empty : ", ";
+            hashString.Append($"{separator}{prop.Name}?.GetHashCode()");
+        }
+
+        streamWriter.WriteLine($"{hashString});");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+    }
+
+    protected virtual string GetRootHashExpression(string? parentType)
+    {
+        if (parentType == nameof(BasicDigitalTwin))
+        {
+            return "Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode()";
+        }
+        else if (parentType?.StartsWith("Relationship<") == true)
+        {
+            return "Id?.GetHashCode(), SourceId?.GetHashCode(), TargetId?.GetHashCode(), Target?.GetHashCode()";
+        }
+        else
+        {
+            return "base.GetHashCode()";
+        }
+    }
+
+    private void WriteBasicDigitalTwinEqualityMethod(StreamWriter streamWriter)
+    {
+        streamWriter.WriteLine();
+        streamWriter.WriteLine($"{indent}{indent}public bool Equals(BasicDigitalTwin? other)");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        streamWriter.WriteLine($"{indent}{indent}{indent}return Equals(other as {Name}) || new TwinEqualityComparer().Equals(this, other);");
+        streamWriter.WriteLine($"{indent}{indent}}}");
     }
 }

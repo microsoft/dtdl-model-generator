@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace ADT.Models.Generator
+namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+
+internal enum AccessModifier
 {
-    internal enum AccessModifier
-    {
-        Public,
-        Internal,
-        Protected,
-        Private,
-        ProtectedInternal,
-        PrivateProtected,
-    }
+    Public,
+    Internal,
+    Protected,
+    Private,
+    ProtectedInternal,
+    PrivateProtected
 }

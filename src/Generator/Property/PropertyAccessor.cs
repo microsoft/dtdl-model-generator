@@ -5,9 +5,9 @@ namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
 internal abstract class PropertyAccessor : Writable
 {
-    private string body;
+    private string? body;
 
-    internal string Body
+    internal string? Body
     {
         get => body;
         set
@@ -16,13 +16,27 @@ internal abstract class PropertyAccessor : Writable
         }
     }
 
-    private string TrimWhitespace(string text)
+    internal PropertyAccessor(ModelGeneratorOptions options) : base(options)
     {
-        return text.Trim();
     }
 
-    private string ReindentText(string text)
+    private string? TrimWhitespace(string? text)
     {
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            return text.Trim();
+        }
+
+        return !string.IsNullOrWhiteSpace(text) ? text.Trim() : text;
+    }
+
+    private string? ReindentText(string? text)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return text;
+        }
+
         var reindented = Regex.Replace(text, @"(\r\n|\n)\s*", $"$1{indent}{indent}{indent}{indent}");
         return $"{indent}{indent}{indent}{indent}" + reindented;
     }

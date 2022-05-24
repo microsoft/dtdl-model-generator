@@ -23,6 +23,12 @@
     <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 
+  <ItemGroup> 
+    <Content Include="..\Generator.TemplateProject\**"> 
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> 
+    </Content> 
+  </ItemGroup>
+
   <ItemGroup>
     <Using Include="Azure.DigitalTwins.Core" />
     <Using Include="Microsoft.Azure.DigitalTwins.Parser" />
@@ -30,6 +36,7 @@
     <Using Include="System.Collections.Generic" />
     <Using Include="System.IO" />
     <Using Include="System.Linq" />
+    <Using Include="System.Text" />
     <Using Include="System.Text.RegularExpressions" />
   </ItemGroup>
 
