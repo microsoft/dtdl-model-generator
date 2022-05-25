@@ -20,10 +20,11 @@ body:
     attributes:
       label: Which version of the tool was used?
       description: The version of package, or a git commit hash from the branch if you're using the sources in this repo.
-  - type: input
+  - type: textarea
     id: query
     attributes:
-      label: Provide the full query used. i.e. `QueryBuilder.From<Space>()`
+      description: The options used when running the generator.
+      label: Options
   - type: textarea
     id: logs
     attributes:
