@@ -28,11 +28,11 @@ namespace Generator.Tests.Generated
         private const string mediaList = nameof(mediaList);
 
         [JsonPropertyName(category)]
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
         [JsonPropertyName(genericRules)]
-        public GenericRules GenericRules { get; set; }
+        public GenericRules? GenericRules { get; set; }
         [JsonPropertyName(scheduleRules)]
-        public ScheduleRules ScheduleRules { get; set; }
+        public ScheduleRules? ScheduleRules { get; set; }
         [JsonPropertyName(amenities)]
         public IDictionary<string, bool>? Amenities { get; set; }
         [JsonPropertyName(weeklyOperationHours)]
@@ -48,7 +48,10 @@ namespace Generator.Tests.Generated
 
         public bool Equals(POI? other)
         {
-            return !(other is null) && base.Equals(other) && Category == other.Category && GenericRules == other.GenericRules && ScheduleRules == other.ScheduleRules && Amenities == other.Amenities && WeeklyOperationHours == other.WeeklyOperationHours && SubStatus == other.SubStatus && MediaList == other.MediaList;
+            var categoryEquals = (Category is null && other?.Category is null) || (!(Category is null) && !(other?.Category is null) && Category == other.Category);
+            var genericRulesEquals = (GenericRules is null && other?.GenericRules is null) || (!(GenericRules is null) && !(other?.GenericRules is null) && GenericRules == other.GenericRules);
+            var scheduleRulesEquals = (ScheduleRules is null && other?.ScheduleRules is null) || (!(ScheduleRules is null) && !(other?.ScheduleRules is null) && ScheduleRules == other.ScheduleRules);
+            return !(other is null) && base.Equals(other) && categoryEquals && genericRulesEquals && scheduleRulesEquals && Amenities == other.Amenities && WeeklyOperationHours == other.WeeklyOperationHours && SubStatus == other.SubStatus && MediaList == other.MediaList;
         }
 
         public static bool operator ==(POI left, POI right)

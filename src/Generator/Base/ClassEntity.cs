@@ -154,16 +154,31 @@ internal abstract class ClassEntity : Entity
         var line = new StringBuilder(start);
         if (NonRelationshipProperties.Any())
         {
-            var props = NonRelationshipProperties.Select(p => p.Name);
-            foreach (var prop in props)
+            var objectPropNames = WriteNullEqualityChecksAndGeneratePropNames(streamWriter, isClassObject);
+            foreach (var prop in NonRelationshipProperties)
             {
-                line.Append($" && {prop} == other.{prop}");
+                var lineText = prop is ObjectProperty ? $" && {objectPropNames[prop.Name]}" : $" && {prop.Name} == other.{prop.Name}";
+                line.Append(lineText);
             }
         }
 
         streamWriter.WriteLine($"{line};");
         streamWriter.WriteLine($"{indent}{indent}}}");
         streamWriter.WriteLine();
+    }
+
+    private IDictionary<string, string> WriteNullEqualityChecksAndGeneratePropNames(StreamWriter streamWriter, bool isClassObject = false)
+    {
+        var propNames = new Dictionary<string, string>();
+        var objectProps = NonRelationshipProperties.Where(p => p is ObjectProperty);
+        foreach (var prop in objectProps)
+        {
+            var propName = $"{char.ToLower(prop.Name[0]) + prop.Name.Substring(1)}Equals";
+            propNames.Add(prop.Name, propName);
+            streamWriter.WriteLine($"{indent}{indent}{indent}var {propName} = ({prop.Name} is null && other?.{prop.Name} is null) || (!({prop.Name} is null) && !(other?.{prop.Name} is null) && {prop.Name} == other.{prop.Name});");
+        }
+
+        return propNames;
     }
 
     protected virtual string GetRootEqualityExpression(string? parentType)

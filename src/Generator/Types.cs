@@ -10,7 +10,7 @@ internal static class Types
             { DTEntityKind.Integer, "int?" },
             { DTEntityKind.Boolean, "bool?" },
             { DTEntityKind.DateTime, "DateTime?" },
-            { DTEntityKind.Time, "object" },
+            { DTEntityKind.Time, "object?" },
             { DTEntityKind.Float, "float?" },
             { DTEntityKind.Double, "double?" },
             { DTEntityKind.String, "string?" }

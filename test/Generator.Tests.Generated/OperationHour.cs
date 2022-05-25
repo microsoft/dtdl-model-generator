@@ -18,9 +18,9 @@ namespace Generator.Tests.Generated
         private const string end = nameof(end);
 
         [JsonPropertyName(start)]
-        public object Start { get; set; }
+        public object? Start { get; set; }
         [JsonPropertyName(end)]
-        public object End { get; set; }
+        public object? End { get; set; }
         public override bool Equals(object? obj)
         {
             return Equals(obj as OperationHour);

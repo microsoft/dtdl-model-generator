@@ -43,9 +43,9 @@ namespace Generator.Tests.Generated
         [JsonPropertyName(regionId)]
         public string? RegionId { get; set; }
         [JsonPropertyName(startOfBusinessTime)]
-        public object StartOfBusinessTime { get; set; }
+        public object? StartOfBusinessTime { get; set; }
         [JsonPropertyName(endOfBusinessTime)]
-        public object EndOfBusinessTime { get; set; }
+        public object? EndOfBusinessTime { get; set; }
         [JsonPropertyName(businessEntityName)]
         public string? BusinessEntityName { get; set; }
         [JsonPropertyName(amenities)]

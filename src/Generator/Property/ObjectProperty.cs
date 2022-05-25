@@ -15,7 +15,7 @@ internal class ObjectProperty : Property
         }
 
         var objectEntity = new ObjectEntity(entityInfo, objectInfo, enclosingClass, options);
-        Type = objectEntity.Name;
+        Type = $"{objectEntity.Name}?";
         Obsolete = entityInfo.IsObsolete();
         ProducedEntities.Add(objectEntity);
     }
