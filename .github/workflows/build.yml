@@ -16,7 +16,7 @@ jobs:
     with:
      project-to-build: "src/Generator/Generator.csproj"
      project-to-test: "test/Generator.Tests/Generator.Tests.csproj"
-     coverage-threshold: 88
+     coverage-threshold: 87
 
   Pack:
     uses: microsoft/digitalworkplace-workflows/.github/workflows/pack.yml@v2.0
