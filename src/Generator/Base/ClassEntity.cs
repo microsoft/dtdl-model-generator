@@ -15,7 +15,7 @@ internal abstract class ClassEntity : Entity
 
     internal IList<Property> NonRelationshipProperties => Content.Where(p => !(p is RelationshipProperty)).ToList();
 
-    internal ClassEntity(ModelGeneratorOptions options) : base(options)
+    internal ClassEntity(ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
     {
     }
 
@@ -43,17 +43,17 @@ internal abstract class ClassEntity : Entity
     {
         if (schema is DTMapInfo mapInfo)
         {
-            return new MapProperty(entity, mapInfo, Name, Options);
+            return new MapProperty(entity, mapInfo, Name, Options, GeneratedFiles);
         }
 
         if (schema is DTEnumInfo enumInfo)
         {
-            return new EnumProperty(entity, enumInfo, Name, Options);
+            return new EnumProperty(entity, enumInfo, Name, Options, GeneratedFiles);
         }
 
         if (schema is DTObjectInfo objectInfo)
         {
-            return new ObjectProperty(entity, objectInfo, Name, Options);
+            return new ObjectProperty(entity, objectInfo, Name, Options, GeneratedFiles);
         }
 
         return new PrimitiveProperty(entity, schema, Name, Options);
@@ -68,7 +68,7 @@ internal abstract class ClassEntity : Entity
 
         if (content is DTRelationshipInfo relationship)
         {
-            return new RelationshipProperty(relationship, Options);
+            return new RelationshipProperty(relationship, Options, GeneratedFiles);
         }
 
         throw new Exception($"Unsupported content type: {content.EntityKind}");

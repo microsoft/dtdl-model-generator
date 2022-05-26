@@ -5,7 +5,7 @@ namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
 internal class MapProperty : Property
 {
-    internal MapProperty(DTNamedEntityInfo entity, DTMapInfo map, string enclosingClass, ModelGeneratorOptions options) : base(options)
+    internal MapProperty(DTNamedEntityInfo entity, DTMapInfo map, string enclosingClass, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)
     {
         Name = entity.Name;
         JsonName = entity.Name;
@@ -13,13 +13,13 @@ internal class MapProperty : Property
         string? mapValue;
         if (map.MapValue.Schema is DTEnumInfo enumInfo)
         {
-            var enumEntity = new EnumPropEntity(enumInfo, enclosingClass, options);
+            var enumEntity = new EnumPropEntity(enumInfo, enclosingClass, options, generatedFiles);
             mapValue = enumEntity.Name;
             ProducedEntities.Add(enumEntity);
         }
         else if (map.MapValue.Schema is DTObjectInfo objectInfo)
         {
-            var objectEntity = new ObjectEntity(map.MapValue, objectInfo, enclosingClass, options);
+            var objectEntity = new ObjectEntity(map.MapValue, objectInfo, enclosingClass, options, generatedFiles);
             mapValue = objectEntity.Name;
             ProducedEntities.Add(objectEntity);
         }

@@ -5,9 +5,9 @@ namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
 internal class EnumProperty : Property
 {
-    internal EnumProperty(DTNamedEntityInfo entityInfo, DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
+    internal EnumProperty(DTNamedEntityInfo entityInfo, DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)
     {
-        var enumEntity = new EnumPropEntity(enumInfo, enclosingClass, options);
+        var enumEntity = new EnumPropEntity(enumInfo, enclosingClass, options, generatedFiles);
         Type = $"{enumEntity.Name}?";
         Name = entityInfo.Name;
         JsonName = entityInfo.Name;

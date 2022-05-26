@@ -7,7 +7,7 @@ internal class EnumPropEntity : EnumEntity
 {
     internal DTEnumInfo EnumInfo { get; set; }
 
-    internal EnumPropEntity(DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
+    internal EnumPropEntity(DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
     {
         EnumInfo = enumInfo;
         if (enumInfo.Id.AbsoluteUri.Contains("__"))

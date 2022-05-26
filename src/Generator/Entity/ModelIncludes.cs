@@ -7,7 +7,7 @@ internal class ModelIncludes : EnumEntity
 {
     internal List<string> Relationships { get; set; }
 
-    internal ModelIncludes(string rootClass, List<string> relationships, ModelGeneratorOptions options) : base(options)
+    internal ModelIncludes(string rootClass, List<string> relationships, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
     {
         Name = $"{rootClass}Includes";
         Relationships = relationships;

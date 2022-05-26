@@ -5,7 +5,7 @@ namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
 internal class ObjectProperty : Property
 {
-    internal ObjectProperty(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
+    internal ObjectProperty(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingClass, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)
     {
         Name = entityInfo.Name;
         JsonName = entityInfo.Name;
@@ -14,7 +14,7 @@ internal class ObjectProperty : Property
             Name = $"{Name}Value";
         }
 
-        var objectEntity = new ObjectEntity(entityInfo, objectInfo, enclosingClass, options);
+        var objectEntity = new ObjectEntity(entityInfo, objectInfo, enclosingClass, options, generatedFiles);
         Type = $"{objectEntity.Name}?";
         Obsolete = entityInfo.IsObsolete();
         ProducedEntities.Add(objectEntity);

@@ -13,7 +13,7 @@ internal class RelationshipEntity : ClassEntity
 
     private string TargetType { get; set; }
 
-    internal RelationshipEntity(DTRelationshipInfo info, ModelGeneratorOptions options) : base(options)
+    internal RelationshipEntity(DTRelationshipInfo info, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
     {
         RelationshipInfo = info;
         Properties = info.Properties;

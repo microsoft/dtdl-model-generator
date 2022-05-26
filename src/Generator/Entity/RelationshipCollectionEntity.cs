@@ -11,7 +11,7 @@ internal class RelationshipCollectionEntity : ClassEntity
 
     private string NamePrefix { get; set; }
 
-    internal RelationshipCollectionEntity(DTRelationshipInfo info, ModelGeneratorOptions options) : base(options)
+    internal RelationshipCollectionEntity(DTRelationshipInfo info, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
     {
         RelationshipInfo = info;
         Properties = info.Properties;

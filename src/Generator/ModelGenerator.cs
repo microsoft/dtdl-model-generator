@@ -8,7 +8,9 @@ namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 /// </summary>
 public class ModelGenerator
 {
-    private ModelGeneratorOptions Options { get; set; }
+    private ModelGeneratorOptions options { get; set; }
+
+    private IList<string> generatedFiles = new List<string>();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ModelGenerator"/> class.
@@ -16,7 +18,7 @@ public class ModelGenerator
     /// <param name="options">The options used to configure behavior of the Generator.</param>
     public ModelGenerator(ModelGeneratorOptions options)
     {
-        Options = options;
+        this.options = options;
     }
 
     /// <summary>
@@ -26,13 +28,17 @@ public class ModelGenerator
     /// </summary>
     public async Task GenerateClassesAsync()
     {
-        ClearOutputDirectory();
+        if (!Directory.Exists(options.OutputDirectory))
+        {
+            Directory.CreateDirectory(options.OutputDirectory);
+        }
+
         var files = GetJsonModels();
         var parser = new ModelParser();
         var parsed = await parser.ParseAsync(files).ConfigureAwait(false);
         var models = parsed.Where(i => i.Value.EntityKind == DTEntityKind.Interface)
-                           .ToDictionary(p => p.Key, p => (DTInterfaceInfo)p.Value).Values;
-        if (Options.IncludeTemplateProject)
+            .ToDictionary(p => p.Key, p => (DTInterfaceInfo)p.Value).Values;
+        if (options.IncludeTemplateProject)
         {
             await CopyTemplateProjectAsync();
         }
@@ -40,47 +46,46 @@ public class ModelGenerator
         await CopyCustomModelsAsync();
         GenerateModels(models);
         GenerateIncludes(models);
+        CleanupOutputDirectory();
     }
 
-    private void ClearOutputDirectory()
+    private void CleanupOutputDirectory()
     {
-        // This loop is only needed to fix a concurrency bug that happens during running debugger
-        // The build triggers generation, and then the debugger triggers it again
-        while (!DeleteSuccessful(Options.OutputDirectory)) { }
-        Directory.CreateDirectory(Options.OutputDirectory);
-    }
-
-    private static bool DeleteSuccessful(string directory)
-    {
-        if (!Directory.Exists(directory))
+        var files = Directory.GetFiles(options.OutputDirectory, "*.cs", SearchOption.AllDirectories);
+        var noBinOrObjFolders = files.Where(f => !f.Contains("bin") && !f.Contains("obj"));
+        foreach (var file in noBinOrObjFolders)
         {
-            return true;
+            var fileName = Path.GetFileName(file);
+            if (!generatedFiles.Contains(fileName))
+            {
+                File.Delete(file);
+            }
         }
 
-        try
+        if (!options.IncludeTemplateProject)
         {
-            Directory.Delete(directory, true);
+            var newCsprojFileName = !string.IsNullOrWhiteSpace(options.Namespace) ? $"{options.Namespace}.csproj" : "Generator.TemplateProject.csproj";
+            var templateProject = Path.Combine(options.OutputDirectory, newCsprojFileName);
+            if (File.Exists(templateProject))
+            {
+                File.Delete(templateProject);
+            }
         }
-        catch
-        {
-            return false;
-        }
-
-        return true;
     }
 
     private IEnumerable<string> GetJsonModels()
     {
-        var files = Directory.GetFiles(Options.JsonModelsDirectory, "*.json", SearchOption.AllDirectories);
+        var files = Directory.GetFiles(options.JsonModelsDirectory, "*.json", SearchOption.AllDirectories);
         return files.Select(p => File.ReadAllText(p));
     }
 
     private void GenerateModels(IEnumerable<DTInterfaceInfo> models)
     {
-        var entities = models.Select(m => new ModelEntity(m, Options));
+        var entities = models.Select(m => new ModelEntity(m, options, generatedFiles));
         foreach (var entity in entities)
         {
             entity.GenerateFile();
+            generatedFiles.Add($"{entity.Name}.cs");
         }
     }
 
@@ -90,12 +95,13 @@ public class ModelGenerator
         var files = Directory.GetFiles(dir, "*.cs", SearchOption.TopDirectoryOnly);
         foreach (var file in files)
         {
-            var fileName = file.Split("\\").Last();
-            var fileAbsolutePath = $"{Options?.OutputDirectory}\\{fileName}";
-            File.Copy(file, fileAbsolutePath);
+            var fileName = Path.GetFileName(file);
+            var fileAbsolutePath = $"{options?.OutputDirectory}\\{fileName}";
+            File.Copy(file, fileAbsolutePath, true);
             var original = await File.ReadAllTextAsync(fileAbsolutePath);
-            var updated = original.Replace("namespace Generator.CustomModels;", $"namespace {Options?.Namespace};");
+            var updated = original.Replace("namespace Generator.CustomModels;", $"namespace {options?.Namespace};");
             await File.WriteAllTextAsync(fileAbsolutePath, updated, Encoding.UTF8);
+            generatedFiles.Add(fileName);
         }
     }
 
@@ -107,16 +113,17 @@ public class ModelGenerator
             return;
         }
 
-        var fileName = projFile.Split("\\").Last();
+        var fileName = Path.GetFileName(projFile);
         if (!string.IsNullOrWhiteSpace(fileName))
         {
-            var newCsprojFileName = !string.IsNullOrWhiteSpace(Options?.Namespace) ? $"{Options.Namespace}.csproj" : fileName;
-            var outputPath = Path.Combine(Options?.OutputDirectory ?? string.Empty, newCsprojFileName);
-            File.Copy(projFile, outputPath);
+            var newCsprojFileName = !string.IsNullOrWhiteSpace(options?.Namespace) ? $"{options.Namespace}.csproj" : fileName;
+            var outputPath = Path.Combine(options?.OutputDirectory ?? string.Empty, newCsprojFileName);
+            File.Copy(projFile, outputPath, true);
             var original = await File.ReadAllTextAsync(outputPath);
-            var updated = original.Replace("<RootNamespace>Generator.TemplateProject</RootNamespace>", $"<RootNamespace>{Options?.Namespace}</RootNamespace>");
-            updated = updated.Replace("<AssemblyName>Generator.TemplateProject</AssemblyName>", $"<AssemblyName>{Options?.Namespace}</AssemblyName>");
+            var updated = original.Replace("<RootNamespace>Generator.TemplateProject</RootNamespace>", $"<RootNamespace>{options?.Namespace}</RootNamespace>");
+            updated = updated.Replace("<AssemblyName>Generator.TemplateProject</AssemblyName>", $"<AssemblyName>{options?.Namespace}</AssemblyName>");
             await File.WriteAllTextAsync(outputPath, updated, Encoding.UTF8);
+            generatedFiles.Add(newCsprojFileName);
         }
     }
 
@@ -139,7 +146,7 @@ public class ModelGenerator
 
             if (includes.Count > 1)
             {
-                new ModelIncludes(key, includes.ToList(), Options).GenerateFile();
+                new ModelIncludes(key, includes.ToList(), options, generatedFiles).GenerateFile();
             }
         }
     }

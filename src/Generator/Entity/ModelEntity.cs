@@ -7,7 +7,7 @@ internal class ModelEntity : ClassEntity
 {
     internal Dtmi ModelId { get; set; }
 
-    internal ModelEntity(DTInterfaceInfo interfaceInfo, ModelGeneratorOptions options) : base(options)
+    internal ModelEntity(DTInterfaceInfo interfaceInfo, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
     {
         ModelId = interfaceInfo.Id;
         Properties = interfaceInfo.Contents.Values
