@@ -20,6 +20,5 @@ public class ModelGeneratorUnitTests
 
         var generator = new ModelGenerator(options);
         await generator.GenerateClassesAsync();
-        Process.Start("dotnet.exe", "restore \"..\\..\\..\\..\\Generator.Tests.Generated\"");
     }
 }
