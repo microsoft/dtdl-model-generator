@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "documentationRules": {
+      "xmlHeader": false,
+      "companyName": "Microsoft",
+      "copyrightText": "Copyright (c) Microsoft Corporation.\nLicensed under the MIT License.",
+      "documentInterfaces": false,
+      "documentPrivateElements": false,
+      "documentPrivateFields": false,
+      "documentExposedElements": false,
+      "documentInternalElements": false
+    },
+    "namingRules": {
+      "allowCommonHungarianPrefixes": false
+    },
+    "layoutRules": {
+      "allowConsecutiveUsings": true,
+      "newlineAtEndOfFile": "omit"
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "insideNamespace"
+    }
+  }
+}
