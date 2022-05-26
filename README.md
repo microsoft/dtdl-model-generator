@@ -1,6 +1,6 @@
 # DTDL Model Generator
 
-[![Build](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml)
+[![Build](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml) [![Release](https://github.com/microsoft/dtdl-model-generator/actions/workflows/release.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/release.yml)
 
 This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL json files and generates C# POCO classes to be used when interacting with the Azure Digital Twins SDK. This is made possible because all of the generated model classes inherit from the ADT-provided BasicDigitalTwin class.
 
