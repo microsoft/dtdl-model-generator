@@ -45,7 +45,6 @@ public class ModelGenerator
 
         await CopyCustomModelsAsync();
         GenerateModels(models);
-        GenerateIncludes(models);
         CleanupOutputDirectory();
     }
 
@@ -124,39 +123,5 @@ public class ModelGenerator
             await File.WriteAllTextAsync(outputPath, updated, Encoding.UTF8);
             generatedFiles.Add(newCsprojFileName);
         }
-    }
-
-    private void GenerateIncludes(IEnumerable<DTInterfaceInfo> models)
-    {
-        var roots = models.GroupBy(GetRootModel);
-        foreach (var group in roots)
-        {
-            var key = group.Key.Labels.Last();
-            var includes = new HashSet<string> { "none" };
-            foreach (var model in group)
-            {
-                var relationships = model.Contents.Values.Where(c => c.EntityKind == DTEntityKind.Relationship);
-                var relationshipNames = relationships.Select(r => r.Name);
-                foreach (var relationshipName in relationshipNames)
-                {
-                    includes.Add(relationshipName);
-                }
-            }
-
-            if (includes.Count > 1)
-            {
-                new ModelIncludes(key, includes.ToList(), options, generatedFiles).GenerateFile();
-            }
-        }
-    }
-
-    private Dtmi GetRootModel(DTInterfaceInfo model)
-    {
-        if (!model.Extends.Any())
-        {
-            return model.Id;
-        }
-
-        return GetRootModel(model.Extends.First());
     }
 }
