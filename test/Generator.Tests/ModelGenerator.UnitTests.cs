@@ -28,7 +28,8 @@ public class ModelGeneratorUnitTests
         };
 
         var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync();
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(1000);
         AssertFilesGenerated(jsonDir, options.OutputDirectory);
     }
 
@@ -46,7 +47,8 @@ public class ModelGeneratorUnitTests
         };
 
         var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync();
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(1000);
         AssertFilesGenerated(jsonDir, options.OutputDirectory);
     }
 
@@ -69,7 +71,8 @@ public class ModelGeneratorUnitTests
         };
 
         var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync();
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(1000);
         AssertFilesGenerated(jsonDir, options.OutputDirectory);
     }
 
@@ -88,7 +91,8 @@ public class ModelGeneratorUnitTests
         };
 
         var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync();
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(1000);
         AssertFilesGenerated(jsonDir, options.OutputDirectory);
         Assert.IsFalse(File.Exists(Path.Combine(outDir, "TestFile.cs")));
     }
