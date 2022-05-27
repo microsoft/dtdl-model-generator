@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal abstract class PropertyAccessor : Writable
@@ -21,15 +21,7 @@ internal abstract class PropertyAccessor : Writable
     {
     }
 
-    private string? TrimWhitespace(string? text)
-    {
-        if (!string.IsNullOrWhiteSpace(text))
-        {
-            return text.Trim();
-        }
-
-        return !string.IsNullOrWhiteSpace(text) ? text.Trim() : text;
-    }
+    private string? TrimWhitespace(string? text) => !string.IsNullOrWhiteSpace(text) ? text.Trim() : text;
 
     private string? ReindentText(string? text)
     {

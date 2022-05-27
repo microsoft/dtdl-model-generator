@@ -23,7 +23,7 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 ## Usage
 
 ``` csharp
-using Microsoft.DigitalWorkplace.Integration.Models.Generator;
+using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 //...
 
@@ -60,8 +60,6 @@ For guidance on reporing security issues, please refer to the [security](SECURIT
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.

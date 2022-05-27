@@ -17,7 +17,7 @@
   <ItemGroup>
     <Using Include="Azure.DigitalTwins.Core" />
     <Using Include="Generator.Tests.Generated" />
-    <Using Include="Microsoft.DigitalWorkplace.Integration.Models.Generator" />
+    <Using Include="Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator" />
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
     <Using Include="System.Diagnostics" />
     <Using Include="System.Text.Json" />

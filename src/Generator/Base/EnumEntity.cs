@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class EnumEntity : Entity

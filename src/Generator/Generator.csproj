@@ -6,8 +6,8 @@
     <RepositoryUrl>https://github.com/microsoft/dtdl-model-generator</RepositoryUrl>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RootNamespace>Microsoft.DigitalWorkplace.Integration.Models.Generator</RootNamespace>
-    <AssemblyName>Microsoft.DigitalWorkplace.Integration.Models.Generator</AssemblyName>
+    <RootNamespace>Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator</RootNamespace>
+    <AssemblyName>Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator</AssemblyName>
     <Authors>Microsoft</Authors>
     <Company>Microsoft</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
+namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 /// <summary>
 /// A class used to generate C# POCO models from DTDL json files.
