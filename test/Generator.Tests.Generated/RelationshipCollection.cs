@@ -34,7 +34,6 @@ public abstract class RelationshipCollection<TRelationship, TTarget> : BasicRela
     public RelationshipCollection(IEnumerable<TRelationship> relationships) : this()
     {
         this.relationships = new List<TRelationship>(relationships);
-        var test = (IEnumerable<TTarget>)relationships.Where(r => r.Target != null).Select(r => r.Target);
     }
 
     /// <summary>

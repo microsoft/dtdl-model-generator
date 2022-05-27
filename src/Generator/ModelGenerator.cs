@@ -52,7 +52,7 @@ public class ModelGenerator
     private void CleanupOutputDirectory()
     {
         var files = Directory.GetFiles(options.OutputDirectory, "*.cs", SearchOption.AllDirectories);
-        var noBinOrObjFolders = files.Where(f => !f.Contains("bin") && !f.Contains("obj"));
+        var noBinOrObjFolders = files.Where(f => !f.Contains($"{options.Namespace}\\bin") && !f.Contains($"{options.Namespace}\\obj"));
         foreach (var file in noBinOrObjFolders)
         {
             var fileName = Path.GetFileName(file);
