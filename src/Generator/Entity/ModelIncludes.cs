@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class ModelIncludes : EnumEntity
 {
     internal List<string> Relationships { get; set; }

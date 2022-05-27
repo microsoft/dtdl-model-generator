@@ -91,8 +91,7 @@ public class ModelGenerator
 
     private async Task CopyCustomModelsAsync()
     {
-        var dir = Path.Combine(Directory.GetCurrentDirectory(), "Custom");
-        var files = Directory.GetFiles(dir, "*.cs", SearchOption.TopDirectoryOnly);
+        var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.cs", SearchOption.TopDirectoryOnly);
         foreach (var file in files)
         {
             var fileName = Path.GetFileName(file);

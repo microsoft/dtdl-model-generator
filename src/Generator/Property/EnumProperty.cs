@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class EnumProperty : Property
 {
     internal EnumProperty(DTNamedEntityInfo entityInfo, DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)

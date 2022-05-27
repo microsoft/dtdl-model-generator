@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal static class Types
 {
     private static readonly IDictionary<DTEntityKind, string> nullablePropertyTypeMapping = new Dictionary<DTEntityKind, string>

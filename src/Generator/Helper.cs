@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal static class Helper
 {
     internal const string ObsoleteAttribute = "[Obsolete]";

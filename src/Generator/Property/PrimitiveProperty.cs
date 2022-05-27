@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class PrimitiveProperty : Property
 {
     internal PrimitiveProperty(DTNamedEntityInfo entity, DTSchemaInfo schema, string enclosingClass, ModelGeneratorOptions options) : base(options)

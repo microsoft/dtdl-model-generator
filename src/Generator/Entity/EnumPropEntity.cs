@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class EnumPropEntity : EnumEntity
 {
     internal DTEnumInfo EnumInfo { get; set; }

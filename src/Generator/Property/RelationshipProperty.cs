@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class RelationshipProperty : Property
 {
     internal RelationshipProperty(DTRelationshipInfo relationship, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)

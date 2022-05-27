@@ -20,7 +20,8 @@
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
     <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
-    <Content Include="..\Generator.TemplateProject\**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\Generator.TemplateProject\Generator.TemplateProject.csproj" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\Generator.TemplateProject\Custom\**" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

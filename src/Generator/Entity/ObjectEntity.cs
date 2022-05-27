@@ -3,6 +3,7 @@
 
 namespace Microsoft.DigitalWorkplace.Integration.Models.Generator;
 
+[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class ObjectEntity : ClassEntity
 {
     internal ObjectEntity(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingEntity, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
