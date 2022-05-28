@@ -36,14 +36,8 @@ public class ModelGenerator
         var files = GetJsonModels();
         var parser = new ModelParser();
         var parsed = await parser.ParseAsync(files).ConfigureAwait(false);
-        var models = parsed.Where(i => i.Value.EntityKind == DTEntityKind.Interface)
-            .ToDictionary(p => p.Key, p => (DTInterfaceInfo)p.Value).Values;
-        if (options.IncludeTemplateProject)
-        {
-            await CopyTemplateProjectAsync();
-        }
-
-        await CopyCustomModelsAsync();
+        var models = parsed.Where(i => i.Value.EntityKind == DTEntityKind.Interface).ToDictionary(p => p.Key, p => (DTInterfaceInfo)p.Value).Values;
+        await CopyCustomModelsAsync().ConfigureAwait(false);
         GenerateModels(models);
         CleanupOutputDirectory();
     }
@@ -58,16 +52,6 @@ public class ModelGenerator
             if (!generatedFiles.Contains(fileName))
             {
                 File.Delete(file);
-            }
-        }
-
-        if (!options.IncludeTemplateProject)
-        {
-            var newCsprojFileName = !string.IsNullOrWhiteSpace(options.Namespace) ? $"{options.Namespace}.csproj" : "Generator.TemplateProject.csproj";
-            var templateProject = Path.Combine(options.OutputDirectory, newCsprojFileName);
-            if (File.Exists(templateProject))
-            {
-                File.Delete(templateProject);
             }
         }
     }
@@ -100,28 +84,6 @@ public class ModelGenerator
             var updated = original.Replace("namespace Generator.CustomModels;", $"namespace {options?.Namespace};");
             await File.WriteAllTextAsync(fileAbsolutePath, updated, Encoding.UTF8);
             generatedFiles.Add(fileName);
-        }
-    }
-
-    private async Task CopyTemplateProjectAsync()
-    {
-        var projFile = Directory.GetFiles(Directory.GetCurrentDirectory(), "Generator.TemplateProject.csproj", SearchOption.TopDirectoryOnly).FirstOrDefault();
-        if (string.IsNullOrWhiteSpace(projFile))
-        {
-            return;
-        }
-
-        var fileName = Path.GetFileName(projFile);
-        if (!string.IsNullOrWhiteSpace(fileName))
-        {
-            var newCsprojFileName = !string.IsNullOrWhiteSpace(options?.Namespace) ? $"{options.Namespace}.csproj" : fileName;
-            var outputPath = Path.Combine(options?.OutputDirectory ?? string.Empty, newCsprojFileName);
-            File.Copy(projFile, outputPath, true);
-            var original = await File.ReadAllTextAsync(outputPath);
-            var updated = original.Replace("<RootNamespace>Generator.TemplateProject</RootNamespace>", $"<RootNamespace>{options?.Namespace}</RootNamespace>");
-            updated = updated.Replace("<AssemblyName>Generator.TemplateProject</AssemblyName>", $"<AssemblyName>{options?.Namespace}</AssemblyName>");
-            await File.WriteAllTextAsync(outputPath, updated, Encoding.UTF8);
-            generatedFiles.Add(newCsprojFileName);
         }
     }
 }

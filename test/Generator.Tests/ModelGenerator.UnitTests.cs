@@ -15,34 +15,14 @@ public class ModelGeneratorUnitTests
     }
 
     [TestMethod]
-    public async Task CanGenerateWithTemplateProject()
+    public async Task CanGenerateClasses()
     {
         var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
         var outDir = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\Generator.Tests.Generated");
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,
-            IncludeTemplateProject = true,
             Namespace = "Generator.Tests.Generated",
-            JsonModelsDirectory = jsonDir
-        };
-
-        var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync().ConfigureAwait(false);
-        await Task.Delay(5000);
-        AssertFilesGenerated(jsonDir, options.OutputDirectory);
-    }
-
-    [TestMethod]
-    public async Task CanGenerateWithoutTemplateProject()
-    {
-        var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
-        var outDir = Path.Combine(Directory.GetCurrentDirectory(), "Generated.NoProject");
-        var options = new ModelGeneratorOptions
-        {
-            OutputDirectory = outDir,
-            IncludeTemplateProject = false,
-            Namespace = "Generator.Tests.Generated.NoProject",
             JsonModelsDirectory = jsonDir
         };
 
@@ -65,7 +45,6 @@ public class ModelGeneratorUnitTests
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,
-            IncludeTemplateProject = false,
             Namespace = "Generator.Tests.Generated.NoProject",
             JsonModelsDirectory = jsonDir
         };
@@ -85,7 +64,6 @@ public class ModelGeneratorUnitTests
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,
-            IncludeTemplateProject = false,
             Namespace = "Generator.Tests.Generated.NoProject",
             JsonModelsDirectory = jsonDir
         };

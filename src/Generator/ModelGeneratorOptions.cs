@@ -22,9 +22,4 @@ public class ModelGeneratorOptions
     /// Gets or sets the namespace to apply to the generated classes.
     /// </summary>
     public string Namespace { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the generator includes a template project to hold the generated classes or not.
-    /// </summary>
-    public bool IncludeTemplateProject { get; set; } = true;
 }
