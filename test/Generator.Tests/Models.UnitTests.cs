@@ -8,6 +8,24 @@ public class ModelsUnitTests
 {
     private readonly JsonSerializerOptions options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
 
+    [TestInitialize]
+    public async Task InitializeAsync()
+    {
+        var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
+        var outDir = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\Generator.Tests.Generated");
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.Tests.Generated",
+            JsonModelsDirectory = jsonDir
+        };
+
+        var generator = new ModelGenerator(options);
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(500);
+        AssertHelper.AssertFilesGenerated(jsonDir, options.OutputDirectory);
+    }
+
     [TestMethod]
     public void ModelEqualityWorksAsExpected()
     {

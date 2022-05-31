@@ -26,10 +26,7 @@ public class ModelGeneratorUnitTests
             JsonModelsDirectory = jsonDir
         };
 
-        var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync().ConfigureAwait(false);
-        await Task.Delay(5000);
-        AssertFilesGenerated(jsonDir, options.OutputDirectory);
+        await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -49,10 +46,7 @@ public class ModelGeneratorUnitTests
             JsonModelsDirectory = jsonDir
         };
 
-        var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync().ConfigureAwait(false);
-        await Task.Delay(5000);
-        AssertFilesGenerated(jsonDir, options.OutputDirectory);
+        await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -68,26 +62,15 @@ public class ModelGeneratorUnitTests
             JsonModelsDirectory = jsonDir
         };
 
-        var generator = new ModelGenerator(options);
-        await generator.GenerateClassesAsync().ConfigureAwait(false);
-        await Task.Delay(5000);
-        AssertFilesGenerated(jsonDir, options.OutputDirectory);
+        await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
         Assert.IsFalse(File.Exists(Path.Combine(outDir, "TestFile.cs")));
     }
 
-    /// <summary>
-    /// This validates that at least as many models were found were generated, even though generation does
-    /// produce individual cs files for certain properties that are in the json models.
-    /// </summary>
-    private void AssertFilesGenerated(string jsonDir, string outputDir)
+    private async Task RunGeneratorAndAssertFilesGeneratedAsync(ModelGeneratorOptions options)
     {
-        var testJsonModels = Directory.GetFiles(jsonDir, "*.json");
-        var generatedFiles = Directory.GetFiles(outputDir, "*.cs", SearchOption.AllDirectories);
-        foreach (var testJsonModel in testJsonModels)
-        {
-            var expectedFile = Path.GetFileNameWithoutExtension(testJsonModel);
-            var matchingFile = generatedFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f) == expectedFile);
-            Assert.IsTrue(!string.IsNullOrWhiteSpace(matchingFile), $"Expected to find generated file for {expectedFile}");
-        }
+        var generator = new ModelGenerator(options);
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(500);
+        AssertHelper.AssertFilesGenerated(options.JsonModelsDirectory, options.OutputDirectory);
     }
 }
