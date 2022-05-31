@@ -9,7 +9,7 @@ internal static class AssertHelper
     {
         var jsonFiles = Directory.GetFiles(jsonDir, "*.json", SearchOption.AllDirectories);
         var outFiles = Directory.GetFiles(outDir, "*.cs", SearchOption.AllDirectories);
-        var outFileNames = outFiles.Select(Path.GetFileName).ToList();
+        var outFileNames = outFiles.Where(f => !f.Contains("obj")).Select(Path.GetFileName).ToList();
         foreach (var jsonFile in jsonFiles)
         {
             var jsonFileName = Path.GetFileName(jsonFile);
@@ -18,6 +18,6 @@ internal static class AssertHelper
         }
 
         // Includes custom files
-        Assert.AreEqual(41, outFiles.Length, "Expected 41 files to be generated");
+        Assert.AreEqual(41, outFileNames.Count, "Expected 41 files to be generated");
     }
 }

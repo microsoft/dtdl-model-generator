@@ -14,7 +14,7 @@ public class ModelGeneratorUnitTests
     public void Initialize()
     {
         currentDir = Directory.GetCurrentDirectory();
-        customFiles = Directory.GetFiles(PathHelper.GetCombinedFullPath(currentDir, $"..\\..\\..\\..\\..\\src\\Generator.TemplateProject\\Custom"), "*.cs", SearchOption.TopDirectoryOnly);
+        customFiles = Directory.GetFiles(PathHelper.GetCombinedFullPath(currentDir, $"../../../../../src/Generator.TemplateProject/Custom"), "*.cs", SearchOption.TopDirectoryOnly);
     }
 
     [TestMethod]
