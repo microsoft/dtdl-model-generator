@@ -12,7 +12,7 @@ public class ModelsUnitTests
     public async Task InitializeAsync()
     {
         var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
-        var outDir = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\Generator.Tests.Generated");
+        var outDir = PathHelper.GetCombinedFullPath(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\Generator.Tests.Generated");
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,

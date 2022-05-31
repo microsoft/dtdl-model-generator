@@ -9,7 +9,7 @@ public class ModelGeneratorUnitTests
     [TestMethod]
     public void CanConstructGenerator()
     {
-        var options = new ModelGeneratorOptions { Namespace = "Generator.Tests.Generated" };
+        var options = new ModelGeneratorOptions();
         var generator = new ModelGenerator(options);
         Assert.IsNotNull(generator);
     }
@@ -18,11 +18,16 @@ public class ModelGeneratorUnitTests
     public async Task CanGenerateClasses()
     {
         var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
-        var outDir = Path.Combine(Directory.GetCurrentDirectory(), "..\\..\\..\\..\\Generator.Tests.Generated");
+        var outDir = PathHelper.GetCombinedFullPath(Directory.GetCurrentDirectory(), "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,
-            Namespace = "Generator.Tests.Generated",
+            Namespace = "Generator.WithProject",
             JsonModelsDirectory = jsonDir
         };
 

@@ -3,9 +3,9 @@
 
 namespace Generator.Tests;
 
-public class AssertHelper
+internal static class AssertHelper
 {
-    public static void AssertFilesGenerated(string jsonDir, string outDir)
+    internal static void AssertFilesGenerated(string jsonDir, string outDir)
     {
         var jsonFiles = Directory.GetFiles(jsonDir, "*.json", SearchOption.AllDirectories);
         var outFiles = Directory.GetFiles(outDir, "*.cs", SearchOption.AllDirectories);
