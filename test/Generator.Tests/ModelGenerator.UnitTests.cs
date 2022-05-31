@@ -6,6 +6,17 @@ namespace Generator.Tests;
 [TestClass]
 public class ModelGeneratorUnitTests
 {
+    private string currentDir = string.Empty;
+
+    private string[] customFiles = { };
+
+    [TestInitialize]
+    public void Initialize()
+    {
+        currentDir = Directory.GetCurrentDirectory();
+        customFiles = Directory.GetFiles(PathHelper.GetCombinedFullPath(currentDir, $"..\\..\\..\\..\\..\\src\\Generator.TemplateProject\\Custom"), "*.cs", SearchOption.TopDirectoryOnly);
+    }
+
     [TestMethod]
     public void CanConstructGenerator()
     {
@@ -17,8 +28,8 @@ public class ModelGeneratorUnitTests
     [TestMethod]
     public async Task CanGenerateClasses()
     {
-        var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
-        var outDir = PathHelper.GetCombinedFullPath(Directory.GetCurrentDirectory(), "Generated.WithProject");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
         if (Directory.Exists(outDir))
         {
             Directory.Delete(outDir, true);
@@ -32,13 +43,14 @@ public class ModelGeneratorUnitTests
         };
 
         await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
+        AssertCustomFilesCopied(options.OutputDirectory);
     }
 
     [TestMethod]
     public async Task GenerationCreatesOutputDirectoryIfNotExists()
     {
-        var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
-        var outDir = Path.Combine(Directory.GetCurrentDirectory(), "Generated.NoProject");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
+        var outDir = Path.Combine(currentDir, "Generated.NoProject");
         if (Directory.Exists(outDir))
         {
             Directory.Delete(outDir, true);
@@ -52,13 +64,14 @@ public class ModelGeneratorUnitTests
         };
 
         await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
+        AssertCustomFilesCopied(options.OutputDirectory);
     }
 
     [TestMethod]
     public async Task GenerationCleansOutputDirectoryOfNonGeneratedFiles()
     {
-        var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
-        var outDir = Path.Combine(Directory.GetCurrentDirectory(), "Generated.NoProject");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
+        var outDir = Path.Combine(currentDir, "Generated.NoProject");
         File.Create(Path.Combine(outDir, "TestFile.cs")).Dispose();
         var options = new ModelGeneratorOptions
         {
@@ -69,6 +82,16 @@ public class ModelGeneratorUnitTests
 
         await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
         Assert.IsFalse(File.Exists(Path.Combine(outDir, "TestFile.cs")));
+        AssertCustomFilesCopied(options.OutputDirectory);
+    }
+
+    private void AssertCustomFilesCopied(string outDir)
+    {
+        foreach (var customFile in customFiles)
+        {
+            var fileName = Path.GetFileName(customFile);
+            Assert.IsTrue(File.Exists(Path.Combine(outDir, fileName)), $"{fileName} was not copied");
+        }
     }
 
     private async Task RunGeneratorAndAssertFilesGeneratedAsync(ModelGeneratorOptions options)

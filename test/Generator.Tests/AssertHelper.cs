@@ -16,5 +16,8 @@ internal static class AssertHelper
             var outFileName = jsonFileName.Replace(".json", ".cs");
             Assert.IsTrue(outFileNames.Contains(outFileName), $"{outFileName} was not generated");
         }
+
+        // Includes custom files
+        Assert.AreEqual(41, outFiles.Length, "Expected 41 files to be generated");
     }
 }
