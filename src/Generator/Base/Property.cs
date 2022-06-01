@@ -13,7 +13,8 @@ internal abstract class Property : Writable
     private bool hasBodies => Getter?.Body != null && Setter?.Body != null;
 
     private IDictionary<string, bool> needsConvertedMapping = new Dictionary<string, bool>
-    { { "int?", false },
+    {
+        { "int?", false },
         { "int", false },
         { "float", false },
         { "float?", false },

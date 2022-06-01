@@ -71,7 +71,7 @@ public class ModelGeneratorUnitTests
     public async Task GenerationCleansOutputDirectoryOfNonGeneratedFiles()
     {
         var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
-        var outDir = Path.Combine(currentDir, "Generated.NoProject");
+        var outDir = Path.Combine(currentDir, "Generated.CleansOutputDirectory");
         File.Create(Path.Combine(outDir, "TestFile.cs")).Dispose();
         var options = new ModelGeneratorOptions
         {
