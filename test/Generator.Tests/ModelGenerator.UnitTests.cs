@@ -14,7 +14,7 @@ public class ModelGeneratorUnitTests
     public void Initialize()
     {
         currentDir = Directory.GetCurrentDirectory();
-        customFiles = Directory.GetFiles(PathHelper.GetCombinedFullPath(currentDir, $"../../../../../src/Generator.TemplateProject/Custom"), "*.cs", SearchOption.TopDirectoryOnly);
+        customFiles = Directory.GetFiles(PathHelper.GetCombinedFullPath(currentDir, "src/Generator.TemplateProject/Custom", 5), "*.cs", SearchOption.TopDirectoryOnly);
     }
 
     [TestMethod]
@@ -72,6 +72,12 @@ public class ModelGeneratorUnitTests
     {
         var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
         var outDir = Path.Combine(currentDir, "Generated.CleansOutputDirectory");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        Directory.CreateDirectory(outDir);
         File.Create(Path.Combine(outDir, "TestFile.cs")).Dispose();
         var options = new ModelGeneratorOptions
         {

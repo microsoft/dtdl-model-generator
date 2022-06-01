@@ -13,7 +13,7 @@ public class ModelsUnitTests
     {
         var currentDir = Directory.GetCurrentDirectory();
         var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
-        var outDir = PathHelper.GetCombinedFullPath(currentDir, "../../../../Generator.Tests.Generated");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generator.Tests.Generated", 4);
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,

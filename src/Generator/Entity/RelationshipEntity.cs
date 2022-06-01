@@ -20,8 +20,7 @@ internal class RelationshipEntity : ClassEntity
         Properties = info.Properties;
         SourceType = info.DefinedIn.Labels.Last();
         Name = $"{SourceType}{CapitalizeFirstLetter(RelationshipInfo.Name)}Relationship";
-        FileDirectory = $"Relationship\\{ExtractDirectory(RelationshipInfo.DefinedIn)}\\{SourceType}";
-        FileDirectory = FileDirectory.Replace("\\\\", "\\");
+        FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), SourceType);
         TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
         Parent = $"Relationship<{TargetType}>";
         Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";

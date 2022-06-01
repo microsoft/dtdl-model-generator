@@ -45,7 +45,9 @@ public class ModelGenerator
     private void CleanupOutputDirectory()
     {
         var files = Directory.GetFiles(options.OutputDirectory, "*.cs", SearchOption.AllDirectories);
-        var noBinOrObjFolders = files.Where(f => !f.Contains($"{options.Namespace}\\bin") && !f.Contains($"{options.Namespace}\\obj"));
+        var bin = Path.Combine(options.Namespace, "bin");
+        var obj = Path.Combine(options.Namespace, "obj");
+        var noBinOrObjFolders = files.Where(f => !f.Contains(bin) && !f.Contains(obj));
         foreach (var file in noBinOrObjFolders)
         {
             var fileName = Path.GetFileName(file);
@@ -78,7 +80,7 @@ public class ModelGenerator
         foreach (var file in files)
         {
             var fileName = Path.GetFileName(file);
-            var fileAbsolutePath = $"{options?.OutputDirectory}\\{fileName}";
+            var fileAbsolutePath = Path.Combine(options?.OutputDirectory ?? string.Empty, fileName);
             File.Copy(file, fileAbsolutePath, true);
             var original = await File.ReadAllTextAsync(fileAbsolutePath);
             var updated = original.Replace("namespace Generator.CustomModels;", $"namespace {options?.Namespace};");

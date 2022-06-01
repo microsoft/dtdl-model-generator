@@ -123,7 +123,7 @@ internal abstract class Property : Writable
     {
         type = value;
         NonInterfaceType = interfaceTransformTypes.Any(t => type.StartsWith(t)) ? type.TrimStart('I') : type;
-        NeedsConvertMethod = !needsConvertedMapping.ContainsKey(type) ? true : needsConvertedMapping [type];
+        NeedsConvertMethod = !needsConvertedMapping.ContainsKey(type) ? true : needsConvertedMapping[type];
         SetDictionaryPatchType();
     }
 
@@ -134,7 +134,7 @@ internal abstract class Property : Writable
             return;
         }
 
-        var end = type.Split(',') [1];
+        var end = type.Split(',')[1];
         var valueType = end.TrimStart().TrimEnd('>');
         DictionaryPatchType = $"{type}, {valueType}";
     }

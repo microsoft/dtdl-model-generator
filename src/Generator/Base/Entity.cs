@@ -29,7 +29,7 @@ internal abstract class Entity : Writable
     {
         var labels = id.Labels;
         var count = labels.Length;
-        return string.Join("\\", labels.Take(count - 1).TakeLast(count - 2));
+        return Path.Combine(labels.Take(count - 1).TakeLast(count - 2).ToArray());
     }
 
     internal virtual void GenerateFile()
@@ -107,7 +107,7 @@ internal abstract class Entity : Writable
         if (!string.IsNullOrEmpty(FileDirectory))
         {
             Directory.CreateDirectory(GetAbsolutePath(FileDirectory));
-            filePath = $"{FileDirectory}\\{filePath}";
+            filePath = Path.Combine(FileDirectory, filePath);
         }
 
         var fileAbsolutePath = GetAbsolutePath(filePath);
@@ -121,7 +121,7 @@ internal abstract class Entity : Writable
 
     private string GetAbsolutePath(string directory)
     {
-        return $"{Options?.OutputDirectory}\\{directory}";
+        return Path.Combine(Options?.OutputDirectory ?? string.Empty, directory);
     }
 
     private void WriteFile(StreamWriter streamWriter)
