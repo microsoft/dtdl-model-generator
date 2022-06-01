@@ -18,16 +18,11 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static new string ModelId { get; } = "dtmi:test:Space:Area;1";
-
-        private const string floorId = nameof(floorId);
-        private const string buildingId = nameof(buildingId);
-        private const string regionId = nameof(regionId);
-
-        [JsonPropertyName(floorId)]
+        [JsonPropertyName("floorId")]
         public string? FloorId { get; set; }
-        [JsonPropertyName(buildingId)]
+        [JsonPropertyName("buildingId")]
         public string? BuildingId { get; set; }
-        [JsonPropertyName(regionId)]
+        [JsonPropertyName("regionId")]
         public string? RegionId { get; set; }
         public override bool Equals(object? obj)
         {

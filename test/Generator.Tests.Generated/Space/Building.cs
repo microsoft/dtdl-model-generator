@@ -18,37 +18,25 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static new string ModelId { get; } = "dtmi:test:Space:Building;1";
-
-        private const string businessEntityNumber = nameof(businessEntityNumber);
-        private const string number = nameof(number);
-        private const string shortName = nameof(shortName);
-        private const string squareMeter = nameof(squareMeter);
-        private const string rationalSortKey = nameof(rationalSortKey);
-        private const string regionId = nameof(regionId);
-        private const string startOfBusinessTime = nameof(startOfBusinessTime);
-        private const string endOfBusinessTime = nameof(endOfBusinessTime);
-        private const string businessEntityName = nameof(businessEntityName);
-        private const string amenities = nameof(amenities);
-
-        [JsonPropertyName(businessEntityNumber)]
+        [JsonPropertyName("businessEntityNumber")]
         public string? BusinessEntityNumber { get; set; }
-        [JsonPropertyName(number)]
+        [JsonPropertyName("number")]
         public int? Number { get; set; }
-        [JsonPropertyName(shortName)]
+        [JsonPropertyName("shortName")]
         public string? ShortName { get; set; }
-        [JsonPropertyName(squareMeter)]
+        [JsonPropertyName("squareMeter")]
         public float? SquareMeter { get; set; }
-        [JsonPropertyName(rationalSortKey)]
+        [JsonPropertyName("rationalSortKey")]
         public string? RationalSortKey { get; set; }
-        [JsonPropertyName(regionId)]
+        [JsonPropertyName("regionId")]
         public string? RegionId { get; set; }
-        [JsonPropertyName(startOfBusinessTime)]
+        [JsonPropertyName("startOfBusinessTime")]
         public object? StartOfBusinessTime { get; set; }
-        [JsonPropertyName(endOfBusinessTime)]
+        [JsonPropertyName("endOfBusinessTime")]
         public object? EndOfBusinessTime { get; set; }
-        [JsonPropertyName(businessEntityName)]
+        [JsonPropertyName("businessEntityName")]
         public string? BusinessEntityName { get; set; }
-        [JsonPropertyName(amenities)]
+        [JsonPropertyName("amenities")]
         public IDictionary<string, bool>? Amenities { get; set; }
         [JsonIgnore]
         public BuildingHasAddressRelationshipCollection HasAddress { get; set; } = new BuildingHasAddressRelationshipCollection();

@@ -8,8 +8,8 @@ public class ModelsUnitTests
 {
     private readonly JsonSerializerOptions options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
 
-    [TestInitialize]
-    public async Task InitializeAsync()
+    [ClassInitialize]
+    public static async Task InitializeAsync(TestContext context)
     {
         var currentDir = Directory.GetCurrentDirectory();
         var jsonDir = Path.Combine(currentDir, "TestDtdlModels");

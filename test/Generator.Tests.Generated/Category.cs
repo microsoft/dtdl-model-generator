@@ -13,25 +13,17 @@ namespace Generator.Tests.Generated
     [Serializable]
     public class Category : IEquatable<Category>
     {
-
-        private const string isCreativeSpace = nameof(isCreativeSpace);
-        private const string isSportsAndRecreation = nameof(isSportsAndRecreation);
-        private const string isLandmark = nameof(isLandmark);
-        private const string isRecreationSpace = nameof(isRecreationSpace);
-        private const string isPhotoWorthy = nameof(isPhotoWorthy);
-        private const string isArtwork = nameof(isArtwork);
-
-        [JsonPropertyName(isCreativeSpace)]
+        [JsonPropertyName("isCreativeSpace")]
         public bool? IsCreativeSpace { get; set; }
-        [JsonPropertyName(isSportsAndRecreation)]
+        [JsonPropertyName("isSportsAndRecreation")]
         public bool? IsSportsAndRecreation { get; set; }
-        [JsonPropertyName(isLandmark)]
+        [JsonPropertyName("isLandmark")]
         public bool? IsLandmark { get; set; }
-        [JsonPropertyName(isRecreationSpace)]
+        [JsonPropertyName("isRecreationSpace")]
         public bool? IsRecreationSpace { get; set; }
-        [JsonPropertyName(isPhotoWorthy)]
+        [JsonPropertyName("isPhotoWorthy")]
         public bool? IsPhotoWorthy { get; set; }
-        [JsonPropertyName(isArtwork)]
+        [JsonPropertyName("isArtwork")]
         public bool? IsArtwork { get; set; }
         public override bool Equals(object? obj)
         {

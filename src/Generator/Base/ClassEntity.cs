@@ -79,7 +79,6 @@ internal abstract class ClassEntity : Entity
     {
         WriteConstructor(streamWriter);
         WriteStaticMembers(streamWriter);
-        WritePropertyConstants(streamWriter);
         WriteProperties(streamWriter);
     }
 
@@ -97,25 +96,6 @@ internal abstract class ClassEntity : Entity
         {
             property.WriteTo(streamWriter);
         }
-    }
-
-    protected virtual void WritePropertyConstants(StreamWriter streamWriter)
-    {
-        if (!NonRelationshipProperties.Any())
-        {
-            return;
-        }
-
-        streamWriter.WriteLine();
-        foreach (var prop in NonRelationshipProperties)
-        {
-            // TODO: Fix this!!!
-            // This is because somehow we let a non-camelCase property name get added to the models so this has to be tweaked for this one property.
-            var nameofValue = prop.JsonName == "esbTagName" ? prop.Name : prop.JsonName;
-            streamWriter.WriteLine($"{indent}{indent}private const string {prop.JsonName} = nameof({nameofValue});");
-        }
-
-        streamWriter.WriteLine();
     }
 
     protected virtual void WriteEqualityBlock(StreamWriter streamWriter, bool isClassObject = false)

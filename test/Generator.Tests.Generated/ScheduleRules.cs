@@ -13,13 +13,9 @@ namespace Generator.Tests.Generated
     [Serializable]
     public class ScheduleRules : IEquatable<ScheduleRules>
     {
-
-        private const string isAccessAfterHoursAllowed = nameof(isAccessAfterHoursAllowed);
-        private const string isFTEAndGuestsAllowed = nameof(isFTEAndGuestsAllowed);
-
-        [JsonPropertyName(isAccessAfterHoursAllowed)]
+        [JsonPropertyName("isAccessAfterHoursAllowed")]
         public bool? IsAccessAfterHoursAllowed { get; set; }
-        [JsonPropertyName(isFTEAndGuestsAllowed)]
+        [JsonPropertyName("isFTEAndGuestsAllowed")]
         public bool? IsFTEAndGuestsAllowed { get; set; }
         public override bool Equals(object? obj)
         {

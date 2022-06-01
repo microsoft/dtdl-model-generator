@@ -18,28 +18,19 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static string ModelId { get; } = "dtmi:test:Space;1";
-
-        private const string name = nameof(name);
-        private const string roomKey = nameof(roomKey);
-        private const string friendlyName = nameof(friendlyName);
-        private const string description = nameof(description);
-        private const string squareFootArea = nameof(squareFootArea);
-        private const string capabilities = nameof(capabilities);
-        private const string status = nameof(status);
-
-        [JsonPropertyName(name)]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
-        [JsonPropertyName(roomKey)]
+        [JsonPropertyName("roomKey")]
         public string? RoomKey { get; set; }
-        [JsonPropertyName(friendlyName)]
+        [JsonPropertyName("friendlyName")]
         public string? FriendlyName { get; set; }
-        [JsonPropertyName(description)]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
-        [JsonPropertyName(squareFootArea)]
+        [JsonPropertyName("squareFootArea")]
         public float? SquareFootArea { get; set; }
-        [JsonPropertyName(capabilities)]
+        [JsonPropertyName("capabilities")]
         public IDictionary<string, bool>? Capabilities { get; set; }
-        [JsonPropertyName(status)]
+        [JsonPropertyName("status")]
         public SpaceStatus? Status { get; set; }
         [JsonIgnore]
         public SpaceHasChildrenRelationshipCollection HasChildren { get; set; } = new SpaceHasChildrenRelationshipCollection();

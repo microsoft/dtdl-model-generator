@@ -13,13 +13,9 @@ namespace Generator.Tests.Generated
     [Serializable]
     public class OperationHour : IEquatable<OperationHour>
     {
-
-        private const string start = nameof(start);
-        private const string end = nameof(end);
-
-        [JsonPropertyName(start)]
+        [JsonPropertyName("start")]
         public object? Start { get; set; }
-        [JsonPropertyName(end)]
+        [JsonPropertyName("end")]
         public object? End { get; set; }
         public override bool Equals(object? obj)
         {

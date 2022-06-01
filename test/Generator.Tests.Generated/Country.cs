@@ -18,40 +18,27 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static string ModelId { get; } = "dtmi:test:Country;1";
-
-        private const string number = nameof(number);
-        private const string name = nameof(name);
-        private const string shortName = nameof(shortName);
-        private const string code = nameof(code);
-        private const string shortCode = nameof(shortCode);
-        private const string officialCountryShortName = nameof(officialCountryShortName);
-        private const string officialCountryLongName = nameof(officialCountryLongName);
-        private const string postalCodeLengthQuantity = nameof(postalCodeLengthQuantity);
-        private const string postalCodeMaskDescription = nameof(postalCodeMaskDescription);
-        private const string postalCodeMaskExpression = nameof(postalCodeMaskExpression);
-        private const string unitOfMeasure = nameof(unitOfMeasure);
-
-        [JsonPropertyName(number)]
+        [JsonPropertyName("number")]
         public string? Number { get; set; }
-        [JsonPropertyName(name)]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
-        [JsonPropertyName(shortName)]
+        [JsonPropertyName("shortName")]
         public string? ShortName { get; set; }
-        [JsonPropertyName(code)]
+        [JsonPropertyName("code")]
         public string? Code { get; set; }
-        [JsonPropertyName(shortCode)]
+        [JsonPropertyName("shortCode")]
         public string? ShortCode { get; set; }
-        [JsonPropertyName(officialCountryShortName)]
+        [JsonPropertyName("officialCountryShortName")]
         public string? OfficialCountryShortName { get; set; }
-        [JsonPropertyName(officialCountryLongName)]
+        [JsonPropertyName("officialCountryLongName")]
         public string? OfficialCountryLongName { get; set; }
-        [JsonPropertyName(postalCodeLengthQuantity)]
+        [JsonPropertyName("postalCodeLengthQuantity")]
         public string? PostalCodeLengthQuantity { get; set; }
-        [JsonPropertyName(postalCodeMaskDescription)]
+        [JsonPropertyName("postalCodeMaskDescription")]
         public string? PostalCodeMaskDescription { get; set; }
-        [JsonPropertyName(postalCodeMaskExpression)]
+        [JsonPropertyName("postalCodeMaskExpression")]
         public string? PostalCodeMaskExpression { get; set; }
-        [JsonPropertyName(unitOfMeasure)]
+        [JsonPropertyName("unitOfMeasure")]
         public string? UnitOfMeasure { get; set; }
         [JsonIgnore]
         public CountryHasStateRelationshipCollection HasState { get; set; } = new CountryHasStateRelationshipCollection();

@@ -18,13 +18,9 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static string ModelId { get; } = "dtmi:test:City;1";
-
-        private const string name = nameof(name);
-        private const string code = nameof(code);
-
-        [JsonPropertyName(name)]
+        [JsonPropertyName("name")]
         public string? Name { get; set; }
-        [JsonPropertyName(code)]
+        [JsonPropertyName("code")]
         public string? Code { get; set; }
         public override bool Equals(object? obj)
         {

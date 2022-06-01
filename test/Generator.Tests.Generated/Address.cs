@@ -18,19 +18,13 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static string ModelId { get; } = "dtmi:test:Address;1";
-
-        private const string street1 = nameof(street1);
-        private const string street2 = nameof(street2);
-        private const string county = nameof(county);
-        private const string zipcode = nameof(zipcode);
-
-        [JsonPropertyName(street1)]
+        [JsonPropertyName("street1")]
         public string? Street1 { get; set; }
-        [JsonPropertyName(street2)]
+        [JsonPropertyName("street2")]
         public string? Street2 { get; set; }
-        [JsonPropertyName(county)]
+        [JsonPropertyName("county")]
         public string? County { get; set; }
-        [JsonPropertyName(zipcode)]
+        [JsonPropertyName("zipcode")]
         public string? Zipcode { get; set; }
         [JsonIgnore]
         public AddressHasStateRelationshipCollection HasState { get; set; } = new AddressHasStateRelationshipCollection();

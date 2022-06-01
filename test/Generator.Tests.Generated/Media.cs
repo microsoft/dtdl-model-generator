@@ -13,16 +13,11 @@ namespace Generator.Tests.Generated
     [Serializable]
     public class Media : IEquatable<Media>
     {
-
-        private const string isVisible = nameof(isVisible);
-        private const string caption = nameof(caption);
-        private const string mediaUrl = nameof(mediaUrl);
-
-        [JsonPropertyName(isVisible)]
+        [JsonPropertyName("isVisible")]
         public bool? IsVisible { get; set; }
-        [JsonPropertyName(caption)]
+        [JsonPropertyName("caption")]
         public string? Caption { get; set; }
-        [JsonPropertyName(mediaUrl)]
+        [JsonPropertyName("mediaUrl")]
         public string? MediaUrl { get; set; }
         public override bool Equals(object? obj)
         {

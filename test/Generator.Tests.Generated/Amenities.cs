@@ -18,10 +18,7 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static string ModelId { get; } = "dtmi:test:Amenities;1";
-
-        private const string description = nameof(description);
-
-        [JsonPropertyName(description)]
+        [JsonPropertyName("description")]
         public string? Description { get; set; }
         public override bool Equals(object? obj)
         {

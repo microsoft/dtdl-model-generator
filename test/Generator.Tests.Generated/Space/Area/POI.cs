@@ -18,28 +18,19 @@ namespace Generator.Tests.Generated
         }
         [JsonIgnore]
         public static new string ModelId { get; } = "dtmi:test:Space:Area:POI;1";
-
-        private const string category = nameof(category);
-        private const string genericRules = nameof(genericRules);
-        private const string scheduleRules = nameof(scheduleRules);
-        private const string amenities = nameof(amenities);
-        private const string weeklyOperationHours = nameof(weeklyOperationHours);
-        private const string subStatus = nameof(subStatus);
-        private const string mediaList = nameof(mediaList);
-
-        [JsonPropertyName(category)]
+        [JsonPropertyName("category")]
         public Category? Category { get; set; }
-        [JsonPropertyName(genericRules)]
+        [JsonPropertyName("genericRules")]
         public GenericRules? GenericRules { get; set; }
-        [JsonPropertyName(scheduleRules)]
+        [JsonPropertyName("scheduleRules")]
         public ScheduleRules? ScheduleRules { get; set; }
-        [JsonPropertyName(amenities)]
+        [JsonPropertyName("amenities")]
         public IDictionary<string, bool>? Amenities { get; set; }
-        [JsonPropertyName(weeklyOperationHours)]
+        [JsonPropertyName("weeklyOperationHours")]
         public IDictionary<string, OperationHour>? WeeklyOperationHours { get; set; }
-        [JsonPropertyName(subStatus)]
+        [JsonPropertyName("subStatus")]
         public POISubStatus? SubStatus { get; set; }
-        [JsonPropertyName(mediaList)]
+        [JsonPropertyName("mediaList")]
         public IDictionary<string, Media>? MediaList { get; set; }
         public override bool Equals(object? obj)
         {

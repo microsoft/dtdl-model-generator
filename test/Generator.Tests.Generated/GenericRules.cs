@@ -13,22 +13,15 @@ namespace Generator.Tests.Generated
     [Serializable]
     public class GenericRules : IEquatable<GenericRules>
     {
-
-        private const string isSmokingAllowed = nameof(isSmokingAllowed);
-        private const string isAlcoholAllowed = nameof(isAlcoholAllowed);
-        private const string isFireAllowed = nameof(isFireAllowed);
-        private const string isFeedingAnimalsAllowed = nameof(isFeedingAnimalsAllowed);
-        private const string isBroomAvailable = nameof(isBroomAvailable);
-
-        [JsonPropertyName(isSmokingAllowed)]
+        [JsonPropertyName("isSmokingAllowed")]
         public bool? IsSmokingAllowed { get; set; }
-        [JsonPropertyName(isAlcoholAllowed)]
+        [JsonPropertyName("isAlcoholAllowed")]
         public bool? IsAlcoholAllowed { get; set; }
-        [JsonPropertyName(isFireAllowed)]
+        [JsonPropertyName("isFireAllowed")]
         public bool? IsFireAllowed { get; set; }
-        [JsonPropertyName(isFeedingAnimalsAllowed)]
+        [JsonPropertyName("isFeedingAnimalsAllowed")]
         public bool? IsFeedingAnimalsAllowed { get; set; }
-        [JsonPropertyName(isBroomAvailable)]
+        [JsonPropertyName("isBroomAvailable")]
         public bool? IsBroomAvailable { get; set; }
         public override bool Equals(object? obj)
         {

@@ -113,6 +113,9 @@ internal abstract class Entity : Writable
         var fileAbsolutePath = GetAbsolutePath(filePath);
         var writeMode = AllowOverwrite ? FileMode.Create : FileMode.CreateNew;
         var fileStream = new FileStream(fileAbsolutePath, writeMode);
+#if DEBUG
+        System.Diagnostics.Debug.WriteLine($"Generating {fileAbsolutePath}");
+#endif
         return new StreamWriter(fileStream);
     }
 

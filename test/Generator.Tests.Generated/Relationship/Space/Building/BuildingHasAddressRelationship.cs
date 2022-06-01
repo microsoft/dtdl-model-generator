@@ -22,10 +22,7 @@ namespace Generator.Tests.Generated
             InitializeFromTwins(source, target);
         }
 
-
-        private const string addressType = nameof(addressType);
-
-        [JsonPropertyName(addressType)]
+        [JsonPropertyName("addressType")]
         public BuildingHasAddressRelationshipAddressType? AddressType { get; set; }
         public override bool Equals(object? obj)
         {
