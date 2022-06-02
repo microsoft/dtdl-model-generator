@@ -105,11 +105,11 @@ internal abstract class Entity : Writable
 
     private StreamWriter CreateStreamWriter()
     {
-        var filePath = $"{Name}.cs";
+        var filePath = FileName;
         if (!string.IsNullOrEmpty(FileDirectory))
         {
             Directory.CreateDirectory(GetAbsolutePath(FileDirectory));
-            filePath = Path.Combine(FileDirectory, filePath);
+            filePath = Path.Combine(FileDirectory, FileName);
         }
 
         var fileAbsolutePath = GetAbsolutePath(filePath);

@@ -34,8 +34,6 @@ internal abstract class Property : Writable
 
     internal string? NonInterfaceType { get; set; }
 
-    internal string FileName => $"{Name}.cs";
-
     internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
 
     internal string JsonName { get; set; } = string.Empty;
