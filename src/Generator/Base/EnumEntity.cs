@@ -5,7 +5,7 @@ namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 internal class EnumEntity : Entity
 {
-    internal EnumEntity(ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
+    internal EnumEntity(ModelGeneratorOptions options) : base(options)
     {
     }
 

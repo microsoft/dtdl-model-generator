@@ -7,7 +7,7 @@ internal abstract class Entity : Writable
 {
     private string name = string.Empty;
 
-    internal IList<string> GeneratedFiles { get; set; }
+    internal string FileName => $"{Name}.cs";
 
     internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
 
@@ -15,9 +15,8 @@ internal abstract class Entity : Writable
 
     protected bool AllowOverwrite { get; set; } = true;
 
-    protected Entity(ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)
+    protected Entity(ModelGeneratorOptions options) : base(options)
     {
-        GeneratedFiles = generatedFiles;
     }
 
     protected abstract void WriteSignature(StreamWriter streamWriter);
@@ -35,7 +34,6 @@ internal abstract class Entity : Writable
     {
         using var streamWriter = CreateStreamWriter();
         WriteFile(streamWriter);
-        GeneratedFiles.Add($"{Name}.cs");
     }
 
     protected virtual void WriteHeader(StreamWriter streamWriter)

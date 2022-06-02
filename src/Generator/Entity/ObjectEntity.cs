@@ -5,7 +5,7 @@ namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 internal class ObjectEntity : ClassEntity
 {
-    internal ObjectEntity(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingEntity, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
+    internal ObjectEntity(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingEntity, ModelGeneratorOptions options) : base(options)
     {
         Name = entityInfo.Name;
         if (Name == enclosingEntity)

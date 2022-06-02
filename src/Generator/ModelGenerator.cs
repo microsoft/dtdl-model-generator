@@ -10,7 +10,7 @@ public class ModelGenerator
 {
     private ModelGeneratorOptions options { get; set; }
 
-    private IList<string> generatedFiles = new List<string>();
+    private HashSet<string> generatedFiles = new HashSet<string>();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ModelGenerator"/> class.
@@ -66,11 +66,30 @@ public class ModelGenerator
 
     private void GenerateModels(IEnumerable<DTInterfaceInfo> models)
     {
-        var entities = models.Select(m => new ModelEntity(m, options, generatedFiles));
+        var entities = models.Select(m => new ModelEntity(m, options));
         foreach (var entity in entities)
         {
             entity.GenerateFile();
-            generatedFiles.Add($"{entity.Name}.cs");
+            PopulateGeneratedFilesForEntity(entity);
+        }
+    }
+
+    private void PopulateGeneratedFilesForEntity(Entity entity)
+    {
+        if (entity is ClassEntity classEntity)
+        {
+            generatedFiles.Add(entity.FileName);
+            foreach (var contentItem in classEntity.Content)
+            {
+                foreach (var producedEntity in contentItem.ProducedEntities)
+                {
+                    generatedFiles.Add(producedEntity.FileName);
+                    if (producedEntity is ClassEntity)
+                    {
+                        PopulateGeneratedFilesForEntity(producedEntity);
+                    }
+                }
+            }
         }
     }
 
