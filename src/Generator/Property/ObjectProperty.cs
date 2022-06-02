@@ -3,7 +3,6 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
-[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class ObjectProperty : Property
 {
     internal ObjectProperty(DTNamedEntityInfo entityInfo, DTObjectInfo objectInfo, string enclosingClass, ModelGeneratorOptions options, IList<string> generatedFiles) : base(options)

@@ -3,7 +3,6 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
-[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class RelationshipCollectionEntity : ClassEntity
 {
     internal DTRelationshipInfo RelationshipInfo { get; set; }

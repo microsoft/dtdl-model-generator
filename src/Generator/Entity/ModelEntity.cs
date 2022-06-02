@@ -3,7 +3,6 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
-[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class ModelEntity : ClassEntity
 {
     internal Dtmi ModelId { get; set; }

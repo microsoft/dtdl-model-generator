@@ -3,7 +3,6 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
-[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class PropertySetter : PropertyAccessor
 {
     internal AccessModifier? AccessModifier { get; set; }

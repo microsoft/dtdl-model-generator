@@ -3,7 +3,6 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
-[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
 internal class EnumEntity : Entity
 {
     internal EnumEntity(ModelGeneratorOptions options, IList<string> generatedFiles) : base(options, generatedFiles)
