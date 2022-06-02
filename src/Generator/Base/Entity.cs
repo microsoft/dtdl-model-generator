@@ -38,7 +38,12 @@ internal abstract class Entity : Writable
 
     protected virtual void WriteHeader(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine(GetHeader());
+        if (string.IsNullOrEmpty(Options.CopyrightHeader))
+        {
+            return;
+        }
+
+        streamWriter.WriteLine(Options.CopyrightHeader);
         streamWriter.WriteLine();
     }
 
@@ -138,10 +143,5 @@ internal abstract class Entity : Writable
         streamWriter.WriteLine($"{indent}{{");
         WriteContent(streamWriter);
         streamWriter.WriteLine($"{indent}}}");
-    }
-
-    private string GetHeader()
-    {
-        return string.Join(Environment.NewLine, "// Copyright (c) Microsoft Corporation.", "// Licensed under the MIT License.");
     }
 }

@@ -59,7 +59,7 @@ public class ModelGeneratorUnitTests
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,
-            Namespace = "Generator.Tests.Generated.NoProject",
+            Namespace = "Generated.NoProject",
             JsonModelsDirectory = jsonDir
         };
 
@@ -82,12 +82,34 @@ public class ModelGeneratorUnitTests
         var options = new ModelGeneratorOptions
         {
             OutputDirectory = outDir,
-            Namespace = "Generator.Tests.Generated.NoProject",
+            Namespace = "Generated.CleansOutputDirectory",
             JsonModelsDirectory = jsonDir
         };
 
         await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
         Assert.IsFalse(File.Exists(Path.Combine(outDir, "TestFile.cs")));
+        AssertCustomFilesCopied(options.OutputDirectory);
+    }
+
+    [TestMethod]
+    public async Task GenerationAddsCopyrightHeaderIfIncluded()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
+        var outDir = Path.Combine(currentDir, "Generated.WithCopyrightHeader");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generated.WithCopyrightHeader",
+            JsonModelsDirectory = jsonDir,
+            CopyrightHeader = "// Copyright (c) Microsoft Corporation.\n// Licensed under the MIT License."
+        };
+
+        await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
         AssertCustomFilesCopied(options.OutputDirectory);
     }
 

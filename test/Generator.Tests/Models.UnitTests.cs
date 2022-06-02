@@ -18,7 +18,8 @@ public class ModelsUnitTests
         {
             OutputDirectory = outDir,
             Namespace = "Generator.Tests.Generated",
-            JsonModelsDirectory = jsonDir
+            JsonModelsDirectory = jsonDir,
+            CopyrightHeader = "// Copyright (c) Microsoft Corporation.\n// Licensed under the MIT License."
         };
 
         var generator = new ModelGenerator(options);

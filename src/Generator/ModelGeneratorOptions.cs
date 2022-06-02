@@ -22,4 +22,9 @@ public class ModelGeneratorOptions
     /// Gets or sets the namespace to apply to the generated classes.
     /// </summary>
     public string Namespace { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the copyright header to include in the generated classes.
+    /// </summary>
+    public string CopyrightHeader { get; set; } = string.Empty;
 }
