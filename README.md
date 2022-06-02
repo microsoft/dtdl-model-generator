@@ -26,12 +26,11 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 //...
-
-var jsonDir = Path.Combine(Directory.GetCurrentDirectory(), "TestDtdlModels");
+var currentDir = Directory.GetCurrentDirectory();
+var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
 var options = new ModelGeneratorOptions
 {
-    OutputDirectory = "..\\..\\..\\..\\Generator.Tests.Generated",
-    IncludeTemplateProject = true,
+    OutputDirectory = Path.Combine(currentDir, "..", "..", "..", "..", "Generator.Tests.Generated"),
     Namespace = "Generator.Tests.Generated",
     JsonModelsDirectory = jsonDir
 };
