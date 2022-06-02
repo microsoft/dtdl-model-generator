@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6</TargetFramework>
+    <DeterministicSourcePaths>false</DeterministicSourcePaths>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/microsoft/dtdl-model-generator</RepositoryUrl>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RootNamespace>Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator</RootNamespace>
+    <AssemblyName>Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator</AssemblyName>
+    <Authors>Microsoft</Authors>
+    <Company>Microsoft</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <Description>A model generator that transforms DTDL models into C# POCO classes.</Description>
+    <PackageProjectUrl>https://github.com/microsoft/dtdl-model-generator</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+    <Content Include="..\Generator.TemplateProject\Generator.TemplateProject.csproj" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\Generator.TemplateProject\Custom\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Azure.DigitalTwins.Core" />
+    <Using Include="Microsoft.Azure.DigitalTwins.Parser" />
+    <Using Include="System" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.IO" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Text" />
+    <Using Include="System.Text.RegularExpressions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.DigitalTwins.Core" Version="1.2.2" />
+    <PackageReference Include="Microsoft.Azure.DigitalTwins.Parser" Version="3.12.5" />
+    <PackageReference Include="MinVer" PrivateAssets="all" Version="3.1.0"/>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+</Project>
