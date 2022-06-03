@@ -3,6 +3,7 @@
 
 namespace Generator.Tests;
 
+#nullable disable warnings
 [TestClass]
 public class ModelHelperTest
 {
