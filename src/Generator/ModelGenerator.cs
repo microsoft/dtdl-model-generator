@@ -8,6 +8,17 @@ namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 /// </summary>
 public class ModelGenerator
 {
+    private readonly IEnumerable<string> customClasses = new List<string>
+    {
+        "Extensions.cs",
+        "ModelHelper.cs",
+        "Relationship.cs",
+        "RelationshipCollection.cs",
+        "RelationshipEqualityComparer.cs",
+        "SourceValueAttribute.cs",
+        "TwinEqualityComparer.cs"
+    };
+
     private ModelGeneratorOptions options { get; set; }
 
     private HashSet<string> generatedFiles = new HashSet<string>();
@@ -95,8 +106,10 @@ public class ModelGenerator
 
     private async Task CopyCustomModelsAsync()
     {
-        var files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.cs", SearchOption.TopDirectoryOnly);
-        foreach (var file in files)
+        var assemblyDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly()?.Location);
+        var files = Directory.GetFiles(assemblyDirectory ?? string.Empty, "*.cs", SearchOption.TopDirectoryOnly);
+        var filteredFiles = files.Where(f => customClasses.Contains(Path.GetFileName(f)));
+        foreach (var file in filteredFiles)
         {
             var fileName = Path.GetFileName(file);
             var fileAbsolutePath = Path.Combine(options?.OutputDirectory ?? string.Empty, fileName);
