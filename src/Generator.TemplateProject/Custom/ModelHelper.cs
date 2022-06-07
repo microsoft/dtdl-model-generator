@@ -70,12 +70,36 @@ public static class ModelHelper
     }
 
     /// <summary>
+    /// Gets the enum value for the given Enum.
+    /// </summary>
+    /// <typeparam name="T">Type of the Enum.</typeparam>
+    /// <param name="customEnum">The enum to extract the enum value from.</param>
+    /// <returns>The enum value of the Enum.</returns>
+    public static string? GetEnumValue<T>(this T customEnum)
+    where T : struct, Enum
+    {
+        return GetEnumCustomAttribute<T, EnumMemberAttribute>(customEnum)?.Value;
+    }
+
+    /// <summary>
     /// Gets the source value for the given Enum.
     /// </summary>
     /// <typeparam name="T?">Type of the Enum.</typeparam>
     /// <param name="customEnum">The enum to extract the source value from.</param>
     /// <returns>The source value of the Enum.</returns>
     public static string? GetSourceValue<T>(this T? customEnum)
+    where T : struct, Enum
+    {
+        return GetEnumCustomAttribute<T, SourceValueAttribute>(customEnum)?.Value;
+    }
+
+    /// <summary>
+    /// Gets the source value for the given Enum.
+    /// </summary>
+    /// <typeparam name="T">Type of the Enum.</typeparam>
+    /// <param name="customEnum">The enum to extract the source value from.</param>
+    /// <returns>The source value of the Enum.</returns>
+    public static string? GetSourceValue<T>(this T customEnum)
     where T : struct, Enum
     {
         return GetEnumCustomAttribute<T, SourceValueAttribute>(customEnum)?.Value;
@@ -89,6 +113,18 @@ public static class ModelHelper
     /// <returns>The display attribute of the Enum.</returns>
     public static DisplayAttribute? GetDisplayAttribute<T>(this T? customEnum)
     where T : struct, Enum
+    {
+        return GetEnumCustomAttribute<T, DisplayAttribute>(customEnum);
+    }
+
+    /// <summary>
+    /// Gets the display attribute for the given Enum.
+    /// </summary>
+    /// <typeparam name="T">Type of the Enum.</typeparam>
+    /// <param name="customEnum">The enum to extract the display attribute from.</param>
+    /// <returns>The display attribute of the Enum.</returns>
+    public static DisplayAttribute? GetDisplayAttribute<T>(this T customEnum)
+        where T : struct, Enum
     {
         return GetEnumCustomAttribute<T, DisplayAttribute>(customEnum);
     }

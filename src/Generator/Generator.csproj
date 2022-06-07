@@ -15,13 +15,27 @@
     <Description>A model generator that transforms DTDL models into C# POCO classes.</Description>
     <PackageProjectUrl>https://github.com/microsoft/dtdl-model-generator</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
     <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
-    <Content Include="..\Generator.TemplateProject\Generator.TemplateProject.csproj" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\Generator.TemplateProject\Custom\**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\Generator.TemplateProject\Generator.TemplateProject.csproj">
+      <Pack>true</Pack>
+      <PackagePath>contentFiles</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Generator.TemplateProject\Custom\**">
+      <Pack>true</Pack>
+      <PackagePath>contentFiles\cs\net6.0</PackagePath>
+      <IncludeInPackage>true</IncludeInPackage>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +51,7 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.DigitalTwins.Core" Version="1.2.2" />
-    <PackageReference Include="Microsoft.Azure.DigitalTwins.Parser" Version="3.12.5" />
+    <PackageReference Include="Microsoft.Azure.DigitalTwins.Parser" Version="3.12.7" />
     <PackageReference Include="MinVer" PrivateAssets="all" Version="3.1.0"/>
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
