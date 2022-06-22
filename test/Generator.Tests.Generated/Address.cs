@@ -39,15 +39,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Address? other)
         {
-            return !(other is null) && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Street1 == other.Street1 && Street2 == other.Street2 && County == other.County && Zipcode == other.Zipcode;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Street1 == other.Street1 && Street2 == other.Street2 && County == other.County && Zipcode == other.Zipcode;
         }
 
-        public static bool operator ==(Address left, Address right)
+        public static bool operator ==(Address? left, Address? right)
         {
-            return EqualityComparer<Address>.Default.Equals(left, right);
+            return EqualityComparer<Address?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Address left, Address right)
+        public static bool operator !=(Address? left, Address? right)
         {
             return !(left == right);
         }

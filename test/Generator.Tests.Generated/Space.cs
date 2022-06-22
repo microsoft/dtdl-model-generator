@@ -43,15 +43,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Space? other)
         {
-            return !(other is null) && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Name == other.Name && RoomKey == other.RoomKey && FriendlyName == other.FriendlyName && Description == other.Description && SquareFootArea == other.SquareFootArea && Capabilities == other.Capabilities && Status == other.Status;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Name == other.Name && RoomKey == other.RoomKey && FriendlyName == other.FriendlyName && Description == other.Description && SquareFootArea == other.SquareFootArea && Capabilities == other.Capabilities && Status == other.Status;
         }
 
-        public static bool operator ==(Space left, Space right)
+        public static bool operator ==(Space? left, Space? right)
         {
-            return EqualityComparer<Space>.Default.Equals(left, right);
+            return EqualityComparer<Space?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Space left, Space right)
+        public static bool operator !=(Space? left, Space? right)
         {
             return !(left == right);
         }

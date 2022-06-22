@@ -24,15 +24,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(ScheduleRules? other)
         {
-            return !(other is null) && IsAccessAfterHoursAllowed == other.IsAccessAfterHoursAllowed && IsFTEAndGuestsAllowed == other.IsFTEAndGuestsAllowed;
+            return other is not null && IsAccessAfterHoursAllowed == other.IsAccessAfterHoursAllowed && IsFTEAndGuestsAllowed == other.IsFTEAndGuestsAllowed;
         }
 
-        public static bool operator ==(ScheduleRules left, ScheduleRules right)
+        public static bool operator ==(ScheduleRules? left, ScheduleRules? right)
         {
-            return EqualityComparer<ScheduleRules>.Default.Equals(left, right);
+            return EqualityComparer<ScheduleRules?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(ScheduleRules left, ScheduleRules right)
+        public static bool operator !=(ScheduleRules? left, ScheduleRules? right)
         {
             return !(left == right);
         }

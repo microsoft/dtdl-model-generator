@@ -26,15 +26,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Media? other)
         {
-            return !(other is null) && IsVisible == other.IsVisible && Caption == other.Caption && MediaUrl == other.MediaUrl;
+            return other is not null && IsVisible == other.IsVisible && Caption == other.Caption && MediaUrl == other.MediaUrl;
         }
 
-        public static bool operator ==(Media left, Media right)
+        public static bool operator ==(Media? left, Media? right)
         {
-            return EqualityComparer<Media>.Default.Equals(left, right);
+            return EqualityComparer<Media?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Media left, Media right)
+        public static bool operator !=(Media? left, Media? right)
         {
             return !(left == right);
         }

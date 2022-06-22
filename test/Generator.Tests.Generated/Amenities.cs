@@ -27,15 +27,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Amenities? other)
         {
-            return !(other is null) && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Description == other.Description;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Description == other.Description;
         }
 
-        public static bool operator ==(Amenities left, Amenities right)
+        public static bool operator ==(Amenities? left, Amenities? right)
         {
-            return EqualityComparer<Amenities>.Default.Equals(left, right);
+            return EqualityComparer<Amenities?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Amenities left, Amenities right)
+        public static bool operator !=(Amenities? left, Amenities? right)
         {
             return !(left == right);
         }

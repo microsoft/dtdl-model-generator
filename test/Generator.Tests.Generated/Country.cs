@@ -51,15 +51,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Country? other)
         {
-            return !(other is null) && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Number == other.Number && Name == other.Name && ShortName == other.ShortName && Code == other.Code && ShortCode == other.ShortCode && OfficialCountryShortName == other.OfficialCountryShortName && OfficialCountryLongName == other.OfficialCountryLongName && PostalCodeLengthQuantity == other.PostalCodeLengthQuantity && PostalCodeMaskDescription == other.PostalCodeMaskDescription && PostalCodeMaskExpression == other.PostalCodeMaskExpression && UnitOfMeasure == other.UnitOfMeasure;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Number == other.Number && Name == other.Name && ShortName == other.ShortName && Code == other.Code && ShortCode == other.ShortCode && OfficialCountryShortName == other.OfficialCountryShortName && OfficialCountryLongName == other.OfficialCountryLongName && PostalCodeLengthQuantity == other.PostalCodeLengthQuantity && PostalCodeMaskDescription == other.PostalCodeMaskDescription && PostalCodeMaskExpression == other.PostalCodeMaskExpression && UnitOfMeasure == other.UnitOfMeasure;
         }
 
-        public static bool operator ==(Country left, Country right)
+        public static bool operator ==(Country? left, Country? right)
         {
-            return EqualityComparer<Country>.Default.Equals(left, right);
+            return EqualityComparer<Country?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Country left, Country right)
+        public static bool operator !=(Country? left, Country? right)
         {
             return !(left == right);
         }

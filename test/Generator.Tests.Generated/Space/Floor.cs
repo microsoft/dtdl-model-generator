@@ -29,15 +29,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Floor? other)
         {
-            return !(other is null) && base.Equals(other) && LogicalOrder == other.LogicalOrder && RegionId == other.RegionId;
+            return other is not null && base.Equals(other) && LogicalOrder == other.LogicalOrder && RegionId == other.RegionId;
         }
 
-        public static bool operator ==(Floor left, Floor right)
+        public static bool operator ==(Floor? left, Floor? right)
         {
-            return EqualityComparer<Floor>.Default.Equals(left, right);
+            return EqualityComparer<Floor?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Floor left, Floor right)
+        public static bool operator !=(Floor? left, Floor? right)
         {
             return !(left == right);
         }
