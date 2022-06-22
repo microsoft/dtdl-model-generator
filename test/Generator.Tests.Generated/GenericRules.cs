@@ -30,15 +30,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(GenericRules? other)
         {
-            return !(other is null) && IsSmokingAllowed == other.IsSmokingAllowed && IsAlcoholAllowed == other.IsAlcoholAllowed && IsFireAllowed == other.IsFireAllowed && IsFeedingAnimalsAllowed == other.IsFeedingAnimalsAllowed && IsBroomAvailable == other.IsBroomAvailable;
+            return other is not null && IsSmokingAllowed == other.IsSmokingAllowed && IsAlcoholAllowed == other.IsAlcoholAllowed && IsFireAllowed == other.IsFireAllowed && IsFeedingAnimalsAllowed == other.IsFeedingAnimalsAllowed && IsBroomAvailable == other.IsBroomAvailable;
         }
 
-        public static bool operator ==(GenericRules left, GenericRules right)
+        public static bool operator ==(GenericRules? left, GenericRules? right)
         {
-            return EqualityComparer<GenericRules>.Default.Equals(left, right);
+            return EqualityComparer<GenericRules?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(GenericRules left, GenericRules right)
+        public static bool operator !=(GenericRules? left, GenericRules? right)
         {
             return !(left == right);
         }

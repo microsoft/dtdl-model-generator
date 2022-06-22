@@ -31,16 +31,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(BuildingHasAddressRelationship? other)
         {
-            var targetsAreEqual = (Target is null && other?.Target is null) || (!(Target is null) && !(other?.Target is null) && Target == other.Target);
-            return !(other is null) && Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && targetsAreEqual && AddressType == other.AddressType;
+            return other is not null && Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && Target == other.Target && Name == other.Name && AddressType == other.AddressType;
         }
 
-        public static bool operator ==(BuildingHasAddressRelationship left, BuildingHasAddressRelationship right)
+        public static bool operator ==(BuildingHasAddressRelationship? left, BuildingHasAddressRelationship? right)
         {
-            return EqualityComparer<BuildingHasAddressRelationship>.Default.Equals(left, right);
+            return EqualityComparer<BuildingHasAddressRelationship?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(BuildingHasAddressRelationship left, BuildingHasAddressRelationship right)
+        public static bool operator !=(BuildingHasAddressRelationship? left, BuildingHasAddressRelationship? right)
         {
             return !(left == right);
         }

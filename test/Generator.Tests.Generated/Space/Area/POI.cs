@@ -39,18 +39,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(POI? other)
         {
-            var categoryEquals = (Category is null && other?.Category is null) || (!(Category is null) && !(other?.Category is null) && Category == other.Category);
-            var genericRulesEquals = (GenericRules is null && other?.GenericRules is null) || (!(GenericRules is null) && !(other?.GenericRules is null) && GenericRules == other.GenericRules);
-            var scheduleRulesEquals = (ScheduleRules is null && other?.ScheduleRules is null) || (!(ScheduleRules is null) && !(other?.ScheduleRules is null) && ScheduleRules == other.ScheduleRules);
-            return !(other is null) && base.Equals(other) && categoryEquals && genericRulesEquals && scheduleRulesEquals && Amenities == other.Amenities && WeeklyOperationHours == other.WeeklyOperationHours && SubStatus == other.SubStatus && MediaList == other.MediaList;
+            return other is not null && base.Equals(other) && Category == other.Category && GenericRules == other.GenericRules && ScheduleRules == other.ScheduleRules && Amenities == other.Amenities && WeeklyOperationHours == other.WeeklyOperationHours && SubStatus == other.SubStatus && MediaList == other.MediaList;
         }
 
-        public static bool operator ==(POI left, POI right)
+        public static bool operator ==(POI? left, POI? right)
         {
-            return EqualityComparer<POI>.Default.Equals(left, right);
+            return EqualityComparer<POI?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(POI left, POI right)
+        public static bool operator !=(POI? left, POI? right)
         {
             return !(left == right);
         }

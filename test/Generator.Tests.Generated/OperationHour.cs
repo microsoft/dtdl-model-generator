@@ -24,15 +24,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(OperationHour? other)
         {
-            return !(other is null) && Start == other.Start && End == other.End;
+            return other is not null && Start == other.Start && End == other.End;
         }
 
-        public static bool operator ==(OperationHour left, OperationHour right)
+        public static bool operator ==(OperationHour? left, OperationHour? right)
         {
-            return EqualityComparer<OperationHour>.Default.Equals(left, right);
+            return EqualityComparer<OperationHour?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(OperationHour left, OperationHour right)
+        public static bool operator !=(OperationHour? left, OperationHour? right)
         {
             return !(left == right);
         }

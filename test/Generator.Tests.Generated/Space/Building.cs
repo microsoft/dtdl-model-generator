@@ -47,15 +47,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Building? other)
         {
-            return !(other is null) && base.Equals(other) && BusinessEntityNumber == other.BusinessEntityNumber && Number == other.Number && ShortName == other.ShortName && SquareMeter == other.SquareMeter && RationalSortKey == other.RationalSortKey && RegionId == other.RegionId && StartOfBusinessTime == other.StartOfBusinessTime && EndOfBusinessTime == other.EndOfBusinessTime && BusinessEntityName == other.BusinessEntityName && Amenities == other.Amenities;
+            return other is not null && base.Equals(other) && BusinessEntityNumber == other.BusinessEntityNumber && Number == other.Number && ShortName == other.ShortName && SquareMeter == other.SquareMeter && RationalSortKey == other.RationalSortKey && RegionId == other.RegionId && StartOfBusinessTime == other.StartOfBusinessTime && EndOfBusinessTime == other.EndOfBusinessTime && BusinessEntityName == other.BusinessEntityName && Amenities == other.Amenities;
         }
 
-        public static bool operator ==(Building left, Building right)
+        public static bool operator ==(Building? left, Building? right)
         {
-            return EqualityComparer<Building>.Default.Equals(left, right);
+            return EqualityComparer<Building?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Building left, Building right)
+        public static bool operator !=(Building? left, Building? right)
         {
             return !(left == right);
         }

@@ -31,15 +31,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Area? other)
         {
-            return !(other is null) && base.Equals(other) && FloorId == other.FloorId && BuildingId == other.BuildingId && RegionId == other.RegionId;
+            return other is not null && base.Equals(other) && FloorId == other.FloorId && BuildingId == other.BuildingId && RegionId == other.RegionId;
         }
 
-        public static bool operator ==(Area left, Area right)
+        public static bool operator ==(Area? left, Area? right)
         {
-            return EqualityComparer<Area>.Default.Equals(left, right);
+            return EqualityComparer<Area?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Area left, Area right)
+        public static bool operator !=(Area? left, Area? right)
         {
             return !(left == right);
         }

@@ -124,41 +124,20 @@ internal abstract class ClassEntity : Entity
         streamWriter.WriteLine($"{indent}{indent}public bool Equals({Name}? other)");
         streamWriter.WriteLine($"{indent}{indent}{{");
         var rootExpr = GetRootEqualityExpression(Parent);
-        if (Parent?.StartsWith("Relationship<") == true)
-        {
-            var targetEqaulsString = $"{indent}{indent}{indent}var targetsAreEqual = (Target is null && other?.Target is null) || (!(Target is null) && !(other?.Target is null) && Target == other.Target);";
-            streamWriter.WriteLine(targetEqaulsString);
-        }
-
-        var start = isClassObject ? $"{indent}{indent}{indent}return !(other is null)" : $"{indent}{indent}{indent}return !(other is null) && {rootExpr}";
+        var start = isClassObject ? $"{indent}{indent}{indent}return other is not null" : $"{indent}{indent}{indent}return other is not null && {rootExpr}";
         var line = new StringBuilder(start);
         if (NonRelationshipProperties.Any())
         {
-            var objectPropNames = WriteNullEqualityChecksAndGeneratePropNames(streamWriter, isClassObject);
-            foreach (var prop in NonRelationshipProperties)
+            var props = NonRelationshipProperties.Select(p => p.Name);
+            foreach (var prop in props)
             {
-                var lineText = prop is ObjectProperty ? $" && {objectPropNames[prop.Name]}" : $" && {prop.Name} == other.{prop.Name}";
-                line.Append(lineText);
+                line.Append($" && {prop} == other.{prop}");
             }
         }
 
         streamWriter.WriteLine($"{line};");
         streamWriter.WriteLine($"{indent}{indent}}}");
         streamWriter.WriteLine();
-    }
-
-    private IDictionary<string, string> WriteNullEqualityChecksAndGeneratePropNames(StreamWriter streamWriter, bool isClassObject = false)
-    {
-        var propNames = new Dictionary<string, string>();
-        var objectProps = NonRelationshipProperties.Where(p => p is ObjectProperty);
-        foreach (var prop in objectProps)
-        {
-            var propName = $"{char.ToLower(prop.Name[0]) + prop.Name.Substring(1)}Equals";
-            propNames.Add(prop.Name, propName);
-            streamWriter.WriteLine($"{indent}{indent}{indent}var {propName} = ({prop.Name} is null && other?.{prop.Name} is null) || (!({prop.Name} is null) && !(other?.{prop.Name} is null) && {prop.Name} == other.{prop.Name});");
-        }
-
-        return propNames;
     }
 
     protected virtual string GetRootEqualityExpression(string? parentType)
@@ -170,7 +149,7 @@ internal abstract class ClassEntity : Entity
 
         if (parentType?.StartsWith("Relationship<") == true)
         {
-            return "Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && targetsAreEqual";
+            return "Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && Target == other.Target && Name == other.Name";
         }
 
         return "base.Equals(other)";
@@ -178,16 +157,16 @@ internal abstract class ClassEntity : Entity
 
     protected void WriteEqualsOperatorMethod(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}{indent}public static bool operator ==({Name} left, {Name} right)");
+        streamWriter.WriteLine($"{indent}{indent}public static bool operator ==({Name}? left, {Name}? right)");
         streamWriter.WriteLine($"{indent}{indent}{{");
-        streamWriter.WriteLine($"{indent}{indent}{indent}return EqualityComparer<{Name}>.Default.Equals(left, right);");
+        streamWriter.WriteLine($"{indent}{indent}{indent}return EqualityComparer<{Name}?>.Default.Equals(left, right);");
         streamWriter.WriteLine($"{indent}{indent}}}");
         streamWriter.WriteLine();
     }
 
     protected void WriteNotEqualsOperatorMethod(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}{indent}public static bool operator !=({Name} left, {Name} right)");
+        streamWriter.WriteLine($"{indent}{indent}public static bool operator !=({Name}? left, {Name}? right)");
         streamWriter.WriteLine($"{indent}{indent}{{");
         streamWriter.WriteLine($"{indent}{indent}{indent}return !(left == right);");
         streamWriter.WriteLine($"{indent}{indent}}}");

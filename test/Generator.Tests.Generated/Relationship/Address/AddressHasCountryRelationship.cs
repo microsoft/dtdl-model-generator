@@ -29,16 +29,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(AddressHasCountryRelationship? other)
         {
-            var targetsAreEqual = (Target is null && other?.Target is null) || (!(Target is null) && !(other?.Target is null) && Target == other.Target);
-            return !(other is null) && Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && targetsAreEqual;
+            return other is not null && Id == other.Id && SourceId == other.SourceId && TargetId == other.TargetId && Target == other.Target && Name == other.Name;
         }
 
-        public static bool operator ==(AddressHasCountryRelationship left, AddressHasCountryRelationship right)
+        public static bool operator ==(AddressHasCountryRelationship? left, AddressHasCountryRelationship? right)
         {
-            return EqualityComparer<AddressHasCountryRelationship>.Default.Equals(left, right);
+            return EqualityComparer<AddressHasCountryRelationship?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(AddressHasCountryRelationship left, AddressHasCountryRelationship right)
+        public static bool operator !=(AddressHasCountryRelationship? left, AddressHasCountryRelationship? right)
         {
             return !(left == right);
         }

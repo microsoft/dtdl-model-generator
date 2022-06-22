@@ -32,15 +32,15 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Category? other)
         {
-            return !(other is null) && IsCreativeSpace == other.IsCreativeSpace && IsSportsAndRecreation == other.IsSportsAndRecreation && IsLandmark == other.IsLandmark && IsRecreationSpace == other.IsRecreationSpace && IsPhotoWorthy == other.IsPhotoWorthy && IsArtwork == other.IsArtwork;
+            return other is not null && IsCreativeSpace == other.IsCreativeSpace && IsSportsAndRecreation == other.IsSportsAndRecreation && IsLandmark == other.IsLandmark && IsRecreationSpace == other.IsRecreationSpace && IsPhotoWorthy == other.IsPhotoWorthy && IsArtwork == other.IsArtwork;
         }
 
-        public static bool operator ==(Category left, Category right)
+        public static bool operator ==(Category? left, Category? right)
         {
-            return EqualityComparer<Category>.Default.Equals(left, right);
+            return EqualityComparer<Category?>.Default.Equals(left, right);
         }
 
-        public static bool operator !=(Category left, Category right)
+        public static bool operator !=(Category? left, Category? right)
         {
             return !(left == right);
         }
