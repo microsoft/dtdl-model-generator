@@ -9,6 +9,8 @@ on:
 
 permissions:
   contents: read
+  actions: read
+  security-events: write
 
 jobs:
   Build:
@@ -22,3 +24,6 @@ jobs:
     uses: microsoft/digitalworkplace-workflows/.github/workflows/pack.yml@v2.0
     with:
       project-to-pack: "src/Generator/Generator.csproj"
+
+  Scan:
+    uses: microsoft/digitalworkplace-workflows/.github/workflows/scan.yml@v2.1
