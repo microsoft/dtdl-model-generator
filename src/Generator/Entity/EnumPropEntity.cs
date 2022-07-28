@@ -46,8 +46,18 @@ internal class EnumPropEntity : EnumEntity
         const string en = nameof(en);
         var enumMember = $"EnumMember(Value = \"{enumValueInfo.EnumValue}\")";
         var hasEnDescription = enumValueInfo.Description.ContainsKey(en) && !string.IsNullOrEmpty(enumValueInfo.Description[en]);
-        var enDescription = hasEnDescription ? $", Description = \"{enumValueInfo.Description[en]}\"" : string.Empty;
-        var display = $"Display(Name = \"{enumValueInfo.DisplayName[en]}\"{enDescription})";
+        var hasEnDisplay = enumValueInfo.DisplayName.ContainsKey(en) && !string.IsNullOrEmpty(enumValueInfo.DisplayName[en]);
+        var display = $"Display(Name = \"{enumValueInfo.EnumValue}\")";
+        if (hasEnDisplay)
+        {
+            display = $"Display(Name = \"{enumValueInfo.DisplayName[en]}\")";
+            if (hasEnDescription)
+            {
+                var enDescription = $", Description = \"{enumValueInfo.Description[en]}\"";
+                display = $"Display(Name = \"{enumValueInfo.DisplayName[en]}\"{enDescription})";
+            }
+        }
+
         var sourceValue = string.IsNullOrEmpty(enumValueInfo.Comment) ? string.Empty : $"SourceValue(Value = \"{enumValueInfo.Comment}\")";
         if (!string.IsNullOrEmpty(sourceValue))
         {
