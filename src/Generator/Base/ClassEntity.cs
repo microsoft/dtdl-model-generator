@@ -71,6 +71,11 @@ internal abstract class ClassEntity : Entity
             return new RelationshipProperty(relationship, Options);
         }
 
+        if (content is DTComponentInfo componentInfo)
+        {
+            return new ComponentProperty(componentInfo, componentInfo, Name, Options);
+        }
+
         throw new Exception($"Unsupported content type: {content.EntityKind}");
     }
 
