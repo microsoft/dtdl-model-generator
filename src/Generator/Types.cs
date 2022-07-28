@@ -13,7 +13,9 @@ internal static class Types
             { DTEntityKind.Time, "object?" },
             { DTEntityKind.Float, "float?" },
             { DTEntityKind.Double, "double?" },
-            { DTEntityKind.String, "string?" }
+            { DTEntityKind.String, "string?" },
+            { DTEntityKind.Date, "DateTime?" },
+            { DTEntityKind.Duration, "TimeSpan?" }
         };
 
     private static readonly IDictionary<DTEntityKind, string> nonNullablePropertyTypeMapping = new Dictionary<DTEntityKind, string>
@@ -24,7 +26,9 @@ internal static class Types
             { DTEntityKind.Time, "object" },
             { DTEntityKind.Float, "float" },
             { DTEntityKind.Double, "double" },
-            { DTEntityKind.String, "string" }
+            { DTEntityKind.String, "string" },
+            { DTEntityKind.Date, "DateTime" },
+            { DTEntityKind.Duration, "TimeSpan" }
         };
 
     internal static bool TryGetNullable(DTEntityKind entityKind, out string? type)
