@@ -1,6 +1,11 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using Generator.Tests.Generated.test;
+using Generator.Tests.Generated.test.space;
+using Generator.Tests.Generated.test.space.area;
+using Generator.Tests.Generated.test.space.relationship.building;
+
 namespace Generator.Tests;
 
 [TestClass]

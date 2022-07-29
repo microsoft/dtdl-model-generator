@@ -18,10 +18,14 @@ internal class RelationshipCollectionEntity : ClassEntity
         var enclosingClass = info.DefinedIn.Labels.Last();
         NamePrefix = $"{enclosingClass}{CapitalizeFirstLetter(RelationshipInfo.Name)}";
         Name = $"{NamePrefix}RelationshipCollection";
-        FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), enclosingClass);
+        FileDirectory = Path.Combine(ExtractDirectory(RelationshipInfo.DefinedIn), "Relationship", enclosingClass).ToLower();
         var targetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
         Parent = $"RelationshipCollection<{NamePrefix}Relationship, {targetType}>";
         Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
+        if (RelationshipInfo.Target != null)
+        {
+            DependantNamespaces.Add(Helper.ExtractNamespaceNameFromDtmi(RelationshipInfo.Target));
+        }
     }
 
     protected override void WriteConstructor(StreamWriter streamWriter)

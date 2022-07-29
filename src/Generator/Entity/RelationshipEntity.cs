@@ -18,11 +18,17 @@ internal class RelationshipEntity : ClassEntity
         RelationshipInfo = info;
         Properties = info.Properties;
         SourceType = info.DefinedIn.Labels.Last();
+        DependantNamespaces.Add(Helper.ExtractNamespaceNameFromDtmi(info.DefinedIn));
         Name = $"{SourceType}{CapitalizeFirstLetter(RelationshipInfo.Name)}Relationship";
-        FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), SourceType);
+        FileDirectory = Path.Combine(ExtractDirectory(RelationshipInfo.DefinedIn), "Relationship", SourceType).ToLower();
         TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
         Parent = $"Relationship<{TargetType}>";
         Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
+        if (RelationshipInfo.Target != null)
+        {
+            DependantNamespaces.Add(Helper.ExtractNamespaceNameFromDtmi(RelationshipInfo.Target));
+        }
+
         Content.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
     }
 

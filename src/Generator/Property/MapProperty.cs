@@ -21,6 +21,7 @@ internal class MapProperty : Property
         {
             var objectEntity = new ObjectEntity(map.MapValue, objectInfo, enclosingClass, options);
             mapValue = objectEntity.Name;
+            DependantNamespace = objectEntity.ClassNamespace;
             ProducedEntities.Add(objectEntity);
         }
         else

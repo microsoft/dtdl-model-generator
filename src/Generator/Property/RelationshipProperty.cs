@@ -10,6 +10,7 @@ internal class RelationshipProperty : Property
         var relationshipEntity = new RelationshipEntity(relationship, options);
         var relationshipCollectionEntity = new RelationshipCollectionEntity(relationship, options);
         Type = relationshipCollectionEntity.Name;
+        DependantNamespace = relationshipEntity.ClassNamespace;
         Name = relationship.Name;
         JsonIgnore = true;
         Initialized = true;

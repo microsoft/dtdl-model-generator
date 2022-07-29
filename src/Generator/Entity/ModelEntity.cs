@@ -13,9 +13,15 @@ internal class ModelEntity : ClassEntity
         Properties = interfaceInfo.Contents.Values
                             .Where(c => c.Id.Labels.Contains(Name) && c.EntityKind == DTEntityKind.Property && c is DTPropertyInfo)
                             .Select(c => (DTPropertyInfo)c);
-        Name = GetClassName(interfaceInfo.Id);
-        Parent = interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
-        FileDirectory = ExtractDirectory(ModelId);
+        Name = Helper.ExtractClassNameFromDtmi(interfaceInfo.Id);
+        Parent = interfaceInfo.Extends.Count() > 0 ? Helper.ExtractClassNameFromDtmi(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
+        if (interfaceInfo.Extends.Count() > 0)
+        {
+            DependantNamespaces.Add(Helper.ExtractNamespaceNameFromDtmi(interfaceInfo.Extends.First().Id));
+        }
+
+        FileDirectory = ExtractDirectory(ModelId).ToLower();
+
         var contents = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name));
         Content.AddRange(contents.Select(CreateProperty));
     }
@@ -51,10 +57,5 @@ internal class ModelEntity : ClassEntity
     {
         base.WriteContent(streamWriter);
         WriteEqualityBlock(streamWriter);
-    }
-
-    private string GetClassName(Dtmi id)
-    {
-        return id.Labels.Last();
     }
 }

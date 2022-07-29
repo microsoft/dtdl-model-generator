@@ -1,14 +1,15 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using Azure;
+using Azure.DigitalTwins.Core;
+using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
 namespace Generator.Tests.Generated
 {
-    using Azure;
-    using Azure.DigitalTwins.Core;
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
-    using System.Text.Json.Serialization;
 
     [Serializable]
     public class GenericRules : IEquatable<GenericRules>

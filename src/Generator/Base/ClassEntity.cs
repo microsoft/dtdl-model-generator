@@ -7,6 +7,10 @@ internal abstract class ClassEntity : Entity
 {
     internal string? Parent { get; set; }
 
+    internal string? ClassNamespace => FileDirectory?.Replace("\\", ".");
+
+    internal List<string> DependantNamespaces { get; set; } = new List<string>();
+
     internal IEnumerable<DTPropertyInfo> Properties { get; set; } = Enumerable.Empty<DTPropertyInfo>();
 
     internal IEnumerable<DTFieldInfo> Fields { get; set; } = Enumerable.Empty<DTFieldInfo>();
@@ -19,12 +23,25 @@ internal abstract class ClassEntity : Entity
     {
     }
 
+    protected override void WriteNamespace(StreamWriter streamWriter)
+    {
+        if (string.IsNullOrEmpty(ClassNamespace))
+        {
+            streamWriter.WriteLine($"namespace {Options?.Namespace}");
+        }
+        else
+        {
+            streamWriter.WriteLine($"namespace {Options?.Namespace}.{ClassNamespace}");
+        }
+    }
+
     protected override void WriteUsingStatements(StreamWriter streamWriter)
     {
         WriteUsingAzure(streamWriter);
         WriteUsingAdt(streamWriter);
         WriteUsingSystem(streamWriter);
         WriteUsingCollection(streamWriter);
+        WriteUsingDependantNamespaces(streamWriter);
         base.WriteUsingStatements(streamWriter);
     }
 
@@ -37,6 +54,20 @@ internal abstract class ClassEntity : Entity
         }
 
         streamWriter.WriteLine();
+    }
+
+    protected void WriteUsingDependantNamespaces(StreamWriter streamWriter)
+    {
+        string optionNamespace = string.Empty;
+        if (!string.IsNullOrEmpty(Options?.Namespace))
+        {
+            optionNamespace = $"{Options?.Namespace}.";
+        }
+
+        foreach (var dependantNamespace in DependantNamespaces.Where(item => item != ClassNamespace).Distinct())
+        {
+            streamWriter.WriteLine($"using {optionNamespace}{dependantNamespace};");
+        }
     }
 
     protected Property CreateProperty(DTNamedEntityInfo entity, DTSchemaInfo schema)
@@ -61,19 +92,30 @@ internal abstract class ClassEntity : Entity
 
     protected Property CreateProperty(DTContentInfo content)
     {
+        Property? propertyResult = null;
         if (content is DTPropertyInfo property)
         {
-            return CreateProperty(property, property.Schema);
+            propertyResult = CreateProperty(property, property.Schema);
         }
 
         if (content is DTRelationshipInfo relationship)
         {
-            return new RelationshipProperty(relationship, Options);
+            propertyResult = new RelationshipProperty(relationship, Options);
         }
 
         if (content is DTComponentInfo componentInfo)
         {
-            return new ComponentProperty(componentInfo, componentInfo, Name, Options);
+            propertyResult = new ComponentProperty(componentInfo, componentInfo, Name, Options);
+        }
+
+        if (propertyResult != null)
+        {
+            if (!string.IsNullOrEmpty(propertyResult.DependantNamespace))
+            {
+                DependantNamespaces.Add(propertyResult.DependantNamespace);
+            }
+
+            return propertyResult;
         }
 
         throw new Exception($"Unsupported content type: {content.EntityKind}");

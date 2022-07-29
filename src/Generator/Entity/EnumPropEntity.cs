@@ -12,13 +12,21 @@ internal class EnumPropEntity : EnumEntity
         EnumInfo = enumInfo;
         if (enumInfo.Id.AbsoluteUri.Contains("__"))
         {
-            var prop = enumInfo.Id.AbsoluteUri.Split("__").Last().Split(":").First();
+            var uriSpli = enumInfo.Id.AbsoluteUri.Split("__");
+            var prop = uriSpli.Last().Split(":").First();
             Name = enclosingClass + char.ToUpper(prop[0]) + prop.Substring(1);
+
+            var namespaceSplit = uriSpli.First().Split(enclosingClass).First().Split(':');
+            FileDirectory = Path.Combine(namespaceSplit.Take(namespaceSplit.Length - 1).TakeLast(namespaceSplit.Length - 2).ToArray()).ToLower();
         }
         else
         {
             var dtmiNameSpace = enumInfo.Id.AbsoluteUri.Split(';')[0];
-            Name = dtmiNameSpace.Split(':').Last();
+            var dtmiNameSpaceSplit = dtmiNameSpace.Split(':');
+            var dtmiNameSpaceSplitCount = dtmiNameSpaceSplit.Count();
+            Name = dtmiNameSpaceSplit.Last();
+
+            FileDirectory = Path.Combine(dtmiNameSpaceSplit.Take(dtmiNameSpaceSplitCount - 1).TakeLast(dtmiNameSpaceSplitCount - 2).ToArray()).ToLower();
         }
 
         AllowOverwrite = true;

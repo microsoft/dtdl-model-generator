@@ -1,44 +1,45 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Generator.CustomModels;
-
 using System.Collections.Generic;
 using Azure.DigitalTwins.Core;
 
-/// <summary>
-/// An EqualityComparer implementation for ADT BasicRelationships.
-/// </summary>
-public class RelationshipEqualityComparer : IEqualityComparer<BasicRelationship>
+namespace Generator.CustomModels
 {
-    /// <inheritdoc/>
-    public bool Equals(BasicRelationship? x, BasicRelationship? y)
+    /// <summary>
+    /// An EqualityComparer implementation for ADT BasicRelationships.
+    /// </summary>
+    public class RelationshipEqualityComparer : IEqualityComparer<BasicRelationship>
     {
-        if (x == null && y == null)
+        /// <inheritdoc/>
+        public bool Equals(BasicRelationship? x, BasicRelationship? y)
         {
-            return true;
-        }
+            if (x == null && y == null)
+            {
+                return true;
+            }
 
-        if ((x != null && y == null) || (x == null && y != null))
-        {
+            if ((x != null && y == null) || (x == null && y != null))
+            {
+                return false;
+            }
+
+            if (x != null && y != null)
+            {
+                return x.Id == y.Id
+                    && x.Name == y.Name
+                    && x.SourceId == y.SourceId
+                    && x.TargetId == y.TargetId
+                    && x.Properties.DictionaryEquals(y.Properties);
+            }
+
             return false;
         }
 
-        if (x != null && y != null)
+        /// <inheritdoc/>
+        public int GetHashCode(BasicRelationship obj)
         {
-            return x.Id == y.Id
-                && x.Name == y.Name
-                && x.SourceId == y.SourceId
-                && x.TargetId == y.TargetId
-                && x.Properties.DictionaryEquals(y.Properties);
+            return obj.Id.GetHashCode();
         }
-
-        return false;
-    }
-
-    /// <inheritdoc/>
-    public int GetHashCode(BasicRelationship obj)
-    {
-        return obj.Id.GetHashCode();
     }
 }

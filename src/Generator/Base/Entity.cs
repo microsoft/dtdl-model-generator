@@ -27,7 +27,7 @@ internal abstract class Entity : Writable
     {
         var labels = id.Labels;
         var count = labels.Length;
-        return Path.Combine(labels.Take(count - 1).TakeLast(count - 2).ToArray());
+        return Path.Combine(labels.Take(count - 1).TakeLast(count - 1).ToArray());
     }
 
     internal virtual void GenerateFile()
@@ -59,28 +59,28 @@ internal abstract class Entity : Writable
 
     protected void WriteUsingDataAnnotation(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using System.ComponentModel.DataAnnotations;");
+        streamWriter.WriteLine($"using System.ComponentModel.DataAnnotations;");
     }
 
     protected void WriteUsingCollection(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using System.Collections.Generic;");
+        streamWriter.WriteLine($"using System.Collections.Generic;");
     }
 
     protected void WriteUsingAdt(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using Azure.DigitalTwins.Core;");
+        streamWriter.WriteLine($"using Azure.DigitalTwins.Core;");
     }
 
     protected void WriteUsingSystem(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using System;");
+        streamWriter.WriteLine($"using System;");
     }
 
     protected void WriteUsingSerialization(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using System.Runtime.Serialization;");
-        streamWriter.WriteLine($"{indent}using System.Text.Json.Serialization;");
+        streamWriter.WriteLine($"using System.Runtime.Serialization;");
+        streamWriter.WriteLine($"using System.Text.Json.Serialization;");
     }
 
     protected void WriteStringEnumConverterAttribute(StreamWriter streamWriter)
@@ -90,17 +90,17 @@ internal abstract class Entity : Writable
 
     protected void WriteUsingAzure(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using Azure;");
+        streamWriter.WriteLine($"using Azure;");
     }
 
     protected void WriteUsingReflection(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using System.Reflection;");
+        streamWriter.WriteLine($"using System.Reflection;");
     }
 
     protected void WriteUsingLinq(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}using System.Linq;");
+        streamWriter.WriteLine($"using System.Linq;");
     }
 
     private StreamWriter CreateStreamWriter()
@@ -129,6 +129,8 @@ internal abstract class Entity : Writable
     private void WriteFile(StreamWriter streamWriter)
     {
         WriteHeader(streamWriter);
+        WriteUsingStatements(streamWriter);
+        streamWriter.WriteLine();
         WriteNamespace(streamWriter);
         streamWriter.WriteLine("{");
         WriteEntity(streamWriter);
@@ -137,7 +139,6 @@ internal abstract class Entity : Writable
 
     private void WriteEntity(StreamWriter streamWriter)
     {
-        WriteUsingStatements(streamWriter);
         streamWriter.WriteLine();
         WriteSignature(streamWriter);
         streamWriter.WriteLine($"{indent}{{");

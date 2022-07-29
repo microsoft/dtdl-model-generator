@@ -32,6 +32,8 @@ internal abstract class Property : Writable
 
     internal string Type { get => type; set => HandleTypeSetter(value); }
 
+    internal string? DependantNamespace { get; set; }
+
     internal string? NonInterfaceType { get; set; }
 
     internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }

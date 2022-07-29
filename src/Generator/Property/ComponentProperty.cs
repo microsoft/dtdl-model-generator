@@ -7,16 +7,11 @@ internal class ComponentProperty : Property
 {
     internal ComponentProperty(DTNamedEntityInfo entityInfo, DTComponentInfo componentInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
     {
-        var componentType = ExtractClass(componentInfo.Schema.Id);
+        var componentType = Helper.ExtractClassNameFromDtmi(componentInfo.Schema.Id);
         Type = $"{componentType?.TrimEnd('?')}?";
+        DependantNamespace = Helper.ExtractNamespaceNameFromDtmi(componentInfo.Schema.Id);
         Name = entityInfo.Name;
         JsonName = entityInfo.Name;
         Obsolete = entityInfo.IsObsolete();
-    }
-
-    protected static string ExtractClass(Dtmi id)
-    {
-        var labels = id.Labels;
-        return labels[labels.Length - 1];
     }
 }

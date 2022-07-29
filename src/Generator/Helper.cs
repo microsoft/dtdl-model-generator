@@ -22,4 +22,14 @@ internal static class Helper
         AccessModifier.PrivateProtected => "private protected",
         _ => throw new Exception($"Invalid value for AccessModifier: {modifier}"),
     };
+
+    internal static string ExtractClassNameFromDtmi(Dtmi id)
+    {
+        return id.Labels.Last();
+    }
+
+    internal static string ExtractNamespaceNameFromDtmi(Dtmi id)
+    {
+        return string.Join(".", id.Labels.Take(id.Labels.Length - 1)).ToLower();
+    }
 }

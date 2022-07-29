@@ -115,7 +115,7 @@ public class ModelGenerator
             var fileAbsolutePath = Path.Combine(options?.OutputDirectory ?? string.Empty, fileName);
             File.Copy(file, fileAbsolutePath, true);
             var original = await File.ReadAllTextAsync(fileAbsolutePath);
-            var updated = original.Replace("namespace Generator.CustomModels;", $"namespace {options?.Namespace};");
+            var updated = original.Replace("namespace Generator.CustomModels", $"namespace {options?.Namespace}");
             await File.WriteAllTextAsync(fileAbsolutePath, updated, Encoding.UTF8);
             generatedFiles.Add(fileName);
         }
