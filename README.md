@@ -44,6 +44,11 @@ For Users
 		StyleCop.Analyzers(1.1.118)
 		System.Text.RegularExpressions(4.3.1)
 
+## Limitations
+- The model generator do not support Telemetry fields and Component.
+- The model generator do not support Duration and Array schema types for property and telemetry attributes.
+- It also does not support Semantic type with Telemetry fields.
+
 ## Usage
 
 ``` csharp
