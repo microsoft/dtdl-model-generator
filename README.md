@@ -23,26 +23,20 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 ## Prerequisites
 The following are some Prerequisites/assumptions to be considered:
 
-For Developers
+### For Developers
 - .Net 6 must be installed, while building the model generator locally. Backward compatibility is not supported.
-- The system should have GIT installed as the model generator uses MinVer package which requires GIT.
+- The system should have Git installed as the model generator uses MinVer package which requires Git.
 
-For Users
+### For Users
 - The following classes have been copied at the location where model generator assembly is being executed:
-        "Extensions.cs",
-        "ModelHelper.cs",
-        "Relationship.cs",
-        "RelationshipCollection.cs",
-        "RelationshipEqualityComparer.cs",
-        "SourceValueAttribute.cs",
-        "TwinEqualityComparer.cs"
+  - Extensions.cs
+  - ModelHelper.cs
+  - Relationship.cs
+  - RelationshipCollection.cs
+  - RelationshipEqualityComparer.cs
+  - SourceValueAttribute.cs
+  - TwinEqualityComparer.cs
 - The ModelGeneratorOptions property "CopyrightHeader" should have "// " prefix.
-- The following NuGet packages references should be added: 
-		Azure.DigitalTwins.Core(1.2.2)
-		Microsoft.Azure.DigitalTwins.Parser(3.12.7)
-		MinVer(3.1.0)
-		StyleCop.Analyzers(1.1.118)
-		System.Text.RegularExpressions(4.3.1)
 
 ## Limitations
 - The model generator do not support Telemetry fields and Component.
