@@ -18,6 +18,6 @@ internal static class AssertHelper
         }
 
         // Includes custom files
-        Assert.AreEqual(41, outFileNames.Count, "Expected 41 files to be generated");
+        Assert.AreEqual(45, outFileNames.Count, "Expected 45 files to be generated");
     }
 }

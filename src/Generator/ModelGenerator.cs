@@ -10,6 +10,7 @@ public class ModelGenerator
 {
     private readonly IEnumerable<string> customClasses = new List<string>
     {
+        "DurationConverter.cs",
         "Extensions.cs",
         "ModelHelper.cs",
         "Relationship.cs",
