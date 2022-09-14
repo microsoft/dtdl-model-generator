@@ -2,7 +2,7 @@
   "@id": "dtmi:test:Asset;1",
   "@type": "Interface",
   "@context": "dtmi:dtdl:context;2",
-  "displayName": "Address",
+  "displayName": "Asset",
   "contents": [
     {
       "@type": "Property",
