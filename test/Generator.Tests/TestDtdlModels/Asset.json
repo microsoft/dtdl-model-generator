@@ -29,6 +29,22 @@
       "name": "maintenanceInterval"
     },
     {
+      "@type": "Property",
+      "name": "runtimeDurations",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "dayOfWeek",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "runtime",
+          "schema": "duration"
+        }
+      }
+    },
+    {
       "@type": "Relationship",
       "target": "dtmi:test:Space;1",
       "name": "isLocatedIn"

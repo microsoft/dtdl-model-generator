@@ -132,10 +132,10 @@ public class ModelsUnitTests
         var expectedJsonWithNulls = $"{{\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}},\"businessEntityNumber\":null,\"number\":null,\"shortName\":null,\"squareMeter\":null,\"rationalSortKey\":null,\"regionId\":null,\"startOfBusinessTime\":null,\"endOfBusinessTime\":null,\"businessEntityName\":null,\"amenities\":null,\"externalId\":null,\"name\":\"TestBuilding\",\"roomKey\":null,\"friendlyName\":null,\"description\":null,\"squareFootArea\":null,\"capabilities\":null,\"status\":null,\"physicalSpace\":null,\"$dtId\":\"{guid}\",\"$etag\":null}}";
         var expectedJsonWithoutNulls = $"{{\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}},\"name\":\"TestBuilding\",\"$dtId\":\"{guid}\"}}";
         var actualJsonWithNulls = JsonSerializer.Serialize(building);
-        AssertJsonEquivalent(expectedJsonWithNulls, actualJsonWithNulls);
+        AssertHelper.AssertJsonEquivalent(expectedJsonWithNulls, actualJsonWithNulls);
 
         var actualJsonWithoutNulls = JsonSerializer.Serialize(building, options);
-        AssertJsonEquivalent(expectedJsonWithoutNulls, actualJsonWithoutNulls);
+        AssertHelper.AssertJsonEquivalent(expectedJsonWithoutNulls, actualJsonWithoutNulls);
     }
 
     [TestMethod]
@@ -153,57 +153,13 @@ public class ModelsUnitTests
     [TestMethod]
     public void ModelSubclassDeserializesCorrectly()
     {
-        var json = $"{{\"$dtId\":\"d6eee516-8e60-4845-993d-0e35c5af677e\",\"number\":0,\"squareMeter\":2,\"name\":\"TestBuilding\",\"squareFootArea\":0,\"status\":\"Active\",\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}}}}";
+        var json = $"{{\"$dtId\":\"d6eee516-8e60-4845-993d-0e35c5af677e\",\"number\":0,\"name\":\"TestBuilding\",\"squareFootArea\":0,\"status\":\"Active\",\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}}}}";
         var expectedBuilding = new Building { Id = "d6eee516-8e60-4845-993d-0e35c5af677e", Name = "TestBuilding", Status = SpaceStatus.Active, Number = 2 };
         var deserializedBuilding = JsonSerializer.Deserialize<Building>(json, options);
         Assert.AreEqual(expectedBuilding.Id, deserializedBuilding?.Id);
         Assert.AreEqual(expectedBuilding.Name, deserializedBuilding?.Name);
         Assert.AreEqual(expectedBuilding.Status, deserializedBuilding?.Status);
         Assert.AreEqual(expectedBuilding.Metadata.ModelId, deserializedBuilding?.Metadata.ModelId);
-    }
-
-    [TestMethod]
-    public void ModelWithPopulatedDurationPropertyDeserializesCorrectly()
-    {
-        var json = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"squareMeter\":2,\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"maintenanceInterval\":\"P90DT8H7M6S\",\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
-        var expectedAsset = new Asset { Id = "d8985302-4ee1-4a10-b2f5-e854e1682422", AssetTag = "ABC123", Name = "Test Asset", SerialNumber = "SN12345", MaintenanceInterval = new TimeSpan(90, 8, 7, 6) };
-        var deserializedAsset = JsonSerializer.Deserialize<Asset>(json, options);
-        Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
-        Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
-        Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.MaintenanceInterval, deserializedAsset?.MaintenanceInterval);
-        Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
-    }
-
-    [TestMethod]
-    public void ModelWithNullDurationPropertyDeserializesCorrectly()
-    {
-        var json = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"squareMeter\":2,\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"maintenanceInterval\":null,\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
-        var expectedAsset = new Asset { Id = "d8985302-4ee1-4a10-b2f5-e854e1682422", AssetTag = "ABC123", Name = "Test Asset", SerialNumber = "SN12345", MaintenanceInterval = null };
-        var deserializedAsset = JsonSerializer.Deserialize<Asset>(json, options);
-        Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
-        Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
-        Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.MaintenanceInterval, deserializedAsset?.MaintenanceInterval);
-        Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
-    }
-
-    [TestMethod]
-    public void ModelWithPopulatedDurationPropertySerializesCorrectly()
-    {
-        var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"squareMeter\":2,\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"maintenanceInterval\":\"P90DT8H7M6S\",\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
-        var asset = new Asset { Id = "d8985302-4ee1-4a10-b2f5-e854e1682422", AssetTag = "ABC123", Name = "Test Asset", SerialNumber = "SN12345", MaintenanceInterval = new TimeSpan(90, 8, 7, 6) };
-        var actualJson = JsonSerializer.Serialize(asset, options);
-        AssertJsonEquivalent(expectedJson, actualJson);
-    }
-
-    [TestMethod]
-    public void ModelWithNullDurationPropertySerializesCorrectly()
-    {
-        var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"squareMeter\":2,\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"maintenanceInterval\":null,\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
-        var asset = new Asset { Id = "d8985302-4ee1-4a10-b2f5-e854e1682422", AssetTag = "ABC123", Name = "Test Asset", SerialNumber = "SN12345", MaintenanceInterval = null };
-        var actualJson = JsonSerializer.Serialize<Asset>(asset, options);
-        AssertJsonEquivalent(expectedJson, actualJson);
     }
 
     [TestMethod]
@@ -215,7 +171,7 @@ public class ModelsUnitTests
         var expectedJson = $"{{\"$relationshipName\":\"hasAddress\",\"$relationshipId\":\"{relationshipId}\",\"$sourceId\":\"{sourceId}\",\"$targetId\":\"{targetId}\"}}";
         var relationship = new BuildingHasAddressRelationship { Id = relationshipId.ToString(), SourceId = sourceId.ToString(), TargetId = targetId.ToString() };
         var actualJson = JsonSerializer.Serialize(relationship, options);
-        AssertJsonEquivalent(expectedJson, actualJson);
+        AssertHelper.AssertJsonEquivalent(expectedJson, actualJson);
     }
 
     [TestMethod]
@@ -238,12 +194,5 @@ public class ModelsUnitTests
         Assert.AreEqual(expectedRelationship.SourceId, deserializedBaseRelationship?.SourceId);
         Assert.AreEqual(expectedRelationship.TargetId, deserializedBaseRelationship?.TargetId);
         Assert.AreEqual(expectedRelationship.Name, deserializedBaseRelationship?.Name);
-    }
-
-    private void AssertJsonEquivalent(string expected, string actual)
-    {
-        using var expectedToken = JsonDocument.Parse(expected);
-        using var actualToken = JsonDocument.Parse(actual);
-        expectedToken.DeepEquals(actualToken);
     }
 }

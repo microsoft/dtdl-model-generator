@@ -12,6 +12,7 @@ public class ModelGenerator
     {
         "DurationConverter.cs",
         "Extensions.cs",
+        "MapDurationConverter.cs",
         "ModelHelper.cs",
         "Relationship.cs",
         "RelationshipCollection.cs",
