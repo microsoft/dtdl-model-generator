@@ -153,7 +153,7 @@ public class ModelsUnitTests
     [TestMethod]
     public void ModelSubclassDeserializesCorrectly()
     {
-        var json = $"{{\"$dtId\":\"d6eee516-8e60-4845-993d-0e35c5af677e\",\"number\":0,\"name\":\"TestBuilding\",\"squareFootArea\":0,\"status\":\"Active\",\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}}}}";
+        var json = $"{{\"$dtId\":\"d6eee516-8e60-4845-993d-0e35c5af677e\",\"number\":0,\"squareMeter\":2,\"name\":\"TestBuilding\",\"squareFootArea\":0,\"status\":\"Active\",\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}}}}";
         var expectedBuilding = new Building { Id = "d6eee516-8e60-4845-993d-0e35c5af677e", Name = "TestBuilding", Status = SpaceStatus.Active, Number = 2 };
         var deserializedBuilding = JsonSerializer.Deserialize<Building>(json, options);
         Assert.AreEqual(expectedBuilding.Id, deserializedBuilding?.Id);
