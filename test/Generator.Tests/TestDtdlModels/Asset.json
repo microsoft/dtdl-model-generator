@@ -1,0 +1,53 @@
+{
+  "@id": "dtmi:test:Asset;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Asset",
+  "contents": [
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "assetTag"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "name"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "serialNumber"
+    },
+    {
+      "@type": "Property",
+      "schema": "duration",
+      "writable": true,
+      "name": "maintenanceInterval"
+    },
+    {
+      "@type": "Property",
+      "name": "runtimeDurations",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "dayOfWeek",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "runtime",
+          "schema": "duration"
+        }
+      }
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:test:Space;1",
+      "name": "isLocatedIn"
+    }
+  ]
+}
