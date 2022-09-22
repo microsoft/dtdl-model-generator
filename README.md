@@ -39,9 +39,40 @@ The following are some Prerequisites/assumptions to be considered:
 - The ModelGeneratorOptions property "CopyrightHeader" should have "// " prefix.
 
 ## Limitations
-- The model generator do not support Telemetry fields and Component.
-- The model generator do not support Duration and Array schema types for property and telemetry attributes.
-- It also does not support Semantic type with Telemetry fields.
+
+### Model Attributes
+
+| Content | DTDL v2 | Model Generator |
+| ---------------- | ------- | --------------- |
+| Telemetry | :white_check_mark: | :x: |
+| Property  | :white_check_mark: | :white_check_mark: |
+| Command | :white_check_mark: | :x: |
+| Relationship | :white_check_mark: | :white_check_mark: |
+| Component | :white_check_mark: | :x: |
+
+
+### Schemas
+
+| Schemas | DTDL v2 | Model Generator |
+| ------- | ------- | --------------- |
+| Boolean | :white_check_mark: | :white_check_mark: |
+| Date | :white_check_mark: | :x: |
+| DateTime | :white_check_mark: | :white_check_mark: |
+| Double | :white_check_mark: | :white_check_mark: |
+| Duration | :white_check_mark: | :white_check_mark: |
+| Float | :white_check_mark: | :white_check_mark: |
+| Integer | :white_check_mark: | :white_check_mark: |
+| Long | :white_check_mark: | :x: |
+| String | :white_check_mark: | :white_check_mark: |
+| Time | :white_check_mark: | :white_check_mark: |
+| Array (Property) | :x: | :x: |
+| Array (Telemetry) | :white_check_mark: | :x: |
+| Enum | :white_check_mark: | :white_check_mark: |
+| Map | :white_check_mark: | :white_check_mark: |
+| Object | :white_check_mark: | :white_check_mark: |
+| Semantic Type (Property) | :white_check_mark: | :white_check_mark: |
+| Semantic Type (Telemetry) | :white_check_mark: | :x: |
+
 
 ## Usage
 
