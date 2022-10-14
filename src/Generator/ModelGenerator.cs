@@ -10,9 +10,7 @@ public class ModelGenerator
 {
     private readonly IEnumerable<string> customClasses = new List<string>
     {
-        "DurationConverter.cs",
         "Extensions.cs",
-        "MapDurationConverter.cs",
         "ModelHelper.cs",
         "Relationship.cs",
         "RelationshipCollection.cs",
