@@ -132,10 +132,10 @@ public class ModelsUnitTests
         var expectedJsonWithNulls = $"{{\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}},\"businessEntityNumber\":null,\"number\":null,\"shortName\":null,\"squareMeter\":null,\"rationalSortKey\":null,\"regionId\":null,\"startOfBusinessTime\":null,\"endOfBusinessTime\":null,\"businessEntityName\":null,\"amenities\":null,\"externalId\":null,\"name\":\"TestBuilding\",\"roomKey\":null,\"friendlyName\":null,\"description\":null,\"squareFootArea\":null,\"capabilities\":null,\"status\":null,\"physicalSpace\":null,\"$dtId\":\"{guid}\",\"$etag\":null}}";
         var expectedJsonWithoutNulls = $"{{\"$metadata\":{{\"$model\":\"{Building.ModelId}\"}},\"name\":\"TestBuilding\",\"$dtId\":\"{guid}\"}}";
         var actualJsonWithNulls = JsonSerializer.Serialize(building);
-        AssertHelper.AssertJsonEquivalent(expectedJsonWithNulls, actualJsonWithNulls);
+        AssertJsonEquivalent(expectedJsonWithNulls, actualJsonWithNulls);
 
         var actualJsonWithoutNulls = JsonSerializer.Serialize(building, options);
-        AssertHelper.AssertJsonEquivalent(expectedJsonWithoutNulls, actualJsonWithoutNulls);
+        AssertJsonEquivalent(expectedJsonWithoutNulls, actualJsonWithoutNulls);
     }
 
     [TestMethod]
@@ -171,7 +171,7 @@ public class ModelsUnitTests
         var expectedJson = $"{{\"$relationshipName\":\"hasAddress\",\"$relationshipId\":\"{relationshipId}\",\"$sourceId\":\"{sourceId}\",\"$targetId\":\"{targetId}\"}}";
         var relationship = new BuildingHasAddressRelationship { Id = relationshipId.ToString(), SourceId = sourceId.ToString(), TargetId = targetId.ToString() };
         var actualJson = JsonSerializer.Serialize(relationship, options);
-        AssertHelper.AssertJsonEquivalent(expectedJson, actualJson);
+        AssertJsonEquivalent(expectedJson, actualJson);
     }
 
     [TestMethod]
@@ -194,5 +194,12 @@ public class ModelsUnitTests
         Assert.AreEqual(expectedRelationship.SourceId, deserializedBaseRelationship?.SourceId);
         Assert.AreEqual(expectedRelationship.TargetId, deserializedBaseRelationship?.TargetId);
         Assert.AreEqual(expectedRelationship.Name, deserializedBaseRelationship?.Name);
+    }
+
+    private void AssertJsonEquivalent(string expected, string actual)
+    {
+        using var expectedToken = JsonDocument.Parse(expected);
+        using var actualToken = JsonDocument.Parse(actual);
+        expectedToken.DeepEquals(actualToken);
     }
 }
