@@ -4,57 +4,57 @@
 namespace Generator.Tests;
 
 [TestClass]
-public class MapDurationConverterUnitTests
+public class MapDateOnlyConverterUnitTests
 {
     private readonly JsonSerializerOptions options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
 
     [TestMethod]
-    public void PopulatedMapDurationPropertyDeserializesCorrectly()
+    public void PopulatedMapDateOnlyPropertyDeserializesCorrectly()
     {
-        var json = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDurations\":{{\"Monday\":\"PT1H\",\"Wednesday\":\"PT2H30M\"}},\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
+        var json = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDetails\":{{\"Friday\":\"2020-03-10\",\"Sunday\":\"2020-03-12\"}},\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
         var expectedAsset = new Asset
         {
             Id = "d8985302-4ee1-4a10-b2f5-e854e1682422",
             AssetTag = "ABC123",
             Name = "Test Asset",
             SerialNumber = "SN12345",
-            RuntimeDurations = new Dictionary<string, TimeSpan>()
+            RuntimeDetails = new Dictionary<string, DateOnly>()
             {
-                ["Monday"] = new TimeSpan(1, 0, 0),
-                ["Wednesday"] = new TimeSpan(2, 30, 0)
+                ["Friday"] = new DateOnly(2020, 03, 10),
+                ["Sunday"] = new DateOnly(2020, 03, 12)
             }
         };
         var deserializedAsset = JsonSerializer.Deserialize<Asset>(json, options);
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
         Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.RuntimeDurations["Monday"], deserializedAsset?.RuntimeDurations["Monday"]);
-        Assert.AreEqual(expectedAsset.RuntimeDurations["Wednesday"], deserializedAsset?.RuntimeDurations["Wednesday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDetails["Friday"], deserializedAsset?.RuntimeDetails["Friday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDetails["Sunday"], deserializedAsset?.RuntimeDetails["Sunday"]);
         Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
     }
 
     [TestMethod]
-    public void NullMapDurationPropertyDeserializesCorrectly()
+    public void NullMapDateOnlyPropertyDeserializesCorrectly()
     {
-        var json = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDurations\":null,\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
+        var json = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDetails\":null,\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
         var expectedAsset = new Asset
         {
             Id = "d8985302-4ee1-4a10-b2f5-e854e1682422",
             AssetTag = "ABC123",
             Name = "Test Asset",
             SerialNumber = "SN12345",
-            RuntimeDurations = null
+            RuntimeDetails = null
         };
         var deserializedAsset = JsonSerializer.Deserialize<Asset>(json, options);
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
         Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.RuntimeDurations, expectedAsset.RuntimeDurations);
+        Assert.AreEqual(expectedAsset.RuntimeDetails, deserializedAsset?.RuntimeDetails);
         Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
     }
 
     [TestMethod]
-    public void PopulatedMapDurationPropertySerializesCorrectly()
+    public void PopulatedMapDateOnlyPropertySerializesCorrectly()
     {
         var asset = new Asset
         {
@@ -62,19 +62,19 @@ public class MapDurationConverterUnitTests
             AssetTag = "ABC123",
             Name = "Test Asset",
             SerialNumber = "SN12345",
-            RuntimeDurations = new Dictionary<string, TimeSpan>()
+            RuntimeDetails = new Dictionary<string, DateOnly>()
             {
-                ["Monday"] = new TimeSpan(1, 0, 0),
-                ["Wednesday"] = new TimeSpan(2, 30, 0)
+                ["Friday"] = new DateOnly(2020, 03, 10),
+                ["Sunday"] = new DateOnly(2020, 03, 12)
             }
         };
-        var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDurations\":{{\"Monday\":\"PT1H\",\"Wednesday\":\"PT2H30M\"}},\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
+        var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDetails\":{{\"Friday\":\"2020-03-10\",\"Sunday\":\"2020-03-12\"}},\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
         var actualJson = JsonSerializer.Serialize<Asset>(asset, options);
         AssertHelper.AssertJsonEquivalent(expectedJson, actualJson);
     }
 
     [TestMethod]
-    public void NullMapDurationPropertySerializesCorrectly()
+    public void NullMapDateOnlyPropertySerializesCorrectly()
     {
         var asset = new Asset
         {
@@ -82,9 +82,9 @@ public class MapDurationConverterUnitTests
             AssetTag = "ABC123",
             Name = "Test Asset",
             SerialNumber = "SN12345",
-            RuntimeDurations = null
+            RuntimeDetails = null
         };
-        var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDurations\":null,\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
+        var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDetails\":null,\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";
         var actualJson = JsonSerializer.Serialize<Asset>(asset, options);
         AssertHelper.AssertJsonEquivalent(expectedJson, actualJson);
     }

@@ -24,6 +24,7 @@ internal abstract class ClassEntity : Entity
         WriteUsingAzure(streamWriter);
         WriteUsingAdt(streamWriter);
         WriteUsingSystem(streamWriter);
+        WriteUsingSystemRuntime(streamWriter);
         WriteUsingCollection(streamWriter);
         base.WriteUsingStatements(streamWriter);
     }
@@ -59,6 +60,11 @@ internal abstract class ClassEntity : Entity
         if (schema is DTDurationInfo)
         {
             return new DurationProperty(entity, Options);
+        }
+
+        if (schema is DTDateInfo)
+        {
+            return new DateOnlyProperty(entity, Options);
         }
 
         return new PrimitiveProperty(entity, schema, Name, Options);

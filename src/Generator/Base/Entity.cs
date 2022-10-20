@@ -77,6 +77,11 @@ internal abstract class Entity : Writable
         streamWriter.WriteLine($"{indent}using System;");
     }
 
+    protected void WriteUsingSystemRuntime(StreamWriter streamWriter)
+    {
+        streamWriter.WriteLine($"{indent}using System.Runtime;");
+    }
+
     protected void WriteUsingSerialization(StreamWriter streamWriter)
     {
         streamWriter.WriteLine($"{indent}using System.Runtime.Serialization;");

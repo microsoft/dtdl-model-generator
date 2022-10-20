@@ -56,7 +56,7 @@ The following are some Prerequisites/assumptions to be considered:
 | Schemas | DTDL v2 | Model Generator |
 | ------- | ------- | --------------- |
 | Boolean | :white_check_mark: | :white_check_mark: |
-| Date | :white_check_mark: | :x: |
+| Date | :white_check_mark: | :white_check_mark: |
 | DateTime | :white_check_mark: | :white_check_mark: |
 | Double | :white_check_mark: | :white_check_mark: |
 | Duration | :white_check_mark: | :white_check_mark: |

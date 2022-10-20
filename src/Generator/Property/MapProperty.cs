@@ -40,6 +40,11 @@ internal class MapProperty : Property
             streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDurationConverter))]");
         }
 
+        if (mapValue == nameof(DateOnly))
+        {
+            streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDateOnlyConverter))]");
+        }
+
         base.WriteTo(streamWriter);
     }
 }
