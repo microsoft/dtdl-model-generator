@@ -18,7 +18,61 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 - *Namespace*: The namespace that will be injected into the generated model classes.
 - *JsonModelsDirectory*: The directory that contains the DTDL json files that we'll be parsing.
 - *OutputDirectory*: The directory that the generated model classes will be placed in.
-- *IncludeTemplateProject*: Whether or not to include the template project in the output directory.
+- *CopyrightHeader*: The header comment that contains copyright information.
+
+## Prerequisites
+The following are some Prerequisites/assumptions to be considered:
+
+### For Developers
+- .Net 6 must be installed, while building the model generator locally. Backward compatibility is not supported.
+- The system should have Git installed as the model generator uses MinVer package which requires Git.
+
+### For Users
+- The following classes have been copied at the location where model generator assembly is being executed:
+  - Extensions.cs
+  - ModelHelper.cs
+  - Relationship.cs
+  - RelationshipCollection.cs
+  - RelationshipEqualityComparer.cs
+  - SourceValueAttribute.cs
+  - TwinEqualityComparer.cs
+- The ModelGeneratorOptions property "CopyrightHeader" should have "// " prefix.
+
+## Limitations
+
+### Model Attributes
+
+| Content | DTDL v2 | Model Generator |
+| ---------------- | ------- | --------------- |
+| Telemetry | :white_check_mark: | :x: |
+| Property  | :white_check_mark: | :white_check_mark: |
+| Command | :white_check_mark: | :x: |
+| Relationship | :white_check_mark: | :white_check_mark: |
+| Component | :white_check_mark: | :x: |
+
+
+### Schemas
+
+| Schemas | DTDL v2 | Model Generator |
+| ------- | ------- | --------------- |
+| Boolean | :white_check_mark: | :white_check_mark: |
+| Date | :white_check_mark: | :x: |
+| DateTime | :white_check_mark: | :white_check_mark: |
+| Double | :white_check_mark: | :white_check_mark: |
+| Duration | :white_check_mark: | :white_check_mark: |
+| Float | :white_check_mark: | :white_check_mark: |
+| Integer | :white_check_mark: | :white_check_mark: |
+| Long | :white_check_mark: | :x: |
+| String | :white_check_mark: | :white_check_mark: |
+| Time | :white_check_mark: | :white_check_mark: |
+| Array (Property) | :x: | :x: |
+| Array (Telemetry) | :white_check_mark: | :x: |
+| Enum | :white_check_mark: | :white_check_mark: |
+| Map | :white_check_mark: | :white_check_mark: |
+| Object | :white_check_mark: | :white_check_mark: |
+| Semantic Type (Property) | :white_check_mark: | :white_check_mark: |
+| Semantic Type (Telemetry) | :white_check_mark: | :x: |
+
 
 ## Usage
 
