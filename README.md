@@ -6,7 +6,7 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 
 ## Project Components
 
-- *Generator*: This is the core aspect of this project and is the package that's published to NuGet.
+- *Generator*: This is the core aspect of this project (supports .Net 6 or higher) and is the package that's published to NuGet.
 - *Generator.TemplateProject*: This is a template project that serves a couple purposes.
     1. It serves as a holding-ground for our custom, complementary classes that help connect the dots between certain aspects of the generated model classes.
     2. In the event a user of the generator doesn't have their own project destination to place the generated classes, this project serves as a template for the user to start from. Our generator will inject the correct Namespace and Assembly information into the template project based on options passed into the Generator.
@@ -29,7 +29,11 @@ The following are some Prerequisites/assumptions to be considered:
 
 ### For Users
 - The following classes have been copied at the location where model generator assembly is being executed:
+  - DateOnlyConverter.cs
+  - DurationConverter.cs
   - Extensions.cs
+  - MapDateOnlyConverter.cs
+  - MapDurationConverter.cs
   - ModelHelper.cs
   - Relationship.cs
   - RelationshipCollection.cs
