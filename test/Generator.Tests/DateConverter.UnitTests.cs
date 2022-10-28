@@ -16,9 +16,9 @@ public class DateConverterUnitTests
         var deserializedAsset = JsonSerializer.Deserialize<Asset>(inputJson, options);
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
-        Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.InstalledOn, deserializedAsset?.InstalledOn);
-        Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
+        Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset!?.SerialNumber);
+        Assert.AreEqual(expectedAsset.InstalledOn, deserializedAsset!?.InstalledOn);
+        Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset!?.Metadata.ModelId);
     }
 
     [TestMethod]

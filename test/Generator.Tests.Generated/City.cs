@@ -6,7 +6,6 @@ namespace Generator.Tests.Generated
     using Azure;
     using Azure.DigitalTwins.Core;
     using System;
-    using System.Runtime;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Text.Json.Serialization;

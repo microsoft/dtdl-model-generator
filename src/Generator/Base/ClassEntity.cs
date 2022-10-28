@@ -24,7 +24,6 @@ internal abstract class ClassEntity : Entity
         WriteUsingAzure(streamWriter);
         WriteUsingAdt(streamWriter);
         WriteUsingSystem(streamWriter);
-        WriteUsingSystemRuntime(streamWriter);
         WriteUsingCollection(streamWriter);
         base.WriteUsingStatements(streamWriter);
     }

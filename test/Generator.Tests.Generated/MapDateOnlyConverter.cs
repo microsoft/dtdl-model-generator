@@ -16,24 +16,6 @@ using System.Xml;
 /// </summary>
 public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
 {
-    private readonly string serializationFormat;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MapDateOnlyConverter"/> class.
-    /// </summary>
-    public MapDateOnlyConverter() : this(null)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MapDateOnlyConverter"/> class.
-    /// </summary>
-    /// <param name="serializationFormat">Serialization format. </param>
-    public MapDateOnlyConverter(string? serializationFormat)
-    {
-        this.serializationFormat = serializationFormat ?? "yyyy-MM-dd";
-    }
-
     /// <inheritdoc/>
     public override IDictionary<string, DateOnly> Read(ref Utf8JsonReader reader,
                                                  Type typeToConvert, JsonSerializerOptions options)
@@ -83,7 +65,7 @@ public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
         foreach ((string key, DateOnly value) in dictionary)
         {
             writer.WritePropertyName(options.PropertyNamingPolicy?.ConvertName(key) ?? key);
-            writer.WriteStringValue(value.ToString(serializationFormat));
+            writer.WriteStringValue(value.ToString("yyyy-MM-dd"));
         }
 
         writer.WriteEndObject();

@@ -28,8 +28,8 @@ public class MapDateOnlyConverterUnitTests
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
         Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.RuntimeDetails["Friday"], deserializedAsset?.RuntimeDetails["Friday"]);
-        Assert.AreEqual(expectedAsset.RuntimeDetails["Sunday"], deserializedAsset?.RuntimeDetails["Sunday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDetails["Friday"], deserializedAsset?.RuntimeDetails!["Friday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDetails["Sunday"], deserializedAsset?.RuntimeDetails!["Sunday"]);
         Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
     }
 

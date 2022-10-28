@@ -28,8 +28,8 @@ public class MapDurationConverterUnitTests
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
         Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.RuntimeDurations["Monday"], deserializedAsset?.RuntimeDurations["Monday"]);
-        Assert.AreEqual(expectedAsset.RuntimeDurations["Wednesday"], deserializedAsset?.RuntimeDurations["Wednesday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDurations["Monday"], deserializedAsset?.RuntimeDurations!["Monday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDurations["Wednesday"], deserializedAsset?.RuntimeDurations!["Wednesday"]);
         Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
     }
 
