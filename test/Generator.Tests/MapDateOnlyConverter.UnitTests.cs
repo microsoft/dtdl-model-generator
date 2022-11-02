@@ -7,6 +7,8 @@ namespace Generator.Tests;
 public class MapDateOnlyConverterUnitTests
 {
     private readonly JsonSerializerOptions options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
+    private const string testFirstWeekDay = "Friday";
+    private const string testSecondWeekDay = "Sunday";
 
     [TestMethod]
     public void PopulatedMapDateOnlyPropertyDeserializesCorrectly()
@@ -20,16 +22,16 @@ public class MapDateOnlyConverterUnitTests
             SerialNumber = "SN12345",
             RuntimeDetails = new Dictionary<string, DateOnly>()
             {
-                ["Friday"] = new DateOnly(2020, 03, 10),
-                ["Sunday"] = new DateOnly(2020, 03, 12)
+                { testFirstWeekDay, new DateOnly(2020, 03, 10) },
+                { testSecondWeekDay, new DateOnly(2020, 03, 12) }
             }
         };
         var deserializedAsset = JsonSerializer.Deserialize<Asset>(json, options);
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
         Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.RuntimeDetails["Friday"], deserializedAsset?.RuntimeDetails!["Friday"]);
-        Assert.AreEqual(expectedAsset.RuntimeDetails["Sunday"], deserializedAsset?.RuntimeDetails!["Sunday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDetails[testFirstWeekDay], deserializedAsset?.RuntimeDetails![testFirstWeekDay]);
+        Assert.AreEqual(expectedAsset.RuntimeDetails[testSecondWeekDay], deserializedAsset?.RuntimeDetails![testSecondWeekDay]);
         Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
     }
 
@@ -64,8 +66,8 @@ public class MapDateOnlyConverterUnitTests
             SerialNumber = "SN12345",
             RuntimeDetails = new Dictionary<string, DateOnly>()
             {
-                ["Friday"] = new DateOnly(2020, 03, 10),
-                ["Sunday"] = new DateOnly(2020, 03, 12)
+                { testFirstWeekDay, new DateOnly(2020, 03, 10) },
+                { testSecondWeekDay, new DateOnly(2020, 03, 12) }
             }
         };
         var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDetails\":{{\"Friday\":\"2020-03-10\",\"Sunday\":\"2020-03-12\"}},\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";

@@ -41,18 +41,17 @@ public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
             var key = reader.GetString();
 
             reader.Read();
-            if (reader.TokenType == JsonTokenType.Null)
+            if (reader.TokenType == JsonTokenType.Null || String.IsNullOrWhiteSpace(key))
             {
                 continue;
             }
+            var value = reader.GetString();
 
-#pragma warning disable CS8604 // Possible null reference argument.
-            // reader.GetString() won't return null, already checked above.
-            var value = XmlConvert.ToTimeSpan(reader.GetString());
-
-            // key cannot be null.
-            dictionary.Add(key, value);
-#pragma warning restore CS8604 // Possible null reference argument.
+            if (!String.IsNullOrWhiteSpace(value))
+            {
+                var parsedValue = XmlConvert.ToTimeSpan(value);
+                dictionary.Add(key, parsedValue);
+            }
         }
 
         throw new JsonException("Final token was not the end of a JSON object.");

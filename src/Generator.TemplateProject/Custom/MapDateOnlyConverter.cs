@@ -16,6 +16,7 @@ using System.Xml;
 /// </summary>
 public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
 {
+    private readonly string serializationFormat = "yyyy-MM-dd";
     /// <inheritdoc/>
     public override IDictionary<string, DateOnly> Read(ref Utf8JsonReader reader,
                                                  Type typeToConvert, JsonSerializerOptions options)
@@ -26,7 +27,6 @@ public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
         }
 
         var dictionary = new Dictionary<string, DateOnly>();
-
         while (reader.Read())
         {
             if (reader.TokenType == JsonTokenType.EndObject)
@@ -42,15 +42,18 @@ public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
             var key = reader.GetString();
 
             reader.Read();
-            if (reader.TokenType == JsonTokenType.Null)
+            if (reader.TokenType == JsonTokenType.Null || String.IsNullOrWhiteSpace(key))
             {
                 continue;
             }
 
-#pragma warning disable CS8604 // Possible null reference argument.
-            var value = DateOnly.Parse(reader.GetString());
-            dictionary.Add(key, value);
-#pragma warning restore CS8604 // Possible null reference argument.
+            var value = reader.GetString();
+
+            if(!String.IsNullOrWhiteSpace(value))
+            {
+                var parsedValue = DateOnly.Parse(value);
+                dictionary.Add(key, parsedValue);
+            }
         }
 
         throw new JsonException("Final token was not the end of a JSON object.");
@@ -65,7 +68,7 @@ public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
         foreach ((string key, DateOnly value) in dictionary)
         {
             writer.WritePropertyName(options.PropertyNamingPolicy?.ConvertName(key) ?? key);
-            writer.WriteStringValue(value.ToString("yyyy-MM-dd"));
+            writer.WriteStringValue(value.ToString(serializationFormat));
         }
 
         writer.WriteEndObject();

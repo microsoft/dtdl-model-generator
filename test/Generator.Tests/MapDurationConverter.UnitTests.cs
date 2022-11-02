@@ -7,6 +7,8 @@ namespace Generator.Tests;
 public class MapDurationConverterUnitTests
 {
     private readonly JsonSerializerOptions options = new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
+    private const string testFirstWeekDay = "Monday";
+    private const string testSecondWeekDay = "Wednesday";
 
     [TestMethod]
     public void PopulatedMapDurationPropertyDeserializesCorrectly()
@@ -20,16 +22,16 @@ public class MapDurationConverterUnitTests
             SerialNumber = "SN12345",
             RuntimeDurations = new Dictionary<string, TimeSpan>()
             {
-                ["Monday"] = new TimeSpan(1, 0, 0),
-                ["Wednesday"] = new TimeSpan(2, 30, 0)
+                { testFirstWeekDay, new TimeSpan(1, 0, 0) },
+                { testSecondWeekDay, new TimeSpan(2, 30, 0) }
             }
         };
         var deserializedAsset = JsonSerializer.Deserialize<Asset>(json, options);
         Assert.AreEqual(expectedAsset.Id, deserializedAsset?.Id);
         Assert.AreEqual(expectedAsset.Name, deserializedAsset?.Name);
         Assert.AreEqual(expectedAsset.SerialNumber, deserializedAsset?.SerialNumber);
-        Assert.AreEqual(expectedAsset.RuntimeDurations["Monday"], deserializedAsset?.RuntimeDurations!["Monday"]);
-        Assert.AreEqual(expectedAsset.RuntimeDurations["Wednesday"], deserializedAsset?.RuntimeDurations!["Wednesday"]);
+        Assert.AreEqual(expectedAsset.RuntimeDurations[testFirstWeekDay], deserializedAsset?.RuntimeDurations![testFirstWeekDay]);
+        Assert.AreEqual(expectedAsset.RuntimeDurations[testSecondWeekDay], deserializedAsset?.RuntimeDurations![testSecondWeekDay]);
         Assert.AreEqual(expectedAsset.Metadata.ModelId, deserializedAsset?.Metadata.ModelId);
     }
 
@@ -64,8 +66,8 @@ public class MapDurationConverterUnitTests
             SerialNumber = "SN12345",
             RuntimeDurations = new Dictionary<string, TimeSpan>()
             {
-                ["Monday"] = new TimeSpan(1, 0, 0),
-                ["Wednesday"] = new TimeSpan(2, 30, 0)
+                { testFirstWeekDay, new TimeSpan(1, 0, 0) },
+                { testSecondWeekDay, new TimeSpan(2, 30, 0) }
             }
         };
         var expectedJson = $"{{\"$dtId\":\"d8985302-4ee1-4a10-b2f5-e854e1682422\",\"assetTag\":\"12345\",\"name\":\"Test Asset\",\"serialNumber\":\"SN12345\",\"runtimeDurations\":{{\"Monday\":\"PT1H\",\"Wednesday\":\"PT2H30M\"}},\"$metadata\":{{\"$model\":\"{Asset.ModelId}\"}}}}";

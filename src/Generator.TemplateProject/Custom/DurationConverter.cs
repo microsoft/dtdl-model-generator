@@ -18,9 +18,12 @@ public class DurationConverter : JsonConverter<TimeSpan>
     /// <inheritdoc/>
     public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-#pragma warning disable CS8604 // Possible null reference argument. Read() is not called if the value is null. Verified in unit test.
-        return XmlConvert.ToTimeSpan(reader.GetString());
-#pragma warning restore CS8604 // Possible null reference argument.
+        var value = reader.GetString();
+        if(String.IsNullOrWhiteSpace(value))
+        {
+            return TimeSpan.Zero;
+        }
+        return XmlConvert.ToTimeSpan(value);
     }
 
     /// <inheritdoc/>
