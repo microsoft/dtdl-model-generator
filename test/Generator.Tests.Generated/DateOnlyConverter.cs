@@ -22,7 +22,7 @@ public class DateOnlyConverter : JsonConverter<DateOnly>
     {
         var value = reader.GetString();
 
-        if(String.IsNullOrWhiteSpace(value))
+        if(string.IsNullOrWhiteSpace(value))
         {
             return new DateOnly();
         }

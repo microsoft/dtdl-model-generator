@@ -42,14 +42,14 @@ public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
             var key = reader.GetString();
 
             reader.Read();
-            if (reader.TokenType == JsonTokenType.Null || String.IsNullOrWhiteSpace(key))
+            if (reader.TokenType == JsonTokenType.Null || string.IsNullOrWhiteSpace(key))
             {
                 continue;
             }
 
             var value = reader.GetString();
 
-            if(!String.IsNullOrWhiteSpace(value))
+            if(!string.IsNullOrWhiteSpace(value))
             {
                 var parsedValue = DateOnly.Parse(value);
                 dictionary.Add(key, parsedValue);

@@ -41,13 +41,13 @@ public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
             var key = reader.GetString();
 
             reader.Read();
-            if (reader.TokenType == JsonTokenType.Null || String.IsNullOrWhiteSpace(key))
+            if (reader.TokenType == JsonTokenType.Null || string.IsNullOrWhiteSpace(key))
             {
                 continue;
             }
             var value = reader.GetString();
 
-            if (!String.IsNullOrWhiteSpace(value))
+            if (!string.IsNullOrWhiteSpace(value))
             {
                 var parsedValue = XmlConvert.ToTimeSpan(value);
                 dictionary.Add(key, parsedValue);

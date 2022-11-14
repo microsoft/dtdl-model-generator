@@ -12,7 +12,7 @@ using System.Text.Json.Serialization;
 using System.Xml;
 
 /// <summary>
-/// Converts a map of ISO 8601 durations into an IDictionary&lt;string, TimeSpan&lt;.
+/// Converts a map of ISO 8601 durations into an <see cref="IDictionary{String, TimeSpan}"/>.
 /// </summary>
 public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
 {
@@ -41,13 +41,13 @@ public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
             var key = reader.GetString();
 
             reader.Read();
-            if (reader.TokenType == JsonTokenType.Null || String.IsNullOrWhiteSpace(key))
+            if (reader.TokenType == JsonTokenType.Null || string.IsNullOrWhiteSpace(key))
             {
                 continue;
             }
             var value = reader.GetString();
 
-            if (!String.IsNullOrWhiteSpace(value))
+            if (!string.IsNullOrWhiteSpace(value))
             {
                 var parsedValue = XmlConvert.ToTimeSpan(value);
                 dictionary.Add(key, parsedValue);
