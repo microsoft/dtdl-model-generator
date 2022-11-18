@@ -25,7 +25,8 @@ internal static class Types
             { DTEntityKind.Float, "float" },
             { DTEntityKind.Double, "double" },
             { DTEntityKind.String, "string" },
-            { DTEntityKind.Duration, "TimeSpan" }
+            { DTEntityKind.Duration, "TimeSpan" },
+            { DTEntityKind.Date, "DateOnly" }
         };
 
     internal static bool TryGetNullable(DTEntityKind entityKind, out string? type)

@@ -61,6 +61,11 @@ internal abstract class ClassEntity : Entity
             return new DurationProperty(entity, Options);
         }
 
+        if (schema is DTDateInfo)
+        {
+            return new DateOnlyProperty(entity, Options);
+        }
+
         return new PrimitiveProperty(entity, schema, Name, Options);
     }
 

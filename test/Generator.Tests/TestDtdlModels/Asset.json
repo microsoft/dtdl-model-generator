@@ -30,6 +30,12 @@
     },
     {
       "@type": "Property",
+      "schema": "date",
+      "writable": true,
+      "name": "installedOn"
+    },
+    {
+      "@type": "Property",
       "name": "runtimeDurations",
       "writable": true,
       "schema": {
@@ -41,6 +47,22 @@
         "mapValue": {
           "name": "runtime",
           "schema": "duration"
+        }
+      }
+    },
+    {
+      "@type": "Property",
+      "name": "runtimeDetails",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "dayOfWeek",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "runtimeDate",
+          "schema": "date"
         }
       }
     },

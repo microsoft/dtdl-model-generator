@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net6</TargetFrameworks>
+    <TargetFrameworks>net6</TargetFrameworks>
     <DeterministicSourcePaths>false</DeterministicSourcePaths>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <RootNamespace>Generator.Tests.Generated</RootNamespace>

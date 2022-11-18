@@ -12,20 +12,21 @@ using System.Text.Json.Serialization;
 using System.Xml;
 
 /// <summary>
-/// Converts a map of ISO 8601 durations into an IDictionary&lt;string, TimeSpan&lt;.
+/// Converts a map of RFC 3339 into an IDictionary&lt;string, DateOnly&lt;.
 /// </summary>
-public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
+public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
 {
+    private readonly string serializationFormat = "yyyy-MM-dd";
     /// <inheritdoc/>
-    public override IDictionary<string, TimeSpan> Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override IDictionary<string, DateOnly> Read(ref Utf8JsonReader reader,
+                                                 Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartObject)
         {
             throw new JsonException("First token was not the start of a JSON object.");
         }
 
-        var dictionary = new Dictionary<string, TimeSpan>();
-
+        var dictionary = new Dictionary<string, DateOnly>();
         while (reader.Read())
         {
             if (reader.TokenType == JsonTokenType.EndObject)
@@ -45,11 +46,12 @@ public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
             {
                 continue;
             }
+
             var value = reader.GetString();
 
-            if (!string.IsNullOrWhiteSpace(value))
+            if(!string.IsNullOrWhiteSpace(value))
             {
-                var parsedValue = XmlConvert.ToTimeSpan(value);
+                var parsedValue = DateOnly.Parse(value);
                 dictionary.Add(key, parsedValue);
             }
         }
@@ -58,14 +60,15 @@ public class MapDurationConverter : JsonConverter<IDictionary<string, TimeSpan>>
     }
 
     /// <inheritdoc/>
-    public override void Write(Utf8JsonWriter writer, IDictionary<string, TimeSpan> dictionary, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, IDictionary<string, DateOnly> dictionary,
+                          JsonSerializerOptions options)
     {
         writer.WriteStartObject();
 
-        foreach ((string key, TimeSpan value) in dictionary)
+        foreach ((string key, DateOnly value) in dictionary)
         {
             writer.WritePropertyName(options.PropertyNamingPolicy?.ConvertName(key) ?? key);
-            writer.WriteStringValue(XmlConvert.ToString(value));
+            writer.WriteStringValue(value.ToString(serializationFormat));
         }
 
         writer.WriteEndObject();

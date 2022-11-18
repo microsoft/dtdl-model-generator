@@ -27,9 +27,15 @@ namespace Generator.Tests.Generated
         [JsonConverter(typeof(DurationConverter))]
         [JsonPropertyName("maintenanceInterval")]
         public TimeSpan? MaintenanceInterval { get; set; }
+        [JsonConverter(typeof(DateOnlyConverter))]
+        [JsonPropertyName("installedOn")]
+        public DateOnly? InstalledOn { get; set; }
         [JsonConverter(typeof(MapDurationConverter))]
         [JsonPropertyName("runtimeDurations")]
         public IDictionary<string, TimeSpan>? RuntimeDurations { get; set; }
+        [JsonConverter(typeof(MapDateOnlyConverter))]
+        [JsonPropertyName("runtimeDetails")]
+        public IDictionary<string, DateOnly>? RuntimeDetails { get; set; }
         [JsonIgnore]
         public AssetIsLocatedInRelationshipCollection IsLocatedIn { get; set; } = new AssetIsLocatedInRelationshipCollection();
         public override bool Equals(object? obj)
@@ -39,7 +45,7 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Asset? other)
         {
-            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && AssetTag == other.AssetTag && Name == other.Name && SerialNumber == other.SerialNumber && MaintenanceInterval == other.MaintenanceInterval && RuntimeDurations == other.RuntimeDurations;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && AssetTag == other.AssetTag && Name == other.Name && SerialNumber == other.SerialNumber && MaintenanceInterval == other.MaintenanceInterval && InstalledOn == other.InstalledOn && RuntimeDurations == other.RuntimeDurations && RuntimeDetails == other.RuntimeDetails;
         }
 
         public static bool operator ==(Asset? left, Asset? right)
@@ -54,7 +60,7 @@ namespace Generator.Tests.Generated
 
         public override int GetHashCode()
         {
-            return this.CustomHash(Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode(), AssetTag?.GetHashCode(), Name?.GetHashCode(), SerialNumber?.GetHashCode(), MaintenanceInterval?.GetHashCode(), RuntimeDurations?.GetHashCode());
+            return this.CustomHash(Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode(), AssetTag?.GetHashCode(), Name?.GetHashCode(), SerialNumber?.GetHashCode(), MaintenanceInterval?.GetHashCode(), InstalledOn?.GetHashCode(), RuntimeDurations?.GetHashCode(), RuntimeDetails?.GetHashCode());
         }
 
         public bool Equals(BasicDigitalTwin? other)
