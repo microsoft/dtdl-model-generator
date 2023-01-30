@@ -1,0 +1,44 @@
+{
+  "@id": "dtmi:microsoft:places:Campus;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Campus",
+  "extends": "dtmi:microsoft:places:Space;1",
+  "contents": [
+    {
+      "@type": "Relationship",
+      "target": "dtmi:microsoft:places:Address;1",
+      "name": "hasAddress",
+      "properties": [
+        {
+          "@type": "Property",
+          "name": "addressType",
+          "schema": {
+            "@type": "Enum",
+            "valueSchema": "string",
+            "enumValues": [
+              {
+                "name": "Mailing",
+                "displayName": "Mailing",
+                "enumValue": "Mailing",
+                "comment": "1"
+              },
+              {
+                "name": "Street",
+                "displayName": "Street",
+                "enumValue": "Street",
+                "comment": "2"
+              },
+              {
+                "name": "Temporary",
+                "displayName": "Temporary",
+                "enumValue": "Temporary",
+                "comment": "3"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

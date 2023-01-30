@@ -33,7 +33,7 @@ internal class MapProperty : Property
         Obsolete = entity.IsObsolete();
     }
 
-    internal override void WriteTo(StreamWriter streamWriter)
+    internal override void WriteTo(StreamWriter streamWriter, int fieldNumber)
     {
         if (mapValue == nameof(TimeSpan))
         {
@@ -45,6 +45,6 @@ internal class MapProperty : Property
             streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDateOnlyConverter))]");
         }
 
-        base.WriteTo(streamWriter);
+        base.WriteTo(streamWriter, fieldNumber);
     }
 }

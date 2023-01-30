@@ -13,9 +13,9 @@ internal class DateOnlyProperty : Property
         Type = "DateOnly?";
     }
 
-    internal override void WriteTo(StreamWriter streamWriter)
+    internal override void WriteTo(StreamWriter streamWriter, int fieldNumber)
     {
         streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(DateOnlyConverter))]");
-        base.WriteTo(streamWriter);
+        base.WriteTo(streamWriter, fieldNumber);
     }
 }

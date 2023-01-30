@@ -1,0 +1,21 @@
+{
+  "@id": "dtmi:microsoft:places:Floor;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Floor",
+  "extends": "dtmi:microsoft:places:Space;1",
+  "contents": [
+    {
+      "@type": "Property",
+      "schema": "integer",
+      "name": "sortOrder",
+      "writable": true
+    },
+    {
+      "@type": "Relationship",
+      "name": "belongsTo",
+      "target": "dtmi:microsoft:places:Building;1",
+      "maxMultiplicity": 1
+    }
+  ]
+}

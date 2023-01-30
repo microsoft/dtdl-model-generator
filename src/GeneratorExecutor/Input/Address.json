@@ -1,0 +1,44 @@
+{
+  "@id": "dtmi:microsoft:places:Address;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Address",
+  "contents": [
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "postOfficeBox"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "street"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "city"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "state"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "country"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "postalCode"
+    }
+  ]
+}

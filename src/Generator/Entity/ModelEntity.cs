@@ -10,14 +10,34 @@ internal class ModelEntity : ClassEntity
     internal ModelEntity(DTInterfaceInfo interfaceInfo, ModelGeneratorOptions options) : base(options)
     {
         ModelId = interfaceInfo.Id;
+        var parents = new Stack<DTInterfaceInfo>();
+        foreach (var extend in interfaceInfo.Extends)
+        {
+            parents.Push(extend);
+        }
+
+        while (parents.Any())
+        {
+            var parent = parents.Pop();
+            foreach (var parentContent in parent.Contents)
+            {
+                interfaceInfo.Contents.TryAdd(parentContent.Key, parentContent.Value);
+            }
+
+            foreach (var extend in parent.Extends)
+            {
+                parents.Push(extend);
+            }
+        }
+
         Properties = interfaceInfo.Contents.Values
-                            .Where(c => c.Id.Labels.Contains(Name) && c.EntityKind == DTEntityKind.Property && c is DTPropertyInfo)
+                            .Where(c => c.EntityKind == DTEntityKind.Property && c is DTPropertyInfo)
                             .Select(c => (DTPropertyInfo)c);
         Name = GetClassName(interfaceInfo.Id);
         Parent = interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
         FileDirectory = ExtractDirectory(ModelId);
-        var contents = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name));
-        Content.AddRange(contents.Select(CreateProperty));
+        var contents = interfaceInfo.Contents.Select(c => c.Value);
+        Content.AddRange(contents.Select(CreateProperty).Where(p => p != null));
     }
 
     protected override void WriteConstructor(StreamWriter streamWriter)
@@ -37,12 +57,12 @@ internal class ModelEntity : ClassEntity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
-        streamWriter.Write($"{indent}public class {Name}");
-        if (!string.IsNullOrEmpty(Parent))
-        {
-            var basicDigitalTwinEquatable = Parent == nameof(BasicDigitalTwin) ? $", IEquatable<{nameof(BasicDigitalTwin)}>" : string.Empty;
-            streamWriter.Write($" : {Parent}, IEquatable<{Name}>{basicDigitalTwinEquatable}");
-        }
+        streamWriter.Write($"message {Name}");
+        //if (!string.IsNullOrEmpty(Parent))
+        //{
+        //    var basicDigitalTwinEquatable = Parent == nameof(BasicDigitalTwin) ? $", IEquatable<{nameof(BasicDigitalTwin)}>" : string.Empty;
+        //    streamWriter.Write($" : {Parent}, IEquatable<{Name}>{basicDigitalTwinEquatable}");
+        //}
 
         streamWriter.WriteLine();
     }
@@ -50,7 +70,7 @@ internal class ModelEntity : ClassEntity
     protected override void WriteContent(StreamWriter streamWriter)
     {
         base.WriteContent(streamWriter);
-        WriteEqualityBlock(streamWriter);
+        //WriteEqualityBlock(streamWriter);
     }
 
     private string GetClassName(Dtmi id)

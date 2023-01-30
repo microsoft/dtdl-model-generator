@@ -18,15 +18,15 @@ internal static class Types
 
     private static readonly IDictionary<DTEntityKind, string> nonNullablePropertyTypeMapping = new Dictionary<DTEntityKind, string>
         {
-            { DTEntityKind.Integer, "int" },
+            { DTEntityKind.Integer, "sint32" },
             { DTEntityKind.Boolean, "bool" },
-            { DTEntityKind.DateTime, "DateTime" },
-            { DTEntityKind.Time, "object" },
+            //{ DTEntityKind.DateTime, "DateTime" },
+            //{ DTEntityKind.Time, "object" },
             { DTEntityKind.Float, "float" },
             { DTEntityKind.Double, "double" },
             { DTEntityKind.String, "string" },
-            { DTEntityKind.Duration, "TimeSpan" },
-            { DTEntityKind.Date, "DateOnly" }
+            //{ DTEntityKind.Duration, "TimeSpan" },
+            //{ DTEntityKind.Date, "DateOnly" }
         };
 
     internal static bool TryGetNullable(DTEntityKind entityKind, out string? type)

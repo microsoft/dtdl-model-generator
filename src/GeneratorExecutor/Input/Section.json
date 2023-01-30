@@ -1,0 +1,15 @@
+{
+  "@id": "dtmi:microsoft:places:Section;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Section",
+  "extends": "dtmi:microsoft:places:Space;1",
+  "contents": [
+    {
+      "@type": "Relationship",
+      "name": "belongsTo",
+      "target": "dtmi:microsoft:places:Floor;1",
+      "maxMultiplicity": 1
+    }
+  ]
+}

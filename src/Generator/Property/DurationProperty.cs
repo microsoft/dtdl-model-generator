@@ -13,9 +13,9 @@ internal class DurationProperty : Property
         Type = "TimeSpan?";
     }
 
-    internal override void WriteTo(StreamWriter streamWriter)
+    internal override void WriteTo(StreamWriter streamWriter, int fieldNumber)
     {
         streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(DurationConverter))]");
-        base.WriteTo(streamWriter);
+        base.WriteTo(streamWriter, fieldNumber);
     }
 }

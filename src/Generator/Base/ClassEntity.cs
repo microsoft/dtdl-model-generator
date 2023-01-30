@@ -30,11 +30,11 @@ internal abstract class ClassEntity : Entity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
-        streamWriter.Write($"{indent}public class {Name}");
-        if (!string.IsNullOrEmpty(Parent))
-        {
-            streamWriter.Write($" : {Parent}");
-        }
+        streamWriter.Write($"message {Name}");
+        //if (!string.IsNullOrEmpty(Parent))
+        //{
+        //    streamWriter.Write($" : {Parent}");
+        //}
 
         streamWriter.WriteLine();
     }
@@ -43,30 +43,37 @@ internal abstract class ClassEntity : Entity
     {
         if (schema is DTMapInfo mapInfo)
         {
-            return new MapProperty(entity, mapInfo, Name, Options);
+            return null;// new MapProperty(entity, mapInfo, Name, Options);
         }
 
         if (schema is DTEnumInfo enumInfo)
         {
-            return new EnumProperty(entity, enumInfo, Name, Options);
+            return null;// new EnumProperty(entity, enumInfo, Name, Options);
         }
 
         if (schema is DTObjectInfo objectInfo)
         {
-            return new ObjectProperty(entity, objectInfo, Name, Options);
+            return null;// new ObjectProperty(entity, objectInfo, Name, Options);
         }
 
         if (schema is DTDurationInfo)
         {
-            return new DurationProperty(entity, Options);
+            return null;// new DurationProperty(entity, Options);
         }
 
         if (schema is DTDateInfo)
         {
-            return new DateOnlyProperty(entity, Options);
+            return null;// new DateOnlyProperty(entity, Options);
         }
 
-        return new PrimitiveProperty(entity, schema, Name, Options);
+        try
+        {
+            return new PrimitiveProperty(entity, schema, Name, Options);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     protected Property CreateProperty(DTContentInfo content)
@@ -78,7 +85,7 @@ internal abstract class ClassEntity : Entity
 
         if (content is DTRelationshipInfo relationship)
         {
-            return new RelationshipProperty(relationship, Options);
+            return null; //new RelationshipProperty(relationship, Options);
         }
 
         throw new Exception($"Unsupported content type: {content.EntityKind}");
@@ -86,8 +93,8 @@ internal abstract class ClassEntity : Entity
 
     protected override void WriteContent(StreamWriter streamWriter)
     {
-        WriteConstructor(streamWriter);
-        WriteStaticMembers(streamWriter);
+        //WriteConstructor(streamWriter);
+        //WriteStaticMembers(streamWriter);
         WriteProperties(streamWriter);
     }
 
@@ -101,9 +108,11 @@ internal abstract class ClassEntity : Entity
 
     protected virtual void WriteProperties(StreamWriter streamWriter)
     {
+        var count = 1;
+
         foreach (var property in Content)
         {
-            property.WriteTo(streamWriter);
+            property.WriteTo(streamWriter, count++);
         }
     }
 

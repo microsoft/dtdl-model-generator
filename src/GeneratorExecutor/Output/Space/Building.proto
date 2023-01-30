@@ -1,0 +1,21 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+syntax = "proto3";
+option csharp_namespace = "Microsoft.Outlook.Services.Scheduling.Places.API.v2";
+package microsoft.outlook.services.scheduling.places.api.v2;
+message Building
+{
+    string BusinessEntityNumber = 1;
+    sint32 Number = 2;
+    string ShortName = 3;
+    float SquareMeter = 4;
+    string RationalSortKey = 5;
+    string RegionId = 6;
+    string BusinessEntityName = 7;
+    string Name = 8;
+    string RoomKey = 9;
+    string FriendlyName = 10;
+    string Description = 11;
+    float SquareFootArea = 12;
+}
