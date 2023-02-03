@@ -57,6 +57,7 @@ internal class ModelEntity : ClassEntity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
+        streamWriter.WriteLine();
         streamWriter.Write($"message {Name}");
         //if (!string.IsNullOrEmpty(Parent))
         //{

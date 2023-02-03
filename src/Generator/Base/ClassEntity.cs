@@ -30,6 +30,7 @@ internal abstract class ClassEntity : Entity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
+        streamWriter.WriteLine();
         streamWriter.Write($"message {Name}");
         //if (!string.IsNullOrEmpty(Parent))
         //{
@@ -43,12 +44,12 @@ internal abstract class ClassEntity : Entity
     {
         if (schema is DTMapInfo mapInfo)
         {
-            return null;// new MapProperty(entity, mapInfo, Name, Options);
+            return new MapProperty(entity, mapInfo, Name, Options);
         }
 
         if (schema is DTEnumInfo enumInfo)
         {
-            return null;// new EnumProperty(entity, enumInfo, Name, Options);
+            return new EnumProperty(entity, enumInfo, Name, Options);
         }
 
         if (schema is DTObjectInfo objectInfo)

@@ -11,8 +11,8 @@ internal class EnumEntity : Entity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
-        WriteStringEnumConverterAttribute(streamWriter);
-        streamWriter.WriteLine($"{indent}public enum {Name}");
+        //WriteStringEnumConverterAttribute(streamWriter);
+        streamWriter.WriteLine($"enum {Name}");
     }
 
     protected override void WriteContent(StreamWriter streamWriter)

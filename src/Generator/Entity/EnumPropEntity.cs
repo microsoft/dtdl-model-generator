@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using Microsoft.Azure.DigitalTwins.Parser;
+
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 internal class EnumPropEntity : EnumEntity
@@ -26,18 +28,25 @@ internal class EnumPropEntity : EnumEntity
 
     protected override void WriteUsingStatements(StreamWriter streamWriter)
     {
-        WriteUsingDataAnnotation(streamWriter);
-        base.WriteUsingStatements(streamWriter);
+        //WriteUsingDataAnnotation(streamWriter);
+        //base.WriteUsingStatements(streamWriter);
     }
 
     protected override void WriteContent(StreamWriter streamWriter)
     {
+        var index = 0;
         foreach (var enumValue in EnumInfo.EnumValues)
         {
-            var isLastItem = EnumInfo.EnumValues.IndexOf(enumValue) == EnumInfo.EnumValues.Count - 1;
-            WriteEnumAttributes(streamWriter, enumValue);
-            var comma = isLastItem ? string.Empty : ",";
-            streamWriter.WriteLine($"{indent}{indent}{enumValue.EnumValue}{comma}");
+            var currentEnumValue = ConvertEnumValueToProtobufNamingConvention($"{Name}{enumValue.EnumValue}");
+            if (!string.IsNullOrEmpty(enumValue.Comment) && int.TryParse(enumValue.Comment, out int enumIndex))
+            {
+                streamWriter.WriteLine($"{indent}{currentEnumValue} = {enumIndex}{";"}");
+            }
+            else
+            {
+                streamWriter.WriteLine($"{indent}{currentEnumValue} = {index}{";"}");
+                index++;
+            }
         }
     }
 

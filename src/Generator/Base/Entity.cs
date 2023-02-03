@@ -9,7 +9,7 @@ internal abstract class Entity : Writable
 
     internal string FileName => $"{Name}.proto";
 
-    internal string Name { get => name; set => name = ConvertToProtobufNamingConvention(value); }
+    internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
 
     internal string? FileDirectory { get; set; }
 
@@ -62,6 +62,11 @@ internal abstract class Entity : Writable
     {
         streamWriter.WriteLine("package microsoft.outlook.services.scheduling.places.api.v2;");
         streamWriter.WriteLine();
+    }
+
+    protected virtual void WriteImportStatements(StreamWriter streamWriter)
+    {
+        streamWriter.WriteLine($"import \"\";");
     }
 
     #region using statements

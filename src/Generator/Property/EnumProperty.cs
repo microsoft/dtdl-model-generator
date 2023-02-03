@@ -8,7 +8,7 @@ internal class EnumProperty : Property
     internal EnumProperty(DTNamedEntityInfo entityInfo, DTEnumInfo enumInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
     {
         var enumEntity = new EnumPropEntity(enumInfo, enclosingClass, options);
-        Type = $"{enumEntity.Name}?";
+        Type = enumEntity.Name;
         Name = entityInfo.Name;
         JsonName = entityInfo.Name;
         Obsolete = entityInfo.IsObsolete();

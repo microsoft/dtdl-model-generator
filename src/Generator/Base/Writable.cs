@@ -29,6 +29,11 @@ internal abstract class Writable
         return string.Concat(word.Select((x, i) => char.IsUpper(x) && i > 0 ? "_" + char.ToLower(x) : x.ToString()));
     }
 
+    protected static string ConvertEnumValueToProtobufNamingConvention(string word)
+    {
+        return string.Concat(word.Select((x, i) => char.IsUpper(x) && i > 0 ? "_" + char.ToUpper(x) : x.ToString())).ToUpper();
+    }
+
     protected static string LowercaseFirstLetter(string word)
     {
         return char.ToLower(word[0]) + word.Substring(1);
