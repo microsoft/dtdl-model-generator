@@ -55,6 +55,17 @@ internal class ModelEntity : ClassEntity
         streamWriter.WriteLine($"{indent}{indent}public static {setNew}string ModelId {{ get; }} = \"{ModelId.AbsoluteUri}\";");
     }
 
+    protected override void WriteImportStatements(StreamWriter streamWriter)
+    {
+        var producedEntities = Content.OfType<EnumProperty>().SelectMany(x => x.ProducedEntities);
+        foreach (var producedEntity in producedEntities)
+        {
+            streamWriter.WriteLine($"import \"{producedEntity.FileName}\";");
+        }
+
+        base.WriteImportStatements(streamWriter);
+    }
+
     protected override void WriteSignature(StreamWriter streamWriter)
     {
         streamWriter.WriteLine();

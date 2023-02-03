@@ -66,7 +66,6 @@ internal abstract class Entity : Writable
 
     protected virtual void WriteImportStatements(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"import \"\";");
     }
 
     #region using statements
@@ -151,6 +150,7 @@ internal abstract class Entity : Writable
         WriteSyntaxVersion(streamWriter);
         WriteCSNamespace(streamWriter);
         WriteNamespace(streamWriter);
+        WriteImportStatements(streamWriter);
         WriteEntity(streamWriter);
     }
 
