@@ -9,7 +9,7 @@ internal abstract class Entity : Writable
 
     internal string FileName => $"{Name}.proto";
 
-    internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
+    internal string Name { get => name; set => name = ConvertToProtobufNamingConvention(value); }
 
     internal string? FileDirectory { get; set; }
 
@@ -55,13 +55,16 @@ internal abstract class Entity : Writable
     protected virtual void WriteCSNamespace(StreamWriter streamWriter)
     {
         streamWriter.WriteLine("option csharp_namespace = \"Microsoft.Outlook.Services.Scheduling.Places.API.v2\";");
+        streamWriter.WriteLine();
     }
 
     protected virtual void WriteNamespace(StreamWriter streamWriter)
     {
         streamWriter.WriteLine("package microsoft.outlook.services.scheduling.places.api.v2;");
+        streamWriter.WriteLine();
     }
 
+    #region using statements
     protected virtual void WriteUsingStatements(StreamWriter streamWriter)
     {
         WriteUsingSerialization(streamWriter);
@@ -112,6 +115,7 @@ internal abstract class Entity : Writable
     {
         streamWriter.WriteLine($"{indent}using System.Linq;");
     }
+    #endregion
 
     private StreamWriter CreateStreamWriter()
     {
@@ -149,6 +153,7 @@ internal abstract class Entity : Writable
     {
         //WriteUsingStatements(streamWriter);
         //streamWriter.WriteLine();
+
         WriteSignature(streamWriter);
         streamWriter.WriteLine("{");
         WriteContent(streamWriter);
