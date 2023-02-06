@@ -37,6 +37,14 @@ internal class EnumPropEntity : EnumEntity
         var index = 0;
         foreach (var enumValue in EnumInfo.EnumValues)
         {
+            const string en = nameof(en);
+            var hasEnDescription = enumValue.Description.ContainsKey(en) && !string.IsNullOrEmpty(enumValue.Description[en]);
+            var enDescription = hasEnDescription ? $"{enumValue.Description[en]}" : string.Empty;
+            if (!string.IsNullOrEmpty(enDescription))
+            {
+                streamWriter.WriteLine($"{indent}// {enDescription}");
+            }
+
             var currentEnumValue = ConvertEnumValueToProtobufNamingConvention($"{Name}{enumValue.EnumValue}");
             if (!string.IsNullOrEmpty(enumValue.Comment) && int.TryParse(enumValue.Comment, out int enumIndex))
             {
