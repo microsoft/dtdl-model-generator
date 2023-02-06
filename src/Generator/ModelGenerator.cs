@@ -52,14 +52,14 @@ public class ModelGenerator
         var parser = new ModelParser();
         var parsed = await parser.ParseAsync(files).ConfigureAwait(false);
         var models = parsed.Where(i => i.Value.EntityKind == DTEntityKind.Interface).ToDictionary(p => p.Key, p => (DTInterfaceInfo)p.Value).Values;
-        await CopyCustomModelsAsync().ConfigureAwait(false);
+        //await CopyCustomModelsAsync().ConfigureAwait(false);
         GenerateModels(models);
         CleanupOutputDirectory();
     }
 
     private void CleanupOutputDirectory()
     {
-        var files = Directory.GetFiles(options.OutputDirectory, "*.cs", SearchOption.AllDirectories);
+        var files = Directory.GetFiles(options.OutputDirectory, "*.proto", SearchOption.AllDirectories);
         var bin = Path.Combine(options.Namespace, "bin");
         var obj = Path.Combine(options.Namespace, "obj");
         var noBinOrObjFolders = files.Where(f => !f.Contains(bin) && !f.Contains(obj));

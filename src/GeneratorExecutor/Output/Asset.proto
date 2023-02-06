@@ -1,0 +1,12 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+syntax = "proto3";
+option csharp_namespace = "Microsoft.Outlook.Services.Scheduling.Places.API.v2";
+package microsoft.outlook.services.scheduling.places.api.v2;
+message Asset
+{
+    string AssetTag = 1;
+    string Name = 2;
+    string SerialNumber = 3;
+}

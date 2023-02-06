@@ -1,0 +1,20 @@
+{
+  "@id": "dtmi:microsoft:places:Space;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;2",
+  "displayName": "Space",
+  "contents": [
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "id"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "name"
+    }
+  ]
+}

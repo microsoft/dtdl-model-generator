@@ -28,7 +28,8 @@ internal class RelationshipEntity : ClassEntity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}public class {Name} : {Parent}, IEquatable<{Name}>");
+        //streamWriter.WriteLine($"{indent}public class {Name} : {Parent}, IEquatable<{Name}>");
+        streamWriter.WriteLine($"message {Name}");
     }
 
     protected override void WriteConstructor(StreamWriter streamWriter)

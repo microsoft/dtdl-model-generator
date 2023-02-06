@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
+using System;
+
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
 internal abstract class Property : Writable
@@ -13,13 +15,18 @@ internal abstract class Property : Writable
 
     private IDictionary<string, bool> needsConvertedMapping = new Dictionary<string, bool>
     {
-        { "int?", false },
-        { "int", false },
+        //{ "int?", false },
+        //{ "int", false },
+        //{ "float", false },
+        //{ "float?", false },
+        //{ "string", false },
+        //{ "bool", false },
+        //{ "bool?", false }
+        { "sint32", false },
         { "float", false },
-        { "float?", false },
+        { "double", false },
         { "string", false },
         { "bool", false },
-        { "bool?", false }
     };
 
     private IList<string> interfaceTransformTypes = new List<string>
@@ -34,7 +41,7 @@ internal abstract class Property : Writable
 
     internal string? NonInterfaceType { get; set; }
 
-    internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
+    internal string Name { get => name; set => name = ConvertToProtobufNamingConvention(value); }
 
     internal string JsonName { get; set; } = string.Empty;
 
@@ -64,53 +71,54 @@ internal abstract class Property : Writable
         Setter = new PropertySetter(options);
     }
 
-    internal virtual void WriteTo(StreamWriter streamWriter)
+    internal virtual void WriteTo(StreamWriter streamWriter, int fieldNumber)
     {
         foreach (var producedEntity in ProducedEntities)
         {
             producedEntity.GenerateFile();
         }
 
-        if (JsonIgnore)
-        {
-            WriteJsonIgnoreAttribute(streamWriter);
-        }
-        else
-        {
-            WriteJsonPropertyAttribute(streamWriter, JsonName);
-        }
+        //if (JsonIgnore)
+        //{
+        //    WriteJsonIgnoreAttribute(streamWriter);
+        //}
+        //else
+        //{
+        //    WriteJsonPropertyAttribute(streamWriter, JsonName);
+        //}
 
-        if (Obsolete)
-        {
-            streamWriter.WriteLine($"{indent}{indent}{Helper.ObsoleteAttribute}");
-        }
+        //if (Obsolete)
+        //{
+        //    streamWriter.WriteLine($"{indent}{indent}{Helper.ObsoleteAttribute}");
+        //}
 
-        var nullable = Nullable ? "?" : string.Empty;
-        streamWriter.Write($"{indent}{indent}public {Type}{nullable} {Name}");
+        //var nullable = Nullable ? "?" : string.Empty;
+        //streamWriter.Write($"{indent}{indent}public {Type}{nullable} {Name}");
+        streamWriter.WriteLine($"{indent}{Type} {Name} = {fieldNumber};");
 
         // If bodies exist, then add newlines to format.
-        if (hasBodies)
-        {
-            streamWriter.WriteLine();
-            streamWriter.WriteLine($"{indent}{indent}{{");
+        //if (hasBodies)
+        //{
+        //    streamWriter.WriteLine();
+        //    streamWriter.WriteLine($"{indent}{indent}{{");
 
-            streamWriter.Write($"{indent}{indent}{indent}");
-            Getter.WriteTo(streamWriter);
+        //    streamWriter.Write($"{indent}{indent}{indent}");
+        //    Getter.WriteTo(streamWriter);
 
-            streamWriter.Write($"{indent}{indent}{indent}");
-            Setter.WriteTo(streamWriter);
+        //    streamWriter.Write($"{indent}{indent}{indent}");
+        //    Setter.WriteTo(streamWriter);
 
-            streamWriter.Write($"{indent}{indent}}}");
-        }
-        else
-        {
-            streamWriter.Write(" { ");
-            Getter?.WriteTo(streamWriter);
-            Setter?.WriteTo(streamWriter);
-            streamWriter.Write("}");
-        }
+        //    streamWriter.Write($"{indent}{indent}}}");
+        //}
+        //else
+        //{
+        //    streamWriter.Write(" { ");
+        //    Getter?.WriteTo(streamWriter);
+        //    Setter?.WriteTo(streamWriter);
+        //    streamWriter.Write("}");
+        //}
 
-        streamWriter.WriteLine(Initialized ? $" = new {Type}();" : string.Empty);
+        //streamWriter.WriteLine(Initialized ? $" = new {Type}();" : string.Empty);
     }
 
     protected void WriteJsonPropertyAttribute(StreamWriter streamWriter, string property)

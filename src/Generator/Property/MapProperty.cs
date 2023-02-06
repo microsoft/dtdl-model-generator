@@ -29,22 +29,22 @@ internal class MapProperty : Property
             Types.TryGetNonNullable(map.MapValue.Schema.EntityKind, out mapValue);
         }
 
-        Type = $"IDictionary<{mapKey?.TrimEnd('?')}, {mapValue?.TrimEnd('?')}>?";
+        Type = $"map<{mapKey?.TrimEnd('?')}, {mapValue?.TrimEnd('?')}>";
         Obsolete = entity.IsObsolete();
     }
 
-    internal override void WriteTo(StreamWriter streamWriter)
+    internal override void WriteTo(StreamWriter streamWriter, int fieldNumber)
     {
-        if (mapValue == nameof(TimeSpan))
-        {
-            streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDurationConverter))]");
-        }
+        //if (mapValue == nameof(TimeSpan))
+        //{
+        //    streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDurationConverter))]");
+        //}
 
-        if (mapValue == nameof(DateOnly))
-        {
-            streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDateOnlyConverter))]");
-        }
+        //if (mapValue == nameof(DateOnly))
+        //{
+        //    streamWriter.WriteLine($"{indent}{indent}[JsonConverter(typeof(MapDateOnlyConverter))]");
+        //}
 
-        base.WriteTo(streamWriter);
+        base.WriteTo(streamWriter, fieldNumber);
     }
 }

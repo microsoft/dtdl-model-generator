@@ -20,8 +20,9 @@ internal class ObjectEntity : ClassEntity
 
     protected override void WriteSignature(StreamWriter streamWriter)
     {
-        streamWriter.WriteLine($"{indent}[Serializable]");
-        streamWriter.WriteLine($"{indent}public class {Name} : IEquatable<{Name}>");
+        //streamWriter.WriteLine($"{indent}[Serializable]");
+        //streamWriter.WriteLine($"{indent}public class {Name} : IEquatable<{Name}>");
+        streamWriter.WriteLine($"message {Name}>");
     }
 
     protected override void WriteContent(StreamWriter streamWriter)
