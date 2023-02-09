@@ -18,7 +18,7 @@ internal static class AssertHelper
         }
 
         // Includes custom files
-        Assert.AreEqual(49, outFileNames.Count, "Expected 49 files to be generated");
+        Assert.AreEqual(51, outFileNames.Count, "Expected 51 files to be generated");
     }
 
     internal static void AssertJsonEquivalent(string expected, string actual)
