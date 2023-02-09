@@ -60,8 +60,7 @@
               {
                 "name": "Street",
                 "displayName": "Street",
-                "enumValue": "Street",
-                "comment": "2"
+                "enumValue": "Street"
               },
               {
                 "name": "Temporary",

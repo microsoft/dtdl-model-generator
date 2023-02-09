@@ -12,7 +12,7 @@ namespace Generator.Tests.Generated
     {
         [EnumMember(Value = "Mailing"), Display(Name = "Mailing"), SourceValue(Value = "1")]
         Mailing,
-        [EnumMember(Value = "Street"), Display(Name = "Street"), SourceValue(Value = "2")]
+        [EnumMember(Value = "Street"), Display(Name = "Street")]
         Street,
         [EnumMember(Value = "Temporary"), Display(Name = "Temporary"), SourceValue(Value = "3")]
         Temporary
