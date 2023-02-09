@@ -93,11 +93,6 @@ internal abstract class Entity : Writable
         streamWriter.WriteLine($"{indent}using Azure;");
     }
 
-    protected void WriteUsingReflection(StreamWriter streamWriter)
-    {
-        streamWriter.WriteLine($"{indent}using System.Reflection;");
-    }
-
     protected void WriteUsingLinq(StreamWriter streamWriter)
     {
         streamWriter.WriteLine($"{indent}using System.Linq;");
