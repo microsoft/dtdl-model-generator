@@ -20,6 +20,13 @@
       "@type": "Property",
       "schema": "string",
       "writable": true,
+      "name": "street3",
+      "comment": "[Obsolete]"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
       "name": "county"
     },
     {
