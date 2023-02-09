@@ -36,6 +36,45 @@
       "name": "zipcode"
     },
     {
+      "@type": "Property",
+      "name": "testMap",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "testMapKey",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "testMapEnumValue",
+          "schema": {
+            "@type": "Enum",
+            "valueSchema": "string",
+            "enumValues": [
+              {
+                "name": "Mailing",
+                "displayName": "Mailing",
+                "enumValue": "Mailing",
+                "comment": "1"
+              },
+              {
+                "name": "Street",
+                "displayName": "Street",
+                "enumValue": "Street",
+                "comment": "2"
+              },
+              {
+                "name": "Temporary",
+                "displayName": "Temporary",
+                "enumValue": "Temporary",
+                "comment": "3"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
       "@type": "Relationship",
       "target": "dtmi:test:StateProvince;1",
       "name": "hasState"
