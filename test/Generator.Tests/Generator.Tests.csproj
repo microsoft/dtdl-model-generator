@@ -18,6 +18,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="TestDtdlErrorModels\TestDtdlErrorUnsupportedPrimitiveType\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="TestDtdlErrorModels\TestDtdlErrorUnsupportedContentType\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Azure.DigitalTwins.Core" />
     <Using Include="Generator.Tests.Generated" />
     <Using Include="Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator" />

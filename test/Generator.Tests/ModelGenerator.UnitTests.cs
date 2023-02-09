@@ -47,6 +47,62 @@ public class ModelGeneratorUnitTests
     }
 
     [TestMethod]
+    public async Task CannotGenerateUnsupportedContentType()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels\\TestDtdlErrorUnsupportedContentType");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.WithProject",
+            JsonModelsDirectory = jsonDir
+        };
+
+        try
+        {
+           await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
+           Assert.Fail();
+        }
+        catch (Exception ex)
+        {
+            Assert.IsTrue(ex.Message.Equals("Unsupported content type: Telemetry"));
+        }
+    }
+
+    [TestMethod]
+    public async Task CannotGenerateUnsupportedPrimitiveType()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels\\TestDtdlErrorUnsupportedPrimitiveType");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.WithProject",
+            JsonModelsDirectory = jsonDir
+        };
+
+        try
+        {
+            await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
+            Assert.Fail();
+        }
+        catch (Exception ex)
+        {
+            Assert.IsTrue(ex.Message.Equals("Unsupported primitive property type: Long for temp in TestDtdlErrorUnsupportedPrimitiveType!"));
+        }
+    }
+
+    [TestMethod]
     public async Task GenerationCreatesOutputDirectoryIfNotExists()
     {
         var jsonDir = Path.Combine(currentDir, "TestDtdlModels");
@@ -128,5 +184,12 @@ public class ModelGeneratorUnitTests
         await generator.GenerateClassesAsync().ConfigureAwait(false);
         await Task.Delay(500);
         AssertHelper.AssertFilesGenerated(options.JsonModelsDirectory, options.OutputDirectory);
+    }
+
+    private async Task RunGeneratorAndAssertErrorsAsync(ModelGeneratorOptions options)
+    {
+        var generator = new ModelGenerator(options);
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(500);
     }
 }

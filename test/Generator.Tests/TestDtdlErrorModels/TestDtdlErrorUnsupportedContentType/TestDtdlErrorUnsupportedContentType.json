@@ -1,0 +1,13 @@
+﻿{
+  "@id": "dtmi:test:TestDtdlErrorUnsupportedContentType;1",
+  "@type": "Interface",
+  "displayName": "TestDtdlErrorUnsupportedContentType",
+  "@context": "dtmi:dtdl:context;2",
+  "contents": [
+    {
+      "@type": "Telemetry",
+      "name": "temp",
+      "schema": "double"
+    }
+  ]
+}
