@@ -7,11 +7,7 @@ internal abstract class ClassEntity : Entity
 {
     internal string? Parent { get; set; }
 
-    internal IEnumerable<DTPropertyInfo> Properties { get; set; } = Enumerable.Empty<DTPropertyInfo>();
-
-    internal IEnumerable<DTFieldInfo> Fields { get; set; } = Enumerable.Empty<DTFieldInfo>();
-
-    internal List<Property> Content { get; set; } = new List<Property>();
+    internal List<Property> Content { get; } = new List<Property>();
 
     internal IList<Property> NonRelationshipProperties => Content.Where(p => !(p is RelationshipProperty)).ToList();
 

@@ -7,8 +7,6 @@ internal class RelationshipEntity : ClassEntity
 {
     internal DTRelationshipInfo RelationshipInfo { get; set; }
 
-    private string Target { get; set; }
-
     private string SourceType { get; set; }
 
     private string TargetType { get; set; }
@@ -16,13 +14,11 @@ internal class RelationshipEntity : ClassEntity
     internal RelationshipEntity(DTRelationshipInfo info, ModelGeneratorOptions options) : base(options)
     {
         RelationshipInfo = info;
-        Properties = info.Properties;
         SourceType = info.DefinedIn.Labels.Last();
         Name = $"{SourceType}{CapitalizeFirstLetter(RelationshipInfo.Name)}Relationship";
         FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), SourceType);
         TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
         Parent = $"Relationship<{TargetType}>";
-        Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
         Content.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
     }
 

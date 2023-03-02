@@ -10,9 +10,6 @@ internal class ModelEntity : ClassEntity
     internal ModelEntity(DTInterfaceInfo interfaceInfo, ModelGeneratorOptions options) : base(options)
     {
         ModelId = interfaceInfo.Id;
-        Properties = interfaceInfo.Contents.Values
-                            .Where(c => c.Id.Labels.Contains(Name) && c.EntityKind == DTEntityKind.Property && c is DTPropertyInfo)
-                            .Select(c => (DTPropertyInfo)c);
         Name = GetClassName(interfaceInfo.Id);
         Parent = interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
         FileDirectory = ExtractDirectory(ModelId);
