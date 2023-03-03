@@ -40,6 +40,8 @@ The following are some Prerequisites/assumptions to be considered:
   - RelationshipEqualityComparer.cs
   - SourceValueAttribute.cs
   - TwinEqualityComparer.cs
+  - CloudToDeviceMethodOptions.cs
+  - CommandHelper.cs
 - The ModelGeneratorOptions property "CopyrightHeader" should have "// " prefix.
 
 ## Limitations
@@ -50,7 +52,7 @@ The following are some Prerequisites/assumptions to be considered:
 | ---------------- | ------- | --------------- |
 | Telemetry | :white_check_mark: | :x: |
 | Property  | :white_check_mark: | :white_check_mark: |
-| Command | :white_check_mark: | :x: |
+| Command | :white_check_mark: | :white_check_mark: |
 | Relationship | :white_check_mark: | :white_check_mark: |
 | Component | :white_check_mark: | :x: |
 
