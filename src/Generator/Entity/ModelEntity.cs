@@ -16,8 +16,10 @@ internal class ModelEntity : ClassEntity
         Name = GetClassName(interfaceInfo.Id);
         Parent = interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
         FileDirectory = ExtractDirectory(ModelId);
-        var contents = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name));
-        Content.AddRange(contents.Select(CreateProperty));
+        var contents = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name) && c is not DTCommandInfo);
+        PropertyContent.AddRange(contents.Select(CreateProperty));
+        var commands = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name) && c is DTCommandInfo);
+        CommandContent.AddRange(commands.Select((contentInfo) => new Command((DTCommandInfo)contentInfo, Name, Options)));
     }
 
     protected override void WriteConstructor(StreamWriter streamWriter)

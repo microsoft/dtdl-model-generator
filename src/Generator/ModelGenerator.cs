@@ -20,7 +20,9 @@ public class ModelGenerator
         "RelationshipCollection.cs",
         "RelationshipEqualityComparer.cs",
         "SourceValueAttribute.cs",
-        "TwinEqualityComparer.cs"
+        "TwinEqualityComparer.cs",
+        "CloudToDeviceMethodOptions.cs",
+        "CommandHelper.cs"
     };
 
     private ModelGeneratorOptions options { get; set; }
@@ -81,6 +83,7 @@ public class ModelGenerator
 
     private void GenerateModels(IEnumerable<DTInterfaceInfo> models)
     {
+        // generatedFiles.Add("AssetComplexCommandRequest.cs");
         var entities = models.Select(m => new ModelEntity(m, options));
         foreach (var entity in entities)
         {
@@ -94,15 +97,23 @@ public class ModelGenerator
         if (entity is ClassEntity classEntity)
         {
             generatedFiles.Add(entity.FileName);
-            foreach (var contentItem in classEntity.Content)
+            foreach (var propertyContentItem in classEntity.PropertyContent)
             {
-                foreach (var producedEntity in contentItem.ProducedEntities)
+                foreach (var producedEntity in propertyContentItem.ProducedEntities)
                 {
                     generatedFiles.Add(producedEntity.FileName);
                     if (producedEntity is ClassEntity)
                     {
                         PopulateGeneratedFilesForEntity(producedEntity);
                     }
+                }
+            }
+
+            foreach (var commandContentItem in classEntity.CommandContent)
+            {
+                foreach (var producedEntity in commandContentItem.ProducedEntities)
+                {
+                    generatedFiles.Add(producedEntity.FileName);
                 }
             }
         }
