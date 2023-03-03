@@ -8,7 +8,7 @@ namespace Generator.Tests.Generated
     using System.Text.Json.Serialization;
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum POISubStatus
+    public enum SubStatus
     {
         [EnumMember(Value = "Available"), Display(Name = "Available", Description = "available"), SourceValue(Value = "1")]
         Available,

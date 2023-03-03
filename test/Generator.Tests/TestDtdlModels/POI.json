@@ -139,6 +139,7 @@
       "@type": "Property",
       "name": "subStatus",
       "schema": {
+        "@id": "dtmi:test:Space:Area:POI:SubStatus;1",
         "@type": "Enum",
         "valueSchema": "string",
         "enumValues": [
