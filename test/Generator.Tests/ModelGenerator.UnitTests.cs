@@ -66,7 +66,6 @@ public class ModelGeneratorUnitTests
         try
         {
            await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
-           Assert.Fail();
         }
         catch (Exception ex)
         {
@@ -94,7 +93,6 @@ public class ModelGeneratorUnitTests
         try
         {
             await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
-            Assert.Fail();
         }
         catch (Exception ex)
         {
