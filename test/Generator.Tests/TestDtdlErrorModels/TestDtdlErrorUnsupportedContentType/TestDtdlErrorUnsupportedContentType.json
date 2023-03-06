@@ -1,4 +1,4 @@
-﻿{
+{
   "@id": "dtmi:test:TestDtdlErrorUnsupportedContentType;1",
   "@type": "Interface",
   "displayName": "TestDtdlErrorUnsupportedContentType",

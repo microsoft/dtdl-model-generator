@@ -1,4 +1,4 @@
-﻿{
+{
   "@id": "dtmi:test:TestDtdlErrorUnsupportedPrimitiveType;1",
   "@type": "Interface",
   "displayName": "TestDtdlErrorUnsupportedPrimitiveType",
