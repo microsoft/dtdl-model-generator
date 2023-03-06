@@ -7,8 +7,6 @@ internal abstract class Property : Writable
 {
     private string name = string.Empty;
 
-    private string type = string.Empty;
-
     private IDictionary<string, bool> needsConvertedMapping = new Dictionary<string, bool>
     {
         { "int?", false },
@@ -28,7 +26,7 @@ internal abstract class Property : Writable
         "ICollection"
     };
 
-    internal string Type { get => type; set => HandleTypeSetter(value); }
+    internal string Type { get; set; }
 
     internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
 
@@ -88,10 +86,5 @@ internal abstract class Property : Writable
     protected void WriteJsonPropertyAttribute(StreamWriter streamWriter, string property)
     {
         streamWriter.WriteLine($"{indent}{indent}[JsonPropertyName(\"{property}\")]");
-    }
-
-    private void HandleTypeSetter(string value)
-    {
-        type = value;
     }
 }

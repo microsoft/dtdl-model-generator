@@ -17,7 +17,7 @@ internal class RelationshipEntity : ClassEntity
         SourceType = info.DefinedIn.Labels.Last();
         Name = $"{SourceType}{CapitalizeFirstLetter(RelationshipInfo.Name)}Relationship";
         FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), SourceType);
-        TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
+        TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : RelationshipInfo.Target.Labels.Last();
         Parent = $"Relationship<{TargetType}>";
         Content.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
     }

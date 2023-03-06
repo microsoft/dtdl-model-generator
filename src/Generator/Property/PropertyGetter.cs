@@ -11,7 +11,6 @@ internal class PropertyGetter : PropertyAccessor
 
     internal void WriteTo(StreamWriter writer)
     {
-        writer.Write("get");
-        writer.Write("; ");
+        writer.Write("get; ");
     }
 }
