@@ -49,7 +49,7 @@ public class ModelGeneratorUnitTests
     [TestMethod]
     public async Task CannotGenerateUnsupportedContentType()
     {
-        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels\\TestDtdlErrorUnsupportedContentType");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedContentType");
         var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
         if (Directory.Exists(outDir))
         {
@@ -76,7 +76,7 @@ public class ModelGeneratorUnitTests
     [TestMethod]
     public async Task CannotGenerateUnsupportedPrimitiveType()
     {
-        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels\\TestDtdlErrorUnsupportedPrimitiveType");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedPrimitiveType");
         var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
         if (Directory.Exists(outDir))
         {
