@@ -3,6 +3,8 @@
 
 namespace Generator.Tests;
 
+using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
+
 [TestClass]
 public class ModelGeneratorUnitTests
 {
@@ -47,9 +49,10 @@ public class ModelGeneratorUnitTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(UnsupportedContentTypeException))]
     public async Task CannotGenerateUnsupportedContentType()
     {
-        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels\\TestDtdlErrorUnsupportedContentType");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedContentType");
         var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
         if (Directory.Exists(outDir))
         {
@@ -63,20 +66,14 @@ public class ModelGeneratorUnitTests
             JsonModelsDirectory = jsonDir
         };
 
-        try
-        {
-           await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            Assert.IsTrue(ex.Message.Equals("Unsupported content type: Telemetry"));
-        }
+        await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
     }
 
     [TestMethod]
+    [ExpectedException(typeof(UnsupportedPrimativeTypeException))]
     public async Task CannotGenerateUnsupportedPrimitiveType()
     {
-        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels\\TestDtdlErrorUnsupportedPrimitiveType");
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedPrimitiveType");
         var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
         if (Directory.Exists(outDir))
         {
@@ -90,14 +87,7 @@ public class ModelGeneratorUnitTests
             JsonModelsDirectory = jsonDir
         };
 
-        try
-        {
-            await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
-        }
-        catch (Exception ex)
-        {
-            Assert.IsTrue(ex.Message.Equals("Unsupported primitive property type: Long for temp in TestDtdlErrorUnsupportedPrimitiveType!"));
-        }
+        await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
     }
 
     [TestMethod]

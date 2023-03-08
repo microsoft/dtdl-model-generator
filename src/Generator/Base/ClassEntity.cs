@@ -3,6 +3,8 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
+using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
+
 internal abstract class ClassEntity : Entity
 {
     internal string? Parent { get; set; }
@@ -77,7 +79,7 @@ internal abstract class ClassEntity : Entity
             return new RelationshipProperty(relationship, Options);
         }
 
-        throw new Exception($"Unsupported content type: {content.EntityKind}");
+        throw new UnsupportedContentTypeException(content.EntityKind.ToString());
     }
 
     protected override void WriteContent(StreamWriter streamWriter)
