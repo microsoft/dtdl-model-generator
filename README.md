@@ -1,8 +1,10 @@
 # DTDL Model Generator
 
-[![Build](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml) [![Release](https://github.com/microsoft/dtdl-model-generator/actions/workflows/release.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/release.yml)
+[![Build](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/build.yml)
+[![Release](https://github.com/microsoft/dtdl-model-generator/actions/workflows/release.yml/badge.svg)](https://github.com/microsoft/dtdl-model-generator/actions/workflows/release.yml)
+[![NuGet](https://img.shields.io/nuget/v/Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.svg)](https://www.nuget.org/packages/Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator)
 
-This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL json files and generates C# POCO classes to be used when interacting with the Azure Digital Twins SDK. This is made possible because all of the generated model classes inherit from the ADT-provided BasicDigitalTwin class.
+This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL json files and generates C# POCO classes to be used when interacting with the Azure Digital Twins SDK. This is made possible because all of the generated model classes inherit from the ADT-provided [`BasicDigitalTwin`](https://learn.microsoft.com/en-us/dotnet/api/azure.digitaltwins.core.basicdigitaltwin?view=azure-dotnet) class.
 
 ## Project Components
 
@@ -11,7 +13,7 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
     1. It serves as a holding-ground for our custom, complementary classes that help connect the dots between certain aspects of the generated model classes.
     2. In the event a user of the generator doesn't have their own project destination to place the generated classes, this project serves as a template for the user to start from. Our generator will inject the correct Namespace and Assembly information into the template project based on options passed into the Generator.
 - *Generator.Tests*: This is the test project that we use to test our generator.
-- *Generator.Tests.Generated*: This is an ouput project from our Generated that is produced when we run unit tests for our generator. Having this here also allows us to run unit tests against the generated models to ensure various functionality (like our custom equality implementations) are working as expected.
+- *Generator.Tests.Generated*: This project is produced when we run unit tests for our generator. Having this here also allows us to run unit tests against the generated models to ensure various functionality (like our custom equality implementations) are working as expected.
 
 ## ModelGeneratorOptions
 
@@ -21,13 +23,16 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 - *CopyrightHeader*: The header comment that contains copyright information.
 
 ## Prerequisites
-The following are some Prerequisites/assumptions to be considered:
+
+The following are some prerequisites/assumptions to be considered:
 
 ### For Developers
+
 - .Net 6 must be installed, while building the model generator locally. Backward compatibility is not supported.
 - The system should have Git installed as the model generator uses MinVer package which requires Git.
 
 ### For Users
+
 - The following classes have been copied at the location where model generator assembly is being executed:
   - DateOnlyConverter.cs
   - DurationConverter.cs
@@ -54,7 +59,6 @@ The following are some Prerequisites/assumptions to be considered:
 | Relationship | :white_check_mark: | :white_check_mark: |
 | Component | :white_check_mark: | :x: |
 
-
 ### Schemas
 
 | Schemas | DTDL v2 | Model Generator |
@@ -76,7 +80,6 @@ The following are some Prerequisites/assumptions to be considered:
 | Object | :white_check_mark: | :white_check_mark: |
 | Semantic Type (Property) | :white_check_mark: | :white_check_mark: |
 | Semantic Type (Telemetry) | :white_check_mark: | :x: |
-
 
 ## Usage
 
@@ -101,7 +104,7 @@ await generator.GenerateClassesAsync();
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+the rights to use your contribution. For details, visit the [Microsoft Contributor License Agreements page](https://cla.opensource.microsoft.com).
 
 When you submit a pull request, a CLA bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
@@ -113,7 +116,7 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Security
 
-For guidance on reporing security issues, please refer to the [security](SECURITY.md) section.
+For guidance on reporting security issues, please refer to the [security](SECURITY.md) section.
 
 ## Trademarks
 
