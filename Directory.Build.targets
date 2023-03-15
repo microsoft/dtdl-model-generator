@@ -6,4 +6,13 @@
             <MinVerVerbosity>normal</MinVerVerbosity>
         </PropertyGroup>
     </Target>
+
+    <Target Name="AssemblyVersionTarget" AfterTargets="MinVer" Condition="'$(MinVerVersion)'!='' AND '$(BuildNumber)' != ''">
+        <PropertyGroup>
+            <AssemblyVersion>$(MinVerMajor).0.0.0</AssemblyVersion>
+            <FileVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch).$(BuildNumber)</FileVersion>
+            <PackageVersion>$(MinVerVersion)</PackageVersion>
+            <Version>$(MinVerVersion)</Version>
+        </PropertyGroup>
+    </Target>
 </Project>
