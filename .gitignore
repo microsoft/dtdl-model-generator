@@ -204,3 +204,5 @@ esrp.zip
 cert.pfx
 auth.json
 input.json
+
+**/coverage.json
