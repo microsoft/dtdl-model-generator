@@ -6,7 +6,7 @@ namespace Generator.CustomModels;
 using System;
 
 /// <summary>
-/// Encapsulates IOT hub CloudToDeviceMethod options.
+/// Encapsulates an Azure IoT Hub <see href="https://learn.microsoft.com/en-us/dotnet/api/microsoft.azure.devices.cloudtodevicemethod">CloudToDeviceMethod</see> properties.
 /// </summary>
 public class CloudToDeviceMethodOptions
 {

@@ -8,7 +8,7 @@ namespace Generator.Tests.Generated
     using System.Text.Json.Serialization;
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum EnumOutputComplexCommand
+    public enum AssetComplexCommandResponse
     {
         [EnumMember(Value = "input1"), Display(Name = "input1"), SourceValue(Value = "1")]
         input1

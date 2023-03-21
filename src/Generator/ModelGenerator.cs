@@ -22,7 +22,7 @@ public class ModelGenerator
         "SourceValueAttribute.cs",
         "TwinEqualityComparer.cs",
         "CloudToDeviceMethodOptions.cs",
-        "CommandHelper.cs"
+        "CommandHelper.cs",
     };
 
     private ModelGeneratorOptions options { get; set; }

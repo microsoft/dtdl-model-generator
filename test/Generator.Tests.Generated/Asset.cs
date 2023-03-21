@@ -41,54 +41,66 @@ namespace Generator.Tests.Generated
         public IDictionary<string, DateOnly>? RuntimeDetails { get; set; }
         [JsonIgnore]
         public AssetIsLocatedInRelationshipCollection IsLocatedIn { get; set; } = new AssetIsLocatedInRelationshipCollection();
-        public static async Task<(int status, EnumOutputComplexCommand? enumOutput)> ComplexCommandAsync(ServiceClient serviceClient, string deviceId, AssetComplexCommandRequest objInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
+        public static async Task<(int status, AssetComplexCommandResponse? enumOutput)> ComplexCommandAsync(ServiceClient serviceClient, string deviceId, AssetComplexCommandRequest objInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
-            return await CommandHelper.SendCommandAsync<AssetComplexCommandRequest, EnumOutputComplexCommand?>(serviceClient, deviceId, null, "complexCommand", objInput, options, cancellationToken).ConfigureAwait(false);
+            return await CommandHelper.SendCommandAsync<AssetComplexCommandRequest, AssetComplexCommandResponse?>(serviceClient, deviceId, null, "complexCommand", objInput, options, cancellationToken).ConfigureAwait(false);
         }
-        public static async Task<(int status, EnumOutputComplexCommand? enumOutput)> ComplexCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, AssetComplexCommandRequest objInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
+
+        public static async Task<(int status, AssetComplexCommandResponse? enumOutput)> ComplexCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, AssetComplexCommandRequest objInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
-            return await CommandHelper.SendCommandAsync<AssetComplexCommandRequest, EnumOutputComplexCommand?>(serviceClient, deviceId, moduleId, "complexCommand", objInput, options, cancellationToken).ConfigureAwait(false);
+            return await CommandHelper.SendCommandAsync<AssetComplexCommandRequest, AssetComplexCommandResponse?>(serviceClient, deviceId, moduleId, "complexCommand", objInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<int> SimpleCommandAsync(ServiceClient serviceClient, string deviceId, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync(serviceClient, deviceId, null, "simpleCommand", options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<int> SimpleCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync(serviceClient, deviceId, moduleId, "simpleCommand", options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<(int status, string? stringOutput)> PrimitiveReqResCommandAsync(ServiceClient serviceClient, string deviceId, bool? booleanInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<bool?, string?>(serviceClient, deviceId, null, "primitiveReqResCommand", booleanInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<(int status, string? stringOutput)> PrimitiveReqResCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, bool? booleanInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<bool?, string?>(serviceClient, deviceId, moduleId, "primitiveReqResCommand", booleanInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<int> PrimitiveReqCommandAsync(ServiceClient serviceClient, string deviceId, int? integerInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<int?>(serviceClient, deviceId, null, "primitiveReqCommand", integerInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<int> PrimitiveReqCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, int? integerInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<int?>(serviceClient, deviceId, moduleId, "primitiveReqCommand", integerInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<(int status, double? doubleOutput)> PrimitiveResCommandAsync(ServiceClient serviceClient, string deviceId, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<double?>(serviceClient, deviceId, null, "primitiveResCommand", options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<(int status, double? doubleOutput)> PrimitiveResCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<double?>(serviceClient, deviceId, moduleId, "primitiveResCommand", options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<(int status, IDictionary<string, string>? mapOutput)> MapReqResCommandAsync(ServiceClient serviceClient, string deviceId, IDictionary<string, string>? mapInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<IDictionary<string, string>?, IDictionary<string, string>?>(serviceClient, deviceId, null, "mapReqResCommand", mapInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public static async Task<(int status, IDictionary<string, string>? mapOutput)> MapReqResCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, IDictionary<string, string>? mapInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<IDictionary<string, string>?, IDictionary<string, string>?>(serviceClient, deviceId, moduleId, "mapReqResCommand", mapInput, options, cancellationToken).ConfigureAwait(false);
         }
+
         public override bool Equals(object? obj)
         {
             return Equals(obj as Asset);

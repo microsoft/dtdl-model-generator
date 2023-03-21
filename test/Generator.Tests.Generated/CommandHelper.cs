@@ -62,15 +62,10 @@ internal static class CommandHelper
 
     private static async Task<CloudToDeviceMethodResult> InvokeDeviceMethodAsync(ServiceClient serviceClient, string deviceId, string? moduleId, CloudToDeviceMethod methodInvocation, CancellationToken cancellationToken)
     {
-        CloudToDeviceMethodResult result;
         if (moduleId is not null)
         {
-            result = await serviceClient.InvokeDeviceMethodAsync(deviceId, moduleId, methodInvocation, cancellationToken).ConfigureAwait(false);
+            return await serviceClient.InvokeDeviceMethodAsync(deviceId, moduleId, methodInvocation, cancellationToken).ConfigureAwait(false);
         }
-        else
-        {
-            result = await serviceClient.InvokeDeviceMethodAsync(deviceId, methodInvocation, cancellationToken).ConfigureAwait(false);
-        }
-        return result;
+        return await serviceClient.InvokeDeviceMethodAsync(deviceId, methodInvocation, cancellationToken).ConfigureAwait(false);
     }
 }

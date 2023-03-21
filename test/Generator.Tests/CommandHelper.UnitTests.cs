@@ -133,7 +133,7 @@ public class CommandHelperTest
     [TestMethod]
     public async Task CanInvokeComplexCommand()
     {
-        var expectedResponse = EnumOutputComplexCommand.input1;
+        var expectedResponse = AssetComplexCommandResponse.input1;
         mockCloudToDeviceMethodResult.SetCloudToDeviceMethodResultPayload(expectedResponse);
         var request = new AssetComplexCommandRequest();
         deviceId = $"testDeviceId{randomId}";
