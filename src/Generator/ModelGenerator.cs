@@ -83,7 +83,6 @@ public class ModelGenerator
 
     private void GenerateModels(IEnumerable<DTInterfaceInfo> models)
     {
-        // generatedFiles.Add("AssetComplexCommandRequest.cs");
         var entities = models.Select(m => new ModelEntity(m, options));
         foreach (var entity in entities)
         {

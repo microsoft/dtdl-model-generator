@@ -7,37 +7,52 @@ using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
 
 internal class Command : Writable
 {
+    private DTCommandInfo CommandInfo { get; init; }
+
+    private string EnclosingClass { get; init; }
+
     public List<Entity> ProducedEntities { get; set; } = new List<Entity>();
-
-    private string commandName { get; set; }
-
-    private string requestType { get; set; }
-
-    private string responseType { get; set; }
-
-    private string requestName { get; set; }
-
-    private string responseName { get; set; }
-
-    private string resultType { get; set; }
-
-    private string requestMethodArgumentDeclaration { get; set; }
-
-    private string requestMethodArgumentName { get; set; }
-
-    private string commandFunctionRequestResponseType { get; set; }
 
     internal Command(DTCommandInfo commandInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
     {
-        commandName = commandInfo.Name;
-        requestType = GetDTCommandPayloadType(commandInfo, commandInfo.Request, commandInfo.Name, enclosingClass, options, "Request");
-        responseType = GetDTCommandPayloadType(commandInfo, commandInfo.Response, commandInfo.Name, enclosingClass, options, "Response");
-        responseName = commandInfo.Response is null ? string.Empty : commandInfo.Response.Name;
-        resultType = commandInfo.Response is null ? "int" : $"(int status, {responseType} {responseName})";
-        requestName = commandInfo.Request is null ? string.Empty : commandInfo.Request.Name;
-        requestMethodArgumentDeclaration = commandInfo.Request is null ? string.Empty : $"{requestType} {requestName}, ";
-        requestMethodArgumentName = commandInfo.Request is null ? string.Empty : $"{requestName}, ";
-        commandFunctionRequestResponseType = GetTypeParameters(commandInfo, requestType, responseType);
+        CommandInfo = commandInfo;
+        EnclosingClass = enclosingClass;
+    }
+
+    internal virtual void WriteTo(StreamWriter streamWriter)
+    {
+        var requestType = GetDTCommandPayloadType(CommandInfo, CommandInfo.Request, EnclosingClass, Options, "Request");
+        var responseType = GetDTCommandPayloadType(CommandInfo, CommandInfo.Response, EnclosingClass, Options, "Response");
+
+        foreach (var producedEntity in ProducedEntities)
+        {
+            producedEntity.GenerateFile();
+        }
+
+        // with moduleId argument
+        WriteCommandMethodTo(streamWriter, true, requestType, responseType);
+
+        // with moduleId argument
+        WriteCommandMethodTo(streamWriter, false, requestType, responseType);
+    }
+
+    private void WriteCommandMethodTo(StreamWriter streamWriter, bool includeModuleId, string requestType, string responseType)
+    {
+        var commandName = CommandInfo.Name;
+        var responseName = CommandInfo.Response is null ? string.Empty : CommandInfo.Response.Name;
+        var resultType = CommandInfo.Response is null ? "int" : $"(int status, {responseType} {responseName})";
+        var requestName = CommandInfo.Request is null ? string.Empty : CommandInfo.Request.Name;
+        var requestMethodArgumentDeclaration = CommandInfo.Request is null ? string.Empty : $"{requestType} {requestName}, ";
+        var requestMethodArgumentPassed = CommandInfo.Request is null ? string.Empty : $"{requestName}, ";
+        var commandFunctionRequestResponseType = GetTypeParameters(CommandInfo, requestType, responseType);
+        var moduleIdMethodArgumentDeclaration = includeModuleId ? "string moduleId, " : string.Empty;
+        var moduleIdMethodArgumentPassed = includeModuleId ? "moduleId, " : "null, ";
+
+        streamWriter.WriteLine($"{indent}{indent}public static async Task<{resultType}> {CapitalizeFirstLetter(commandName)}Async(ServiceClient serviceClient, string deviceId, {moduleIdMethodArgumentDeclaration}{requestMethodArgumentDeclaration}CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)");
+        streamWriter.WriteLine($"{indent}{indent}{{");
+        streamWriter.WriteLine($"{indent}{indent}{indent}return await CommandHelper.SendCommandAsync{commandFunctionRequestResponseType}(serviceClient, deviceId, {moduleIdMethodArgumentPassed}\"{commandName}\", {requestMethodArgumentPassed}options, cancellationToken).ConfigureAwait(false);");
+        streamWriter.WriteLine($"{indent}{indent}}}");
+        streamWriter.WriteLine();
     }
 
     private string GetTypeParameters(DTCommandInfo commandInfo, string requestType, string responseType)
@@ -60,7 +75,7 @@ internal class Command : Writable
         }
     }
 
-    private string GetDTCommandPayloadType(DTCommandInfo commandInfo, DTCommandPayloadInfo? commandPayloadInfo, string commandName, string enclosingClass, ModelGeneratorOptions options, string commandPayloadTypeSuffix)
+    private string GetDTCommandPayloadType(DTCommandInfo commandInfo, DTCommandPayloadInfo? commandPayloadInfo, string enclosingClass, ModelGeneratorOptions options, string commandPayloadTypeSuffix)
     {
         if (commandPayloadInfo is null)
         {
@@ -74,7 +89,7 @@ internal class Command : Writable
                 return mapProperty.Type;
 
             case DTEnumInfo enumInfo:
-                var commandPayloadType = $"{enclosingClass}{CapitalizeFirstLetter(commandName)}{commandPayloadTypeSuffix}";
+                var commandPayloadType = $"{enclosingClass}{CapitalizeFirstLetter(CommandInfo.Name)}{commandPayloadTypeSuffix}";
                 var enumProperty = new EnumProperty(commandPayloadInfo, enumInfo, commandPayloadInfo.Name, options);
                 enumProperty.Name = commandPayloadType;
                 enumProperty.Type = $"{enumProperty.Name}?";
@@ -84,7 +99,7 @@ internal class Command : Writable
                 return enumProperty.Type;
 
             case DTObjectInfo objectInfo:
-                commandPayloadType = $"{enclosingClass}{CapitalizeFirstLetter(commandName)}{commandPayloadTypeSuffix}";
+                commandPayloadType = $"{enclosingClass}{CapitalizeFirstLetter(CommandInfo.Name)}{commandPayloadTypeSuffix}";
                 var objectEntity = new ObjectEntity(commandInfo, objectInfo, enclosingClass, options);
                 objectEntity.Name = commandPayloadType;
                 ProducedEntities.Add(objectEntity);
@@ -106,27 +121,5 @@ internal class Command : Writable
 
                 return type;
         }
-    }
-
-    internal virtual void WriteTo(StreamWriter streamWriter)
-    {
-        foreach (var producedEntity in ProducedEntities)
-        {
-            producedEntity.GenerateFile();
-        }
-
-        // with moduleId argument
-        streamWriter.WriteLine($"{indent}{indent}public static async Task<{resultType}> {CapitalizeFirstLetter(commandName)}Async(ServiceClient serviceClient, string deviceId, {requestMethodArgumentDeclaration}CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)");
-        streamWriter.WriteLine($"{indent}{indent}{{");
-        streamWriter.WriteLine($"{indent}{indent}{indent}return await CommandHelper.SendCommandAsync{commandFunctionRequestResponseType}(serviceClient, deviceId, null, \"{commandName}\", {requestMethodArgumentName}options, cancellationToken).ConfigureAwait(false);");
-        streamWriter.WriteLine($"{indent}{indent}}}");
-        streamWriter.WriteLine();
-
-        // without moduleId argument
-        streamWriter.WriteLine($"{indent}{indent}public static async Task<{resultType}> {CapitalizeFirstLetter(commandName)}Async(ServiceClient serviceClient, string deviceId, string moduleId, {requestMethodArgumentDeclaration}CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)");
-        streamWriter.WriteLine($"{indent}{indent}{{");
-        streamWriter.WriteLine($"{indent}{indent}{indent}return await CommandHelper.SendCommandAsync{commandFunctionRequestResponseType}(serviceClient, deviceId, moduleId, \"{commandName}\", {requestMethodArgumentName}options, cancellationToken).ConfigureAwait(false);");
-        streamWriter.WriteLine($"{indent}{indent}}}");
-        streamWriter.WriteLine();
     }
 }
