@@ -11,7 +11,7 @@ internal class PrimitiveProperty : Property
     {
         if (!Types.TryGetNullable(schema.EntityKind, out var type))
         {
-            throw new UnsupportedPrimativeTypeException(schema.EntityKind, entity.Name, enclosingClass);
+            throw new UnsupportedPrimitiveTypeException(schema.EntityKind, entity.Name, enclosingClass);
         }
 
         Type = type ?? string.Empty;

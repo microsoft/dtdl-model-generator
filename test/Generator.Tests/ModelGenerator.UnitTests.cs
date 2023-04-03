@@ -70,7 +70,7 @@ public class ModelGeneratorUnitTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(UnsupportedPrimativeTypeException))]
+    [ExpectedException(typeof(UnsupportedPrimitiveTypeException))]
     public async Task CannotGenerateUnsupportedPrimitiveType()
     {
         var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedPrimitiveType");

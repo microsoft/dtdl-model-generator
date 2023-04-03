@@ -7,25 +7,6 @@ internal abstract class Property : Writable
 {
     private string name = string.Empty;
 
-    private IDictionary<string, bool> needsConvertedMapping = new Dictionary<string, bool>
-    {
-        { "int?", false },
-        { "int", false },
-        { "float", false },
-        { "float?", false },
-        { "string", false },
-        { "bool", false },
-        { "bool?", false }
-    };
-
-    private IList<string> interfaceTransformTypes = new List<string>
-    {
-        "IEnumerable",
-        "IDictionary",
-        "IList",
-        "ICollection"
-    };
-
     internal string Type { get; set; }
 
     internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
@@ -33,8 +14,6 @@ internal abstract class Property : Writable
     internal string JsonName { get; set; } = string.Empty;
 
     internal bool JsonIgnore { get; set; } = false;
-
-    internal bool Nullable { get; } = false;
 
     internal bool Initialized { get; set; } = false;
 
@@ -73,8 +52,7 @@ internal abstract class Property : Writable
             streamWriter.WriteLine($"{indent}{indent}{Helper.ObsoleteAttribute}");
         }
 
-        var nullable = Nullable ? "?" : string.Empty;
-        streamWriter.Write($"{indent}{indent}public {Type}{nullable} {Name}");
+        streamWriter.Write($"{indent}{indent}public {Type} {Name}");
         streamWriter.Write(" { ");
         Getter?.WriteTo(streamWriter);
         Setter?.WriteTo(streamWriter);

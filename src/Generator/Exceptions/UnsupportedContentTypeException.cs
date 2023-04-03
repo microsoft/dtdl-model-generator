@@ -9,8 +9,9 @@ namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
 public class UnsupportedContentTypeException : Exception
 {
     /// <summary>
-    /// The unsupported content type.
+    /// Gets the unsupported content type.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public string ContentType { get; init; }
 
     /// <summary>
