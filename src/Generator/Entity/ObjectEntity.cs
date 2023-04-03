@@ -14,7 +14,7 @@ internal class ObjectEntity : ClassEntity
         }
 
         AllowOverwrite = true;
-        Content.AddRange(objectInfo.Fields.Select(f => CreateProperty(f, f.Schema)));
+        PropertyContent.AddRange(objectInfo.Fields.Select(f => CreateProperty(f, f.Schema)));
     }
 
     protected override void WriteSignature(StreamWriter streamWriter)
