@@ -11,9 +11,11 @@ internal abstract class ClassEntity : Entity
 
     internal IEnumerable<DTFieldInfo> Fields { get; set; } = Enumerable.Empty<DTFieldInfo>();
 
-    internal List<Property> Content { get; set; } = new List<Property>();
+    internal List<Property> PropertyContent { get; set; } = new List<Property>();
 
-    internal IList<Property> NonRelationshipProperties => Content.Where(p => !(p is RelationshipProperty)).ToList();
+    internal IList<Property> NonRelationshipProperties => PropertyContent.Where(p => !(p is RelationshipProperty)).ToList();
+
+    internal List<Command> CommandContent { get; set; } = new List<Command>();
 
     internal ClassEntity(ModelGeneratorOptions options) : base(options)
     {
@@ -22,10 +24,12 @@ internal abstract class ClassEntity : Entity
     protected override void WriteUsingStatements(StreamWriter streamWriter)
     {
         WriteUsingAzure(streamWriter);
+        WriteUsingAzureDevices(streamWriter);
         WriteUsingAdt(streamWriter);
         WriteUsingSystem(streamWriter);
         WriteUsingCollection(streamWriter);
         base.WriteUsingStatements(streamWriter);
+        WriteUsingThreadingStatements(streamWriter);
     }
 
     protected override void WriteSignature(StreamWriter streamWriter)
@@ -89,6 +93,7 @@ internal abstract class ClassEntity : Entity
         WriteConstructor(streamWriter);
         WriteStaticMembers(streamWriter);
         WriteProperties(streamWriter);
+        WriteCommands(streamWriter);
     }
 
     protected virtual void WriteConstructor(StreamWriter streamWriter)
@@ -101,9 +106,34 @@ internal abstract class ClassEntity : Entity
 
     protected virtual void WriteProperties(StreamWriter streamWriter)
     {
-        foreach (var property in Content)
+        foreach (var property in PropertyContent)
         {
             property.WriteTo(streamWriter);
+        }
+    }
+
+    protected virtual void WriteCommands(StreamWriter streamWriter)
+    {
+        foreach (var command in CommandContent)
+        {
+            command.WriteTo(streamWriter);
+        }
+    }
+
+    protected void WriteUsingAzureDevices(StreamWriter streamWriter)
+    {
+        if (CommandContent.Count > 0)
+        {
+            streamWriter.WriteLine($"{indent}using Microsoft.Azure.Devices;");
+        }
+    }
+
+    private void WriteUsingThreadingStatements(StreamWriter streamWriter)
+    {
+        if (CommandContent.Count > 0)
+        {
+            streamWriter.WriteLine($"{indent}using System.Threading;");
+            streamWriter.WriteLine($"{indent}using System.Threading.Tasks;");
         }
     }
 

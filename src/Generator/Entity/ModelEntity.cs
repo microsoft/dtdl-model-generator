@@ -16,8 +16,12 @@ internal class ModelEntity : ClassEntity
         Name = GetClassName(interfaceInfo.Id);
         Parent = interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
         FileDirectory = ExtractDirectory(ModelId);
-        var contents = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name));
-        Content.AddRange(contents.Select(CreateProperty));
+        var properties = GetContentInfo<DTPropertyInfo>(interfaceInfo);
+        PropertyContent.AddRange(properties.Select(CreateProperty));
+        var relationships = GetContentInfo<DTRelationshipInfo>(interfaceInfo);
+        PropertyContent.AddRange(relationships.Select(CreateProperty));
+        var commands = GetContentInfo<DTCommandInfo>(interfaceInfo);
+        CommandContent.AddRange(commands.Select((contentInfo) => new Command((DTCommandInfo)contentInfo, Name, Options)));
     }
 
     protected override void WriteConstructor(StreamWriter streamWriter)
@@ -56,5 +60,10 @@ internal class ModelEntity : ClassEntity
     private string GetClassName(Dtmi id)
     {
         return id.Labels.Last();
+    }
+
+    private IEnumerable<DTContentInfo> GetContentInfo<T>(DTInterfaceInfo interfaceInfo) where T : DTContentInfo
+    {
+        return interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name) && c is T);
     }
 }

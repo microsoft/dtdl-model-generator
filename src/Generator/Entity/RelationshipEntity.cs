@@ -23,7 +23,7 @@ internal class RelationshipEntity : ClassEntity
         TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
         Parent = $"Relationship<{TargetType}>";
         Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
-        Content.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
+        PropertyContent.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
     }
 
     protected override void WriteSignature(StreamWriter streamWriter)

@@ -12,7 +12,7 @@ using System.Text.Json.Serialization;
 using System.Xml;
 
 /// <summary>
-/// Converts a map of RFC 3339 into an IDictionary&lt;string, DateOnly&lt;.
+/// Converts a map of RFC 3339 into an <see cref="IDictionary{String, DateOnly}"/>.
 /// </summary>
 public class MapDateOnlyConverter : JsonConverter<IDictionary<string, DateOnly>>
 {
