@@ -9,11 +9,11 @@ internal abstract class ClassEntity : Entity
 {
     internal string? Parent { get; set; }
 
-    internal List<Property> Content { get; } = new List<Property>();
+    internal List<Property> PropertyContent { get; } = new List<Property>();
 
     internal IList<Property> NonRelationshipProperties => PropertyContent.Where(p => !(p is RelationshipProperty)).ToList();
 
-    internal List<Command> CommandContent { get; set; } = new List<Command>();
+    internal List<Command> CommandContent { get; } = new List<Command>();
 
     internal ClassEntity(ModelGeneratorOptions options) : base(options)
     {

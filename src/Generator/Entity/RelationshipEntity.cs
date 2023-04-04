@@ -19,7 +19,7 @@ internal class RelationshipEntity : ClassEntity
         FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), SourceType);
         TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : RelationshipInfo.Target.Labels.Last();
         Parent = $"Relationship<{TargetType}>";
-        Content.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
+        PropertyContent.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));
     }
 
     protected override void WriteSignature(StreamWriter streamWriter)

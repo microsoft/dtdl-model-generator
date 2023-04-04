@@ -11,7 +11,7 @@ internal class Command : Writable
 
     private string EnclosingClass { get; init; }
 
-    public List<Entity> ProducedEntities { get; set; } = new List<Entity>();
+    public List<Entity> ProducedEntities { get; } = new List<Entity>();
 
     internal Command(DTCommandInfo commandInfo, string enclosingClass, ModelGeneratorOptions options) : base(options)
     {
@@ -116,7 +116,7 @@ internal class Command : Writable
             default:
                 if (!Types.TryGetNullable(commandPayloadInfo.Schema.EntityKind, out var type) || type is null)
                 {
-                    throw new UnsupportedPrimativeTypeException(commandPayloadInfo.Schema.EntityKind, commandPayloadInfo.Name, enclosingClass);
+                    throw new UnsupportedPrimitiveTypeException(commandPayloadInfo.Schema.EntityKind, commandPayloadInfo.Name, enclosingClass);
                 }
 
                 return type;

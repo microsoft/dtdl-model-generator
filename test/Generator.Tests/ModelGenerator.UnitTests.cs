@@ -91,6 +91,27 @@ public class ModelGeneratorUnitTests
     }
 
     [TestMethod]
+    [ExpectedException(typeof(UnsupportedPrimitiveTypeException))]
+    public async Task CannotGenerateUnsupportedCommandType()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedCommandType");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.WithProject",
+            JsonModelsDirectory = jsonDir
+        };
+
+        await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
+    }
+
+    [TestMethod]
     public async Task GenerationCreatesOutputDirectoryIfNotExists()
     {
         var jsonDir = Path.Combine(currentDir, "TestDtdlModels");

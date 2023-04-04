@@ -29,6 +29,12 @@
     </Content>
   </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="TestDtdlErrorModels\TestDtdlErrorUnsupportedCommandType\*.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
   <ItemGroup>
     <Using Include="Azure.DigitalTwins.Core" />
     <Using Include="Generator.Tests.Generated" />

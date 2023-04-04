@@ -120,6 +120,18 @@
     },
     {
       "@type": "Command",
+      "name": "primitiveReqResCommandDurationDate",
+      "request": {
+        "name": "durationInput",
+        "schema": "duration"
+      },
+      "response": {
+        "name": "dateOutput",
+        "schema": "date"
+      }
+    },
+    {
+      "@type": "Command",
       "name": "primitiveReqCommand",
       "request": {
         "name": "integerInput",
