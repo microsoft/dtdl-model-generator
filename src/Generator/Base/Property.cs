@@ -7,7 +7,7 @@ internal abstract class Property : Writable
 {
     private string name = string.Empty;
 
-    internal string Type { get; set; }
+    internal string Type { get; set; } = string.Empty;
 
     internal string Name { get => name; set => name = CapitalizeFirstLetter(value); }
 

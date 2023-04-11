@@ -18,22 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="TestDtdlErrorModels\TestDtdlErrorUnsupportedPrimitiveType\*.json">
+    <Content Include="TestDtdlErrorModels\**\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="TestDtdlErrorModels\TestDtdlErrorUnsupportedContentType\*.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="TestDtdlErrorModels\TestDtdlErrorUnsupportedCommandType\*.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
 
   <ItemGroup>
     <Using Include="Azure.DigitalTwins.Core" />

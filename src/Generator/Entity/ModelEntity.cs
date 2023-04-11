@@ -15,10 +15,7 @@ internal class ModelEntity : ClassEntity
         FileDirectory = ExtractDirectory(ModelId);
         var contents = interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name) && c is not DTCommandInfo);
         var commands = GetContentInfo<DTCommandInfo>(interfaceInfo);
-        if (commands.Count() > 0)
-        {
-            CommandContent.AddRange(commands.Select((contentInfo) => new Command((DTCommandInfo)contentInfo, Name, Options)));
-        }
+        CommandContent.AddRange(commands.Select((contentInfo) => new Command((DTCommandInfo)contentInfo, Name, Options)));
 
         PropertyContent.AddRange(contents.Select(CreateProperty));
     }
