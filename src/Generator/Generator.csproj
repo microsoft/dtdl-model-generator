@@ -50,6 +50,7 @@
     <Using Include="System.Linq" />
     <Using Include="System.Text" />
     <Using Include="System.Text.RegularExpressions" />
+    <Using Include="System.Diagnostics.CodeAnalysis"/>  
   </ItemGroup>
 
   <ItemGroup>

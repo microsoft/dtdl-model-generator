@@ -1,0 +1,13 @@
+{
+  "@id": "dtmi:test:TestDtdlErrorUnsupportedPrimitiveType;1",
+  "@type": "Interface",
+  "displayName": "TestDtdlErrorUnsupportedPrimitiveType",
+  "@context": "dtmi:dtdl:context;2",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "temp",
+      "schema": "long"
+    }
+  ]
+}

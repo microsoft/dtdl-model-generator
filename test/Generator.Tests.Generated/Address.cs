@@ -22,10 +22,15 @@ namespace Generator.Tests.Generated
         public string? Street1 { get; set; }
         [JsonPropertyName("street2")]
         public string? Street2 { get; set; }
+        [JsonPropertyName("street3")]
+        [Obsolete]
+        public string? Street3 { get; set; }
         [JsonPropertyName("county")]
         public string? County { get; set; }
         [JsonPropertyName("zipcode")]
         public string? Zipcode { get; set; }
+        [JsonPropertyName("testMap")]
+        public IDictionary<string, AddressTestMap>? TestMap { get; set; }
         [JsonIgnore]
         public AddressHasStateRelationshipCollection HasState { get; set; } = new AddressHasStateRelationshipCollection();
         [JsonIgnore]
@@ -39,7 +44,7 @@ namespace Generator.Tests.Generated
 
         public bool Equals(Address? other)
         {
-            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Street1 == other.Street1 && Street2 == other.Street2 && County == other.County && Zipcode == other.Zipcode;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Street1 == other.Street1 && Street2 == other.Street2 && Street3 == other.Street3 && County == other.County && Zipcode == other.Zipcode && TestMap == other.TestMap;
         }
 
         public static bool operator ==(Address? left, Address? right)
@@ -54,7 +59,7 @@ namespace Generator.Tests.Generated
 
         public override int GetHashCode()
         {
-            return this.CustomHash(Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode(), Street1?.GetHashCode(), Street2?.GetHashCode(), County?.GetHashCode(), Zipcode?.GetHashCode());
+            return this.CustomHash(Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode(), Street1?.GetHashCode(), Street2?.GetHashCode(), Street3?.GetHashCode(), County?.GetHashCode(), Zipcode?.GetHashCode(), TestMap?.GetHashCode());
         }
 
         public bool Equals(BasicDigitalTwin? other)

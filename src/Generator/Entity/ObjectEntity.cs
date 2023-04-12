@@ -13,7 +13,6 @@ internal class ObjectEntity : ClassEntity
             Name = $"{Name}Data";
         }
 
-        Fields = objectInfo.Fields;
         AllowOverwrite = true;
         PropertyContent.AddRange(objectInfo.Fields.Select(f => CreateProperty(f, f.Schema)));
     }

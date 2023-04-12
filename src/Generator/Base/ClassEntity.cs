@@ -3,19 +3,17 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator;
 
+using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
+
 internal abstract class ClassEntity : Entity
 {
     internal string? Parent { get; set; }
 
-    internal IEnumerable<DTPropertyInfo> Properties { get; set; } = Enumerable.Empty<DTPropertyInfo>();
-
-    internal IEnumerable<DTFieldInfo> Fields { get; set; } = Enumerable.Empty<DTFieldInfo>();
-
-    internal List<Property> PropertyContent { get; set; } = new List<Property>();
+    internal List<Property> PropertyContent { get; } = new List<Property>();
 
     internal IList<Property> NonRelationshipProperties => PropertyContent.Where(p => !(p is RelationshipProperty)).ToList();
 
-    internal List<Command> CommandContent { get; set; } = new List<Command>();
+    internal List<Command> CommandContent { get; } = new List<Command>();
 
     internal ClassEntity(ModelGeneratorOptions options) : base(options)
     {
@@ -85,7 +83,7 @@ internal abstract class ClassEntity : Entity
             return new RelationshipProperty(relationship, Options);
         }
 
-        throw new Exception($"Unsupported content type: {content.EntityKind}");
+        throw new UnsupportedContentTypeException(content.EntityKind.ToString());
     }
 
     protected override void WriteContent(StreamWriter streamWriter)

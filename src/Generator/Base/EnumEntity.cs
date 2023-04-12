@@ -15,6 +15,7 @@ internal class EnumEntity : Entity
         streamWriter.WriteLine($"{indent}public enum {Name}");
     }
 
+    [ExcludeFromCodeCoverage]
     protected override void WriteContent(StreamWriter streamWriter)
     {
     }

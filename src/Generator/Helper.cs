@@ -11,15 +11,4 @@ internal static class Helper
     {
         return !string.IsNullOrEmpty(entity.Comment) && entity.Comment.Equals(ObsoleteAttribute, StringComparison.OrdinalIgnoreCase);
     }
-
-    internal static string Serialize(this AccessModifier modifier) => modifier switch
-    {
-        AccessModifier.Public => "public",
-        AccessModifier.Internal => "internal",
-        AccessModifier.Protected => "protected",
-        AccessModifier.Private => "private",
-        AccessModifier.ProtectedInternal => "protected internal",
-        AccessModifier.PrivateProtected => "private protected",
-        _ => throw new Exception($"Invalid value for AccessModifier: {modifier}"),
-    };
 }

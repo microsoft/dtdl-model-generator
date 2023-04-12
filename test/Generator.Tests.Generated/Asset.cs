@@ -71,6 +71,16 @@ namespace Generator.Tests.Generated
             return await CommandHelper.SendCommandAsync<bool?, string?>(serviceClient, deviceId, null, "primitiveReqResCommand", booleanInput, options, cancellationToken).ConfigureAwait(false);
         }
 
+        public static async Task<(int status, DateOnly? dateOutput)> PrimitiveReqResCommandDurationDateAsync(ServiceClient serviceClient, string deviceId, string moduleId, TimeSpan? durationInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
+        {
+            return await CommandHelper.SendCommandAsync<TimeSpan?, DateOnly?>(serviceClient, deviceId, moduleId, "primitiveReqResCommandDurationDate", durationInput, options, cancellationToken).ConfigureAwait(false);
+        }
+
+        public static async Task<(int status, DateOnly? dateOutput)> PrimitiveReqResCommandDurationDateAsync(ServiceClient serviceClient, string deviceId, TimeSpan? durationInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
+        {
+            return await CommandHelper.SendCommandAsync<TimeSpan?, DateOnly?>(serviceClient, deviceId, null, "primitiveReqResCommandDurationDate", durationInput, options, cancellationToken).ConfigureAwait(false);
+        }
+
         public static async Task<int> PrimitiveReqCommandAsync(ServiceClient serviceClient, string deviceId, string moduleId, int? integerInput, CloudToDeviceMethodOptions? options = null, CancellationToken cancellationToken = default)
         {
             return await CommandHelper.SendCommandAsync<int?>(serviceClient, deviceId, moduleId, "primitiveReqCommand", integerInput, options, cancellationToken).ConfigureAwait(false);

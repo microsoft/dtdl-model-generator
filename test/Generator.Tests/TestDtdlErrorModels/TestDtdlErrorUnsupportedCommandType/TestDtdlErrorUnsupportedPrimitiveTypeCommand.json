@@ -1,0 +1,16 @@
+{
+  "@id": "dtmi:test:TestDtdlErrorUnsupportedCommandType;1",
+  "@type": "Interface",
+  "displayName": "TestDtdlErrorUnsupportedCommandType",
+  "@context": "dtmi:dtdl:context;2",
+  "contents": [
+    {
+      "@type": "Command",
+      "name": "unsupportedCommandReqType",
+      "request": {
+        "name": "longInput",
+        "schema": "long"
+      }
+    }
+  ]
+}

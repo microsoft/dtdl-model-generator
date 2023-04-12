@@ -23,9 +23,4 @@ internal abstract class Writable
     {
         return char.ToUpper(word[0]) + word.Substring(1);
     }
-
-    protected static string LowercaseFirstLetter(string word)
-    {
-        return char.ToLower(word[0]) + word.Substring(1);
-    }
 }

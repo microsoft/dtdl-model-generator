@@ -18,7 +18,7 @@ internal static class AssertHelper
         }
 
         // Includes custom files
-        const int expectedFileCount = 52;
+        const int expectedFileCount = 55;
         Assert.AreEqual(expectedFileCount, outFileNames.Count, $"Expected {expectedFileCount} files to be generated");
     }
 

@@ -1,0 +1,22 @@
+﻿{
+  "@id": "dtmi:test:TestModel;1",
+  "@type": "Interface",
+  "displayName": "TestModel",
+  "@context": "dtmi:dtdl:context;2",
+  "contents": [
+    {
+      "@type": "Property",
+      "name": "TestModel",
+      "writable": true,
+      "schema": {
+        "@type": "Object",
+        "fields": [
+          {
+            "name": "testField",
+            "schema": "boolean"
+          }
+        ]
+      }
+    }
+  ]
+}

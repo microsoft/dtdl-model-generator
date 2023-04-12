@@ -20,6 +20,13 @@
       "@type": "Property",
       "schema": "string",
       "writable": true,
+      "name": "street3",
+      "comment": "[Obsolete]"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
       "name": "county"
     },
     {
@@ -27,6 +34,44 @@
       "schema": "string",
       "writable": true,
       "name": "zipcode"
+    },
+    {
+      "@type": "Property",
+      "name": "testMap",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "testMapKey",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "testMapEnumValue",
+          "schema": {
+            "@type": "Enum",
+            "valueSchema": "string",
+            "enumValues": [
+              {
+                "name": "Mailing",
+                "displayName": "Mailing",
+                "enumValue": "Mailing",
+                "comment": "1"
+              },
+              {
+                "name": "Street",
+                "displayName": "Street",
+                "enumValue": "Street"
+              },
+              {
+                "name": "Temporary",
+                "displayName": "Temporary",
+                "enumValue": "Temporary",
+                "comment": "3"
+              }
+            ]
+          }
+        }
+      }
     },
     {
       "@type": "Relationship",

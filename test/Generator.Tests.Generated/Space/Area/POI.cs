@@ -29,7 +29,7 @@ namespace Generator.Tests.Generated
         [JsonPropertyName("weeklyOperationHours")]
         public IDictionary<string, OperationHour>? WeeklyOperationHours { get; set; }
         [JsonPropertyName("subStatus")]
-        public POISubStatus? SubStatus { get; set; }
+        public SubStatus? SubStatus { get; set; }
         [JsonPropertyName("mediaList")]
         public IDictionary<string, Media>? MediaList { get; set; }
         public override bool Equals(object? obj)

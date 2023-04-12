@@ -1,7 +1,9 @@
-// Copyright (c) Microsoft Corporation.
+﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
 namespace Generator.Tests;
+
+using Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
 
 [TestClass]
 public class ModelGeneratorUnitTests
@@ -44,6 +46,69 @@ public class ModelGeneratorUnitTests
 
         await RunGeneratorAndAssertFilesGeneratedAsync(options).ConfigureAwait(false);
         AssertCustomFilesCopied(options.OutputDirectory);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(UnsupportedContentTypeException))]
+    public async Task CannotGenerateUnsupportedContentType()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedContentType");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.WithProject",
+            JsonModelsDirectory = jsonDir
+        };
+
+        await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(UnsupportedPrimitiveTypeException))]
+    public async Task CannotGenerateUnsupportedPrimitiveType()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedPrimitiveType");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.WithProject",
+            JsonModelsDirectory = jsonDir
+        };
+
+        await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(UnsupportedPrimitiveTypeException))]
+    public async Task CannotGenerateUnsupportedCommandType()
+    {
+        var jsonDir = Path.Combine(currentDir, "TestDtdlErrorModels/TestDtdlErrorUnsupportedCommandType");
+        var outDir = PathHelper.GetCombinedFullPath(currentDir, "Generated.WithProject");
+        if (Directory.Exists(outDir))
+        {
+            Directory.Delete(outDir, true);
+        }
+
+        var options = new ModelGeneratorOptions
+        {
+            OutputDirectory = outDir,
+            Namespace = "Generator.WithProject",
+            JsonModelsDirectory = jsonDir
+        };
+
+        await RunGeneratorAndAssertErrorsAsync(options).ConfigureAwait(false);
     }
 
     [TestMethod]
@@ -128,5 +193,12 @@ public class ModelGeneratorUnitTests
         await generator.GenerateClassesAsync().ConfigureAwait(false);
         await Task.Delay(500);
         AssertHelper.AssertFilesGenerated(options.JsonModelsDirectory, options.OutputDirectory);
+    }
+
+    private async Task RunGeneratorAndAssertErrorsAsync(ModelGeneratorOptions options)
+    {
+        var generator = new ModelGenerator(options);
+        await generator.GenerateClassesAsync().ConfigureAwait(false);
+        await Task.Delay(500);
     }
 }
