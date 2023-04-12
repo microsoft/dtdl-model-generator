@@ -6,6 +6,7 @@
     <RootNamespace>Generator.Tests.Generated</RootNamespace>
     <AssemblyName>Generator.Tests.Generated</AssemblyName>
     <NoWarn>CS1591</NoWarn>
+    <NoWarn>CS0612</NoWarn>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
