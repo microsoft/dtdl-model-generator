@@ -22,4 +22,30 @@ internal static class Helper
         AccessModifier.PrivateProtected => "private protected",
         _ => throw new Exception($"Invalid value for AccessModifier: {modifier}"),
     };
+
+    internal static async IAsyncEnumerable<T> AsAsyncEnumerable<T>(this IEnumerable<T> input)
+    {
+        foreach (var value in input)
+        {
+            yield return value;
+        }
+
+        await Task.Yield();
+    }
+
+    public static int IndexOf<T>(this IReadOnlyList<T> self, T elementToFind)
+    {
+        int i = 0;
+        foreach (T element in self)
+        {
+            if (Equals(element, elementToFind))
+            {
+                return i;
+            }
+
+            i++;
+        }
+
+        return -1;
+    }
 }

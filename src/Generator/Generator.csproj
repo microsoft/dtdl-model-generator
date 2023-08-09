@@ -43,7 +43,8 @@
 
   <ItemGroup>
     <Using Include="Azure.DigitalTwins.Core" />
-    <Using Include="Microsoft.Azure.DigitalTwins.Parser" />
+    <Using Include="DTDLParser.Models" />
+    <Using Include="DTDLParser" />
     <Using Include="System" />
     <Using Include="System.Collections.Generic" />
     <Using Include="System.IO" />
@@ -54,11 +55,11 @@
 
   <ItemGroup>
     <PackageReference Include="Azure.DigitalTwins.Core" Version="1.2.2" />
-    <PackageReference Include="Microsoft.Azure.DigitalTwins.Parser" Version="3.12.7" />
+    <PackageReference Include="DTDLParser" Version="1.0.52" />
     <PackageReference Include="MinVer" PrivateAssets="all" Version="3.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
