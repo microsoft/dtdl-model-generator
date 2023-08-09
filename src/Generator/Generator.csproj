@@ -58,6 +58,7 @@
     <PackageReference Include="DTDLParser" Version="1.0.52" />
     <PackageReference Include="MinVer" PrivateAssets="all" Version="3.1.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
