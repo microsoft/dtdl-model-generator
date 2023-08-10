@@ -2,7 +2,7 @@
   "@id": "dtmi:test:StateProvince;30",
   "@type": "Interface",
   "displayName": "State",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": "dtmi:dtdl:context;3",
   "contents": [
     {
       "@type": "Property",

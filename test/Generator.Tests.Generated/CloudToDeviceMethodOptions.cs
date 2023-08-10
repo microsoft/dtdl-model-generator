@@ -20,7 +20,7 @@ public class CloudToDeviceMethodOptions
     /// </summary>
     /// <param name="connectionTimeout">A TimeSpan of connectionTimeout to initalize the <see cref="CloudToDeviceMethodOptions"/> with.</param>
     /// <param name="responseTimeout">A TimeSpan of responseTimeout to initalize the <see cref="CloudToDeviceMethodOptions"/> with.</param>
-    public CloudToDeviceMethodOptions(TimeSpan? connectionTimeout, TimeSpan? responseTimeout)
+    internal CloudToDeviceMethodOptions(TimeSpan? connectionTimeout, TimeSpan? responseTimeout)
     {
         ConnectionTimeout = connectionTimeout;
         ResponseTimeout = responseTimeout;
@@ -29,10 +29,10 @@ public class CloudToDeviceMethodOptions
     /// <summary>
     /// Gets or sets the ConnectionTimeout.
     /// </summary>
-    public TimeSpan? ConnectionTimeout { get; set; }
+    internal TimeSpan? ConnectionTimeout { get; set; }
 
     /// <summary>
     /// Gets or sets the ResponseTimeout.
     /// </summary>
-    public TimeSpan? ResponseTimeout { get; set; }
+    internal TimeSpan? ResponseTimeout { get; set; }
 }

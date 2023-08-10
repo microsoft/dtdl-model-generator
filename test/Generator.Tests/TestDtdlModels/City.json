@@ -2,7 +2,7 @@
   "@id": "dtmi:test:City;1",
   "@type": "Interface",
   "displayName": "City",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": "dtmi:dtdl:context;3",
   "contents": [
     {
       "@type": "Property",

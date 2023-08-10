@@ -2,7 +2,7 @@
   "@id": "dtmi:test:Country;1",
   "@type": "Interface",
   "displayName": "Country",
-  "@context": "dtmi:dtdl:context;2",
+  "@context": "dtmi:dtdl:context;3",
   "contents": [
     {
       "@type": "Property",
