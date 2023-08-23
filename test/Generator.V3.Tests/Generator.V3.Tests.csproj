@@ -4,24 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
+    <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
 
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestDtdlModels\Address.json" />
-    <None Remove="TestDtdlModels\Amenities.json" />
-    <None Remove="TestDtdlModels\Area.json" />
-    <None Remove="TestDtdlModels\Asset.json" />
-    <None Remove="TestDtdlModels\Building.json" />
-    <None Remove="TestDtdlModels\City.json" />
-    <None Remove="TestDtdlModels\Country.json" />
-    <None Remove="TestDtdlModels\Floor.json" />
-    <None Remove="TestDtdlModels\POI.json" />
-    <None Remove="TestDtdlModels\Space.json" />
-    <None Remove="TestDtdlModels\StateProvince.json" />
+    <Content Include="TestDtdlModels\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -53,42 +45,6 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Net.WebSockets.Client" Version="4.3.2" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="TestDtdlModels\Address.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Amenities.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Area.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Asset.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Building.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\City.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Country.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Floor.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\POI.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\Space.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestDtdlModels\StateProvince.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
