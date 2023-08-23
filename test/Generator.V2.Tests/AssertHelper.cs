@@ -3,9 +3,9 @@
 
 namespace Generator.V2.Tests;
 
-internal static class AssertHelper
+public static class AssertHelper
 {
-    internal static void AssertFilesGenerated(string jsonDir, string outDir)
+    public static void AssertFilesGenerated(string jsonDir, string outDir)
     {
         var jsonFiles = Directory.GetFiles(jsonDir, "*.json", SearchOption.AllDirectories);
         var outFiles = Directory.GetFiles(outDir, "*.cs", SearchOption.AllDirectories);
@@ -22,7 +22,7 @@ internal static class AssertHelper
         Assert.AreEqual(expectedFileCount, outFileNames.Count, $"Expected {expectedFileCount} files to be generated");
     }
 
-    internal static void AssertJsonEquivalent(string expected, string actual)
+    public static void AssertJsonEquivalent(string expected, string actual)
     {
         using var expectedToken = JsonDocument.Parse(expected);
         using var actualToken = JsonDocument.Parse(actual);

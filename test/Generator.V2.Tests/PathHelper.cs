@@ -3,9 +3,9 @@
 
 namespace Generator.V2.Tests;
 
-internal static class PathHelper
+public static class PathHelper
 {
-    internal static string GetCombinedFullPath(params string[] paths)
+    public static string GetCombinedFullPath(params string[] paths)
     {
         if (paths != null && paths.Length == 0)
         {
@@ -20,7 +20,7 @@ internal static class PathHelper
         return Path.GetFullPath(Path.Combine(paths));
     }
 
-    internal static string GetCombinedFullPath(string baseDir, string path, int reverseRelativeDirectories)
+    public static string GetCombinedFullPath(string baseDir, string path, int reverseRelativeDirectories)
     {
         if (string.IsNullOrWhiteSpace(baseDir))
         {
