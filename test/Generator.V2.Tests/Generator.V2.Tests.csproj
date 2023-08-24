@@ -26,6 +26,7 @@
     <Using Include="System.Text.Json" />
     <Using Include="System.Text.Json.JsonDiffPatch" />
     <Using Include="System.Text.Json.Serialization" />
+    <Using Include="Generator.Tests.Common" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Generator.TemplateProject\Generator.TemplateProject.csproj" />
     <ProjectReference Include="..\..\src\Generator\Generator.csproj" />
+    <ProjectReference Include="..\Generator.Tests.Common\Generator.Tests.Common.csproj" />
     <ProjectReference Include="..\Generator.V2.Tests.Generated\Generator.V2.Tests.Generated.csproj" />
   </ItemGroup>
 </Project>

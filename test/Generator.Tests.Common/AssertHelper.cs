@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-namespace Generator.V2.Tests;
+namespace Generator.Tests.Common;
 
 public static class AssertHelper
 {
