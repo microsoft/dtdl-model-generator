@@ -22,4 +22,20 @@ internal static class Helper
         AccessModifier.PrivateProtected => "private protected",
         _ => throw new Exception($"Invalid value for AccessModifier: {modifier}"),
     };
+
+    public static int IndexOf<T>(this IReadOnlyList<T> self, T elementToFind)
+    {
+        int index = 0;
+        foreach (T element in self)
+        {
+            if (Equals(element, elementToFind))
+            {
+                return index;
+            }
+
+            index++;
+        }
+
+        return -1;
+    }
 }

@@ -3,8 +3,6 @@
 
 namespace Microsoft.DigitalWorkplace.DigitalTwins.Models.Generator.Exceptions;
 
-using Microsoft.Azure.DigitalTwins.Parser;
-
 /// <summary>
 /// The exception that is thrown when the Generator encounters an unsupported primative type in a DTDL model.
 /// </summary>

@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "src\Generator\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{2805D234-AD9A-4CB7-AD6B-3C4A7DCA2CD5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Tests", "test\Generator.Tests\Generator.Tests.csproj", "{BFB83F97-95C8-438B-84AD-6652D2E5D685}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.V2.Tests", "test\Generator.V2.Tests\Generator.V2.Tests.csproj", "{BFB83F97-95C8-438B-84AD-6652D2E5D685}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Tests.Generated", "test\Generator.Tests.Generated\Generator.Tests.Generated.csproj", "{28082B4D-64AC-415B-83FC-EE33D35ED6B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.V2.Tests.Generated", "test\Generator.V2.Tests.Generated\Generator.V2.Tests.Generated.csproj", "{28082B4D-64AC-415B-83FC-EE33D35ED6B4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.TemplateProject", "src\Generator.TemplateProject\Generator.TemplateProject.csproj", "{BCB3E215-9664-450A-A011-270F38FBFF23}"
 EndProject
@@ -30,6 +30,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		StyleCop.ruleset = StyleCop.ruleset
 		SUPPORT.md = SUPPORT.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.V3.Tests", "test\Generator.V3.Tests\Generator.V3.Tests.csproj", "{90A63303-8CFD-4BDD-B6E0-0C9F4182B4F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.V3.Tests.Generated", "test\Generator.V3.Tests.Generated\Generator.V3.Tests.Generated.csproj", "{67FC2DD7-74FC-4A2D-9769-86F32840FB37}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Tests.Common", "test\Generator.Tests.Common\Generator.Tests.Common.csproj", "{FA16FF3E-CEDB-49F5-8EEC-5512CCA7F0B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,18 @@ Global
 		{BCB3E215-9664-450A-A011-270F38FBFF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCB3E215-9664-450A-A011-270F38FBFF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB3E215-9664-450A-A011-270F38FBFF23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A63303-8CFD-4BDD-B6E0-0C9F4182B4F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A63303-8CFD-4BDD-B6E0-0C9F4182B4F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A63303-8CFD-4BDD-B6E0-0C9F4182B4F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A63303-8CFD-4BDD-B6E0-0C9F4182B4F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67FC2DD7-74FC-4A2D-9769-86F32840FB37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67FC2DD7-74FC-4A2D-9769-86F32840FB37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67FC2DD7-74FC-4A2D-9769-86F32840FB37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67FC2DD7-74FC-4A2D-9769-86F32840FB37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA16FF3E-CEDB-49F5-8EEC-5512CCA7F0B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA16FF3E-CEDB-49F5-8EEC-5512CCA7F0B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA16FF3E-CEDB-49F5-8EEC-5512CCA7F0B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA16FF3E-CEDB-49F5-8EEC-5512CCA7F0B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +80,9 @@ Global
 		{BFB83F97-95C8-438B-84AD-6652D2E5D685} = {2805D234-AD9A-4CB7-AD6B-3C4A7DCA2CD5}
 		{28082B4D-64AC-415B-83FC-EE33D35ED6B4} = {2805D234-AD9A-4CB7-AD6B-3C4A7DCA2CD5}
 		{BCB3E215-9664-450A-A011-270F38FBFF23} = {4459596F-5922-469B-B2F6-F2F0CE801877}
+		{90A63303-8CFD-4BDD-B6E0-0C9F4182B4F1} = {2805D234-AD9A-4CB7-AD6B-3C4A7DCA2CD5}
+		{67FC2DD7-74FC-4A2D-9769-86F32840FB37} = {2805D234-AD9A-4CB7-AD6B-3C4A7DCA2CD5}
+		{FA16FF3E-CEDB-49F5-8EEC-5512CCA7F0B0} = {2805D234-AD9A-4CB7-AD6B-3C4A7DCA2CD5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6751D86C-A993-4ED2-A84F-0F78AFD93923}

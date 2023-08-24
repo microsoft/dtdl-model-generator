@@ -1,0 +1,170 @@
+{
+  "@id": "dtmi:test:Asset;1",
+  "@type": "Interface",
+  "@context": "dtmi:dtdl:context;3",
+  "displayName": "Asset",
+  "contents": [
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "assetTag"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "name"
+    },
+    {
+      "@type": "Property",
+      "schema": "string",
+      "writable": true,
+      "name": "serialNumber"
+    },
+    {
+      "@type": "Property",
+      "schema": "duration",
+      "writable": true,
+      "name": "maintenanceInterval"
+    },
+    {
+      "@type": "Property",
+      "schema": "date",
+      "writable": true,
+      "name": "installedOn"
+    },
+    {
+      "@type": "Property",
+      "name": "runtimeDurations",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "dayOfWeek",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "runtime",
+          "schema": "duration"
+        }
+      }
+    },
+    {
+      "@type": "Property",
+      "name": "runtimeDetails",
+      "writable": true,
+      "schema": {
+        "@type": "Map",
+        "mapKey": {
+          "name": "dayOfWeek",
+          "schema": "string"
+        },
+        "mapValue": {
+          "name": "runtimeDate",
+          "schema": "date"
+        }
+      }
+    },
+    {
+      "@type": "Relationship",
+      "target": "dtmi:test:Space;1",
+      "name": "isLocatedIn"
+    },
+    {
+      "@type": "Command",
+      "name": "complexCommand",
+      "request": {
+        "name": "objInput",
+        "schema": {
+          "@type": "Object",
+          "fields": [
+            {
+              "name": "field1",
+              "schema": "double"
+            }
+          ]
+        }
+      },
+      "response": {
+        "name": "enumOutput",
+        "schema": {
+          "@type": "Enum",
+          "valueSchema": "string",
+          "enumValues": [
+            {
+              "name": "input1",
+              "displayName": "input1",
+              "enumValue": "input1",
+              "comment": "1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "@type": "Command",
+      "name": "simpleCommand"
+    },
+    {
+      "@type": "Command",
+      "name": "primitiveReqResCommand",
+      "request": {
+        "name": "booleanInput",
+        "schema": "boolean"
+      },
+      "response": {
+        "name": "stringOutput",
+        "schema": "string"
+      }
+    },
+    {
+      "@type": "Command",
+      "name": "primitiveReqCommand",
+      "request": {
+        "name": "integerInput",
+        "schema": "integer"
+      }
+    },
+    {
+      "@type": "Command",
+      "name": "primitiveResCommand",
+      "response": {
+        "name": "doubleOutput",
+        "schema": "double"
+      }
+    },
+    {
+      "@type": "Command",
+      "name": "mapReqResCommand",
+      "request": {
+        "name": "mapInput",
+        "schema": {
+          "@type": "Map",
+          "mapKey": {
+            "name": "moduleName",
+            "schema": "string"
+          },
+          "mapValue": {
+            "name": "moduleState",
+            "schema": "string"
+          }
+        }
+      },
+      "response": {
+        "name": "mapOutput",
+        "schema": {
+          "@type": "Map",
+          "mapKey": {
+            "name": "moduleName",
+            "schema": "string"
+          },
+          "mapValue": {
+            "name": "moduleState",
+            "schema": "string"
+          }
+        }
+      }
+    }
+  ]
+}

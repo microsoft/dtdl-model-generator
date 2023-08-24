@@ -52,7 +52,7 @@ public class ModelGenerator
 
         var files = GetJsonModels();
         var parser = new ModelParser();
-        var parsed = await parser.ParseAsync(files).ConfigureAwait(false);
+        var parsed = await parser.ParseAsync(files.ToAsyncEnumerable()).ConfigureAwait(false);
         var models = parsed.Where(i => i.Value.EntityKind == DTEntityKind.Interface).ToDictionary(p => p.Key, p => (DTInterfaceInfo)p.Value).Values;
         await CopyCustomModelsAsync().ConfigureAwait(false);
         GenerateModels(models);
