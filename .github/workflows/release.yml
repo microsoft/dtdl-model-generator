@@ -12,16 +12,16 @@ permissions:
 
 jobs:
   Pack:
-    uses: microsoft/digitalworkplace-workflows/.github/workflows/pack.yml@v3.1.2-test2
+    uses: microsoft/digitalworkplace-workflows/.github/workflows/pack.yml@v3.1.2-test3
     with:
       project-to-pack: "src/Generator/Generator.csproj"
 
   Sign:
     needs: Pack
-    uses: microsoft/digitalworkplace-workflows/.github/workflows/sign.yml@v3.1.2-test2
+    uses: microsoft/digitalworkplace-workflows/.github/workflows/sign.yml@v3.1.2-test3
     secrets: inherit
 
   Publish:
     needs: [Pack, Sign]
-    uses: microsoft/digitalworkplace-workflows/.github/workflows/publish.yml@v3.1.2-test2
+    uses: microsoft/digitalworkplace-workflows/.github/workflows/publish.yml@v3.1.2-test3
     secrets: inherit
