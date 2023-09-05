@@ -88,6 +88,10 @@ internal class Command : Writable
                 var mapProperty = new MapProperty(commandPayloadInfo, mapInfo, commandPayloadInfo.Name, options);
                 return mapProperty.Type;
 
+            case DTArrayInfo:
+                var arrayProperty = new ArrayProperty(commandPayloadInfo, options);
+                return arrayProperty.Type;
+
             case DTEnumInfo enumInfo:
                 var commandPayloadType = $"{enclosingClass}{CapitalizeFirstLetter(CommandInfo.Name)}{commandPayloadTypeSuffix}";
                 var enumProperty = new EnumProperty(commandPayloadInfo, enumInfo, commandPayloadInfo.Name, options);

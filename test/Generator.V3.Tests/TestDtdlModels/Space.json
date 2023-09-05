@@ -52,6 +52,15 @@
     },
     {
       "@type": "Property",
+      "name": "geometry",
+      "writable": true,
+      "schema": {
+        "@type": "Array",
+        "elementSchema": "string"
+      }
+    },
+    {
+      "@type": "Property",
       "name": "status",
       "schema": {
         "@type": "Enum",

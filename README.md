@@ -12,8 +12,10 @@ This Digital Twin Definition Language (DTDL) Model Generator parses your DTDL js
 - *Generator.TemplateProject*: This is a template project that serves a couple purposes.
     1. It serves as a holding-ground for our custom, complementary classes that help connect the dots between certain aspects of the generated model classes.
     2. In the event a user of the generator doesn't have their own project destination to place the generated classes, this project serves as a template for the user to start from. Our generator will inject the correct Namespace and Assembly information into the template project based on options passed into the Generator.
-- *Generator.Tests*: This is the test project that we use to test our generator.
-- *Generator.Tests.Generated*: This project is produced when we run unit tests for our generator. Having this here also allows us to run unit tests against the generated models to ensure various functionality (like our custom equality implementations) are working as expected.
+- *Generator.V2.Tests*: This is the test project that we use to test our generator for V2 Models.
+- *Generator.V2.Tests.Generated*: This project is produced when we run unit tests for our generator. Having this here also allows us to run unit tests against the generated models to ensure various functionality (like our custom equality implementations) are working as expected.
+- *Generator.V3.Tests*: This is the test project that we use to test our generator for V3 Models.
+- *Generator.V3.Tests.Generated*: This project is produced when we run unit tests for our generator. Having this here also allows us to run unit tests against the generated models to ensure various functionality (like our custom equality implementations) are working as expected.
 
 ## ModelGeneratorOptions
 
@@ -63,25 +65,25 @@ The following are some prerequisites/assumptions to be considered:
 
 ### Schemas
 
-| Schemas | DTDL v2 | Model Generator |
-| ------- | ------- | --------------- |
-| Boolean | :white_check_mark: | :white_check_mark: |
-| Date | :white_check_mark: | :white_check_mark: |
-| DateTime | :white_check_mark: | :white_check_mark: |
-| Double | :white_check_mark: | :white_check_mark: |
-| Duration | :white_check_mark: | :white_check_mark: |
-| Float | :white_check_mark: | :white_check_mark: |
-| Integer | :white_check_mark: | :white_check_mark: |
-| Long | :white_check_mark: | :x: |
-| String | :white_check_mark: | :white_check_mark: |
-| Time | :white_check_mark: | :white_check_mark: |
-| Array (Property) | :x: | :x: |
-| Array (Telemetry) | :white_check_mark: | :x: |
-| Enum | :white_check_mark: | :white_check_mark: |
-| Map | :white_check_mark: | :white_check_mark: |
-| Object | :white_check_mark: | :white_check_mark: |
-| Semantic Type (Property) | :white_check_mark: | :white_check_mark: |
-| Semantic Type (Telemetry) | :white_check_mark: | :x: |
+| Schemas | DTDL v2 | DTDL v3 | Model Generator |
+| ------- | ------- |---------| --------------- |
+| Boolean | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Date | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| DateTime | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Double | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Duration | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Float | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Integer | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Long | :white_check_mark: | :white_check_mark: | :x: |
+| String | :white_check_mark: |:white_check_mark:| :white_check_mark: |
+| Time | :white_check_mark: | :white_check_mark:| :white_check_mark: |
+| Array (Property) | :x: | :white_check_mark: | :x: |
+| Array (Telemetry) | :white_check_mark: | :white_check_mark: | :x: |
+| Enum | :white_check_mark: |:white_check_mark:| :white_check_mark: |
+| Map | :white_check_mark: |:white_check_mark:| :white_check_mark: |
+| Object | :white_check_mark: |:white_check_mark:| :white_check_mark: |
+| Semantic Type (Property) | :white_check_mark:| :white_check_mark: | :white_check_mark: |
+| Semantic Type (Telemetry) | :white_check_mark:| :white_check_mark: | :x: |
 
 ## Usage
 
