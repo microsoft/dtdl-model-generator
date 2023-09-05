@@ -30,6 +30,8 @@ namespace Generator.V3.Tests.Generated
         public float? SquareFootArea { get; set; }
         [JsonPropertyName("capabilities")]
         public IDictionary<string, bool>? Capabilities { get; set; }
+        [JsonPropertyName("geometry")]
+        public Array? Geometry { get; set; }
         [JsonPropertyName("status")]
         public SpaceStatus? Status { get; set; }
         [JsonIgnore]
@@ -43,7 +45,7 @@ namespace Generator.V3.Tests.Generated
 
         public bool Equals(Space? other)
         {
-            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Name == other.Name && RoomKey == other.RoomKey && FriendlyName == other.FriendlyName && Description == other.Description && SquareFootArea == other.SquareFootArea && Capabilities == other.Capabilities && Status == other.Status;
+            return other is not null && Id == other.Id && Metadata.ModelId == other.Metadata.ModelId && Name == other.Name && RoomKey == other.RoomKey && FriendlyName == other.FriendlyName && Description == other.Description && SquareFootArea == other.SquareFootArea && Capabilities == other.Capabilities && Geometry == other.Geometry && Status == other.Status;
         }
 
         public static bool operator ==(Space? left, Space? right)
@@ -58,7 +60,7 @@ namespace Generator.V3.Tests.Generated
 
         public override int GetHashCode()
         {
-            return this.CustomHash(Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode(), Name?.GetHashCode(), RoomKey?.GetHashCode(), FriendlyName?.GetHashCode(), Description?.GetHashCode(), SquareFootArea?.GetHashCode(), Capabilities?.GetHashCode(), Status?.GetHashCode());
+            return this.CustomHash(Id?.GetHashCode(), Metadata?.ModelId?.GetHashCode(), Name?.GetHashCode(), RoomKey?.GetHashCode(), FriendlyName?.GetHashCode(), Description?.GetHashCode(), SquareFootArea?.GetHashCode(), Capabilities?.GetHashCode(), Geometry?.GetHashCode(), Status?.GetHashCode());
         }
 
         public bool Equals(BasicDigitalTwin? other)

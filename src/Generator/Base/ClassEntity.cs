@@ -70,6 +70,11 @@ internal abstract class ClassEntity : Entity
             return new DateOnlyProperty(entity, Options);
         }
 
+        if (schema is DTArrayInfo)
+        {
+            return new ArrayProperty(entity, Options);
+        }
+
         return new PrimitiveProperty(entity, schema, Name, Options);
     }
 
