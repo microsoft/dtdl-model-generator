@@ -77,7 +77,7 @@ The following are some prerequisites/assumptions to be considered:
 | Long | :white_check_mark: | :white_check_mark: | :x: |
 | String | :white_check_mark: |:white_check_mark:| :white_check_mark: |
 | Time | :white_check_mark: | :white_check_mark:| :white_check_mark: |
-| Array (Property) | :x: | :white_check_mark: | :x: |
+| Array (Property) | :x: | :white_check_mark: | :white_check_mark: |
 | Array (Telemetry) | :white_check_mark: | :white_check_mark: | :x: |
 | Enum | :white_check_mark: |:white_check_mark:| :white_check_mark: |
 | Map | :white_check_mark: |:white_check_mark:| :white_check_mark: |
