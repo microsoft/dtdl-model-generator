@@ -47,8 +47,12 @@ internal class EnumPropEntity : EnumEntity
         var enumMember = $"EnumMember(Value = \"{enumValueInfo.EnumValue}\")";
         var hasEnDescription = enumValueInfo.Description.ContainsKey(en) && !string.IsNullOrEmpty(enumValueInfo.Description[en]);
         var enDescription = hasEnDescription ? $", Description = \"{enumValueInfo.Description[en]}\"" : string.Empty;
-        var display = $"Display(Name = \"{enumValueInfo.DisplayName[en]}\"{enDescription})";
-        var sourceValue = string.IsNullOrEmpty(enumValueInfo.Comment) ? string.Empty : $"SourceValue(Value = \"{enumValueInfo.Comment}\")";
+        var hasDisplayName = enumValueInfo.DisplayName.ContainsKey(en) && !string.IsNullOrEmpty(enumValueInfo.DisplayName[en]);
+        var displayName = hasDisplayName ? enumValueInfo.DisplayName[en] : enumValueInfo.Name;
+        var display = $"Display(Name = \"{displayName}\"{enDescription})";
+        var hasSourceValue = enumValueInfo.Comment ?? enumValueInfo.EnumValue;
+        var sourceValue = string.IsNullOrEmpty(hasSourceValue.ToString()) ? string.Empty : $"SourceValue(Value = \"{hasSourceValue}\")";
+
         if (!string.IsNullOrEmpty(sourceValue))
         {
             streamWriter.WriteLine($"{indent}{indent}[{string.Join(", ", enumMember, display, sourceValue)}]");
