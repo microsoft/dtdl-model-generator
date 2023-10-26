@@ -17,10 +17,10 @@ internal class RelationshipEntity : ClassEntity
     {
         RelationshipInfo = info;
         Properties = info.Properties;
-        SourceType = info.DefinedIn.Labels.Last();
+        SourceType = CapitalizeFirstLetter(info.DefinedIn.Labels.Last());
         Name = $"{SourceType}{CapitalizeFirstLetter(RelationshipInfo.Name)}Relationship";
         FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), SourceType);
-        TargetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
+        TargetType = CapitalizeFirstLetter(RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}");
         Parent = $"Relationship<{TargetType}>";
         Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
         PropertyContent.AddRange(info.Properties.Select(p => CreateProperty(p, p.Schema)));

@@ -13,8 +13,8 @@ internal class ModelEntity : ClassEntity
         Properties = interfaceInfo.Contents.Values
                             .Where(c => c.Id.Labels.Contains(Name) && c.EntityKind == DTEntityKind.Property && c is DTPropertyInfo)
                             .Select(c => (DTPropertyInfo)c);
-        Name = GetClassName(interfaceInfo.Id);
-        Parent = interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin);
+        Name = CapitalizeFirstLetter(GetClassName(interfaceInfo.Id));
+        Parent = CapitalizeFirstLetter(interfaceInfo.Extends.Count() > 0 ? GetClassName(interfaceInfo.Extends.First().Id) : nameof(BasicDigitalTwin));
         FileDirectory = ExtractDirectory(ModelId);
         var properties = GetContentInfo<DTPropertyInfo>(interfaceInfo);
         PropertyContent.AddRange(properties.Select(CreateProperty));
@@ -64,6 +64,7 @@ internal class ModelEntity : ClassEntity
 
     private IEnumerable<DTContentInfo> GetContentInfo<T>(DTInterfaceInfo interfaceInfo) where T : DTContentInfo
     {
-        return interfaceInfo.Contents.Select(c => c.Value).Where(c => c.Id.Labels.Contains(Name) && c is T);
+        return interfaceInfo.Contents.Select(c => c.Value)
+            .Where(c => c.Id.Labels.Contains(Name, StringComparer.OrdinalIgnoreCase) && c is T);
     }
 }

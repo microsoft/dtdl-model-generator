@@ -15,11 +15,11 @@ internal class RelationshipCollectionEntity : ClassEntity
     {
         RelationshipInfo = info;
         Properties = info.Properties;
-        var enclosingClass = info.DefinedIn.Labels.Last();
+        var enclosingClass = CapitalizeFirstLetter(info.DefinedIn.Labels.Last());
         NamePrefix = $"{enclosingClass}{CapitalizeFirstLetter(RelationshipInfo.Name)}";
         Name = $"{NamePrefix}RelationshipCollection";
         FileDirectory = Path.Combine("Relationship", ExtractDirectory(RelationshipInfo.DefinedIn), enclosingClass);
-        var targetType = RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}";
+        var targetType = CapitalizeFirstLetter(RelationshipInfo.Target == null ? nameof(BasicDigitalTwin) : $"{RelationshipInfo.Target.Labels.Last()}");
         Parent = $"RelationshipCollection<{NamePrefix}Relationship, {targetType}>";
         Target = RelationshipInfo.Target == null ? "null" : $"typeof({RelationshipInfo.Target.Labels.Last()})";
     }
